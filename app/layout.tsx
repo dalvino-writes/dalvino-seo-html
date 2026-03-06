@@ -3,19 +3,19 @@ import "./globals.css";
 import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "Dalvino Luce · SEO Web Copywriter & Content Strategist",
+  title: "D.digitactics · Organic Authority Architecture for Healthcare SaaS",
   description:
-    "Dalvino Luce helps startups and small businesses turn their expertise into structured SEO content, to generate qualified leads consistently, without spending on ads.",
-  authors: [{ name: "Dalvino Luce" }],
+    "D.digitactics builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
+  authors: [{ name: "D.digitactics" }],
   openGraph: {
-    title: "Dalvino Luce · SEO Web Copywriter & Content Strategist",
+    title: "D.digitactics · Organic Authority Architecture for Healthcare SaaS",
     description:
-      "Dalvino Luce helps startups and small businesses turn their expertise into structured SEO content, to generate qualified leads consistently, without spending on ads.",
+      "D.digitactics builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@dalvinoseo",
+    site: "@digitactics",
   },
 };
 
