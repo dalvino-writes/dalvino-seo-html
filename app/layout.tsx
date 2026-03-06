@@ -4,6 +4,9 @@ import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dalvinoseo.com"),
+  alternates: {
+  canonical: "/",
+},
   title: "Digitactics · Organic Authority Architecture for Healthcare SaaS",
   description:
     "Digitactics builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
