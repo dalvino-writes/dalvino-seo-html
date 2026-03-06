@@ -7,15 +7,15 @@ const Hero = () => {
   const { site } = useContent();
 
   return (
-    <section className="pt-20 pb-40 md:pt-28 md:pb-64">
+    <section className="pt-20 pb-24 md:pt-28 md:pb-32">
       <div className="container max-w-4xl">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1] tracking-tighter mb-12 text-black">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tighter mb-8 text-black">
           {site.hero.title}
         </h1>
-        <p className="text-base md:text-lg text-black leading-relaxed mb-20 max-w-md">
+        <p className="text-base md:text-lg text-black leading-relaxed mb-10 max-w-md">
           {site.hero.subtitle}
         </p>
-        <div className="flex flex-col sm:flex-row gap-12">
+        <div className="flex flex-col sm:flex-row gap-4">
           <Button
             asChild
             size="lg"
