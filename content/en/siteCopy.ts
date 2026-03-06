@@ -89,4 +89,80 @@ export const siteCopy = {
     description:
       "This page documents the construction of this project in real time: content decisions, SEO strategy, lessons learned and mistakes included. Because transparency is also a visibility strategy.",
   },
+  trustDeficit: {
+    tagline: "The Problem · The Trust Deficit",
+    title: "Your competitors are not outwriting you. They are outstructuring you.",
+    body: [
+      "Flat organic traffic despite consistent publishing. Competitors ranking above you on keywords you should own. Compliance pages that state the right things but move no one.",
+      "These are not content quality failures. They are structural ones. Google applies its strictest quality signals to health-category content. Most Healthcare SaaS sites are measured against those standards without knowing it.",
+      "The companies winning organic search in this space are not producing better content. They have built better architecture underneath it. Their content routes authority correctly, demonstrates regulatory credibility, and captures buyer intent at every stage of the decision cycle.",
+      "That structural gap is the Trust Deficit. It is the distance between what a Healthcare SaaS company claims and what its market and search engines actually believe.",
+    ],
+  },
+  whyItHappens: {
+    tagline: "The Diagnosis · Why It Happens",
+    title: "Healthcare SaaS sits in one of the hardest content environments on the web.",
+    body: [
+      "Google classifies health-related content as YMYL — Your Money or Your Life. That classification triggers the strictest quality evaluation signals in the entire search index. E-E-A-T is not a writing guideline here. It is a structural standard applied at the site level.",
+      "Most Healthcare SaaS companies publish into that environment with a framework built for general SaaS. No authority signals at the site level. No regulatory citation at the article level. No content architecture mapped to the actual buyer journey.",
+      "Compliance is the clearest example. Every competitor in the space claims HIPAA compliance, PIPEDA adherence, RGPD alignment. None of them demonstrate it in their content. That gap is where organic authority is built or lost.",
+      "Standard SEO agencies do not address this. They were not built for regulated industries. They optimize for volume and velocity, not for the structural trust signals that move health-category rankings.",
+    ],
+  },
+  transformation: {
+    tagline: "The Outcome · Before and After",
+    title: "The difference between publishing and compounding.",
+    before: {
+      label: "Before OAA",
+      points: [
+        "Publishing consistently with no compounding effect",
+        "No authority signals at the site level",
+        "Compliance declared on a static page, never demonstrated in content",
+        "Keyword strategy misaligned with actual buyer intent",
+        "Buyers landing on competitors who structured their content first",
+      ],
+    },
+    after: {
+      label: "After OAA",
+      points: [
+        "Every indexed article strengthens the pillar, every pillar strengthens the cluster",
+        "Site-level authority signals in place and routing correctly",
+        "Regulatory credibility embedded at the article level across every relevant piece",
+        "Content mapped to all three tiers of the buyer decision journey",
+        "Organic territory that grows without additional spend",
+      ],
+    },
+    footnote: "Authority infrastructure compounds. Paid traffic stops the moment the budget does.",
+  },
+  whyDigitactics: {
+    tagline: "The Difference · Why Digitactics",
+    title: "Purpose-built for Healthcare SaaS. Nothing else.",
+    comparison: [
+      {
+        dimension: "Industry focus",
+        generic: "Industry-agnostic SEO frameworks applied to any client",
+        digitactics: "Built exclusively for Healthcare SaaS, where YMYL standards apply",
+      },
+      {
+        dimension: "Compliance approach",
+        generic: "Compliance mentioned as a content topic",
+        digitactics: "Regulatory credibility treated as a structural trust signal and demonstrated at the article level",
+      },
+      {
+        dimension: "Keyword strategy",
+        generic: "Generic keyword research based on volume and difficulty",
+        digitactics: "Regulatory-aware territory mapping built on a proprietary territory intelligence database",
+      },
+      {
+        dimension: "Entry point",
+        generic: "Free proposals and discovery calls",
+        digitactics: "Paid diagnostic first. The Audit is a product, not a pitch.",
+      },
+      {
+        dimension: "Engagement model",
+        generic: "Ongoing content production and management",
+        digitactics: "Strategic architecture delivered once, built to compound without ongoing dependency",
+      },
+    ],
+  },
 };
