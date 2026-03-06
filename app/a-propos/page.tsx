@@ -24,7 +24,7 @@ export default function About() {
 
             <div className="space-y-5 mb-16">
               {about.bio.map((paragraph, i) => (
-                <p key={i} className="text-foreground text-lg leading-relaxed whitespace-pre-line">
+                <p key={i} className="text-foreground text-lg leading-relaxed">
                   {paragraph}
                 </p>
               ))}
@@ -41,8 +41,12 @@ export default function About() {
               ))}
             </div>
 
-            <Button asChild size="lg" className="font-semibold">
-              <Link href="/contact">{site.hero.cta}</Link>
+            <Button
+              asChild
+              size="lg"
+              className="font-semibold bg-[#2D5A27] hover:bg-[#1e3d1a] text-white rounded-none shadow-none border-0"
+            >
+              <Link href="/contact">{site.newsletterSection.cta}</Link>
             </Button>
           </div>
         </section>

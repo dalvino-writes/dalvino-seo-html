@@ -10,6 +10,8 @@ import { blogCopy as frBlogCopy } from "@/content/fr/blogCopy";
 import { blogCopy as enBlogCopy } from "@/content/en/blogCopy";
 import { faqCopy as frFaqCopy } from "@/content/fr/faqCopynew";
 import { faqCopy as enFaqCopy } from "@/content/en/faqCopynew";
+import { oaaCopy as frOaaCopy } from "@/content/fr/oaaCopy";
+import { oaaCopy as enOaaCopy } from "@/content/en/oaaCopy";
 
 const content = {
   fr: {
@@ -18,6 +20,7 @@ const content = {
     caseStudies: frCaseStudiesCopy,
     blog: frBlogCopy,
     faq: frFaqCopy,
+    oaa: frOaaCopy,
   },
   en: {
     site: enSiteCopy,
@@ -25,6 +28,7 @@ const content = {
     caseStudies: enCaseStudiesCopy,
     blog: enBlogCopy,
     faq: enFaqCopy,
+    oaa: enOaaCopy,
   },
 };
 
