@@ -19,7 +19,7 @@ const ServicesPreview = () => {
           {site.servicesPreview.subtitle}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
           {services.offers.map((offer) => (
             <div key={offer.id} className="border border-border p-6 bg-card">
               <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
@@ -39,7 +39,7 @@ const ServicesPreview = () => {
         </div>
 
         <Button asChild variant="outline" size="lg" className="font-semibold">
-          <Link href="/contact">{site.servicesPreview.cta}</Link>
+          <Link href="/services">{site.servicesPreview.cta}</Link>
         </Button>
       </div>
     </section>

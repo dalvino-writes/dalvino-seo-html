@@ -5,6 +5,22 @@ export const servicesCopy = {
     "Digitactics sells one thing: the structural foundation Healthcare SaaS companies need for their content to compound. This is not an SEO retainer. This is not a content agency. This is not a monthly blog package.",
   cta: "Begin with the Audit",
   deliverablesLabel: "Deliverables",
+  whoItsFor: {
+    tagline: "Fit · Who This Is For",
+    title: "Built for one type of company.",
+    fits: [
+      "Healthcare SaaS companies with an active content program that is not producing compounding organic growth",
+      "Companies operating in regulated environments — HIPAA, PIPEDA, RGPD, UK GDPR — that need their digital presence to reflect that",
+      "Internal teams that can execute from a blueprint but need the right infrastructure to build from",
+    ],
+    notFits: [
+      "Early-stage companies with no existing content program",
+      "Companies seeking ongoing monthly content production or management",
+      "Businesses outside the Healthcare SaaS category",
+    ],
+    fitsLabel: "A strong fit",
+    notFitsLabel: "Not a fit",
+  },
   offers: [
     {
       id: "trust-deficit-audit",

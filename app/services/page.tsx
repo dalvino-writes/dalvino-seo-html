@@ -38,9 +38,14 @@ export default function Services() {
                         {offer.audience}
                       </p>
                       <h2 className="text-2xl font-bold mb-4">{offer.name}</h2>
-                      <p className="text-foreground leading-relaxed mb-6">
+                      <p className="text-foreground leading-relaxed mb-2">
                         {offer.description}
                       </p>
+                      {offer.descriptionAccent && (
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                          {offer.descriptionAccent}
+                        </p>
+                      )}
                       <p className="text-sm text-muted-foreground mt-1">
                         {offer.timeline}
                       </p>
@@ -55,7 +60,7 @@ export default function Services() {
                             key={i}
                             className="text-foreground text-sm flex items-start gap-2"
                           >
-                            <span className="text-accent mt-0.5">—</span>
+                            <span className="text-accent mt-0.5">+</span>
                             {d}
                           </li>
                         ))}
@@ -64,6 +69,43 @@ export default function Services() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="container max-w-3xl mt-24">
+              <p className="text-sm font-semibold uppercase tracking-widest text-accent mb-3">
+                {services.whoItsFor.tagline}
+              </p>
+              <h2 className="text-3xl md:text-4xl font-black leading-tight tracking-tight mb-12">
+                {services.whoItsFor.title}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-widest text-accent mb-6">
+                    {services.whoItsFor.fitsLabel}
+                  </p>
+                  <ul className="space-y-4">
+                    {services.whoItsFor.fits.map((item, i) => (
+                      <li key={i} className="text-foreground text-sm flex items-start gap-2">
+                        <span className="text-accent mt-0.5">+</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-6">
+                    {services.whoItsFor.notFitsLabel}
+                  </p>
+                  <ul className="space-y-4">
+                    {services.whoItsFor.notFits.map((item, i) => (
+                      <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
+                        <span className="mt-0.5">×</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <div className="mt-16 text-center">
