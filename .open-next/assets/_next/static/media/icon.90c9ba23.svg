@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <rect width="100" height="100" fill="#F5F0E8"/>
+  
+  <g transform="translate(6, 6)">
+    <polygon points="44,2 86,44 44,86 2,44" 
+      fill="none" stroke="#1E3D20" stroke-width="3.5" stroke-linejoin="miter"/>
+    
+    <clipPath id="diamondClip3">
+      <polygon points="44,2 86,44 44,86 2,44"/>
+    </clipPath>
+    
+    <g clip-path="url(#diamondClip3)">
+      <path d="M10,30 C18,26 26,34 34,30 C42,26 50,34 58,30 C66,26 74,34 80,30" 
+        fill="none" stroke="#1E3D20" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M5,42 C13,38 21,46 29,42 C37,38 45,46 53,42 C61,38 69,46 77,42 C82,39 85,42 86,44" 
+        fill="none" stroke="#1E3D20" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M7,54 C15,50 23,58 31,54 C39,50 47,58 55,54 C63,50 71,58 79,54" 
+        fill="none" stroke="#1E3D20" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M16,66 C24,62 32,70 40,66 C48,62 56,70 62,66 C68,63 73,66 76,64" 
+        fill="none" stroke="#1E3D20" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>
