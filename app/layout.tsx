@@ -5,8 +5,8 @@ import Providers from "@/components/providers";
 export const metadata: Metadata = {
   title: "Digitactics · Organic Authority Architecture for Healthcare SaaS",
   description:
-    "DDigitactics builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
-  authors: [{ name: "DDigitactics" }],
+    "Digitactics builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
+  authors: [{ name: "Digitactics" }],
   openGraph: {
     title: "Digitactics · Organic Authority Architecture for Healthcare SaaS",
     description:
