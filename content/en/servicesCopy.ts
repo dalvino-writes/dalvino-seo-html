@@ -1,16 +1,18 @@
 export const servicesCopy = {
-  tagline: "Services · What We Sell and What We Do Not",
-  title: "Architectural infrastructure, not content volume.",
+  tagline: "Services · What We Build and What We Do Not",
+  title: "Structural infrastructure, not content volume.",
   subtitle:
-    "Digitactics sells one thing: the structural foundation Healthcare SaaS companies need for their content to compound. This is not an SEO retainer. This is not a content agency. This is not a monthly blog package.",
+    "Digitactics builds one thing: the credibility foundation Healthcare SaaS companies need for their content to compound into pipeline. This is not an SEO retainer. This is not a content agency. This is not a monthly blog package.",
   cta: "Begin with the Audit",
   deliverablesLabel: "Deliverables",
   whoItsFor: {
     tagline: "Fit · Who This Is For",
     title: "Built for one type of company.",
+    fitsLabel: "A strong fit",
+    notFitsLabel: "Not a fit",
     fits: [
       "Healthcare SaaS companies with an active content program that is not producing compounding organic growth",
-      "Companies operating in regulated environments (HIPAA, PIPEDA, GDPR, UK GDPR) that need their digital presence to reflect that",
+      "Companies operating in regulated markets (HIPAA, PIPEDA, GDPR, UK GDPR) that need their digital presence to reflect that",
       "Internal teams that can execute from a blueprint but need the right infrastructure to build from",
     ],
     notFits: [
@@ -18,26 +20,26 @@ export const servicesCopy = {
       "Companies seeking ongoing monthly content production or management",
       "Businesses outside the Healthcare SaaS category",
     ],
-    fitsLabel: "A strong fit",
-    notFitsLabel: "Not a fit",
   },
   offers: [
     {
       id: "trust-deficit-audit",
       name: "The Trust Deficit Audit",
-      audience: "For Healthcare SaaS companies with an active content program that is not compounding",
+      audience:
+        "For Healthcare SaaS companies with an active content program that is not producing compounding organic results",
       description:
-        "A paid diagnostic that scores your site across four dimensions: regulatory compliance signals, authority structure, keyword territory, and competitive positioning.",
+        "A paid diagnostic that scores your site across four dimensions: regulatory compliance demonstration, site-level credibility structure, topic leadership gaps, and competitive positioning.",
       descriptionAccent:
         "This is not a free proposal. It is a product. Every engagement begins here.",
       deliverables: [
-        "Regulatory compliance signal audit: what you claim versus what your site actually demonstrates",
-        "Authority structure review: site-level credibility signals assessed against Google health-category standards",
-        "Keyword territory map: where you own ground, where competitors have taken it, and where gaps exist",
-        "Competitive positioning assessment: how your content infrastructure compares to direct competitors",
+        "Regulatory compliance audit — what your site claims versus what it actually demonstrates",
+        "Site credibility review — your proof of expertise assessed against Google's health-category standards",
+        "Topic leadership map — where you own ground, where competitors have taken it, and where gaps exist",
+        "Competitive positioning assessment — how your content infrastructure compares to your direct competitors",
         "Written scorecard and gap priority map delivered at completion",
       ],
-      timeline: "€3,000, credited in full against your OAA engagement if you proceed within 30 days",
+      timeline:
+        "€3,000 — credited in full against your OAA engagement if you proceed within 30 days",
     },
     {
       id: "organic-authority-architecture",
@@ -49,13 +51,13 @@ export const servicesCopy = {
       descriptionAccent:
         "Digitactics does not write, publish, or manage your content. We are the Architect. Not the builder.",
       deliverables: [
-        "Central Pillar Asset: the authority hub every cluster piece routes through",
-        "Cluster Architecture: a mapped content system organized by buyer intent stage",
-        "Regulatory Validation Layer: the citation and compliance framework embedded in every piece",
-        "Internal Authority Routing Design: link architecture that builds site authority instead of dispersing it",
-        "90-Day Phased Blueprint: the execution sequence, written for your team to run",
+        "Central Pillar Asset — the credibility hub every supporting piece links through",
+        "Related Content System — a mapped content plan organized by buyer evaluation stage",
+        "Regulatory Validation Layer — the citation and compliance framework embedded in every relevant piece",
+        "Internal Linking Architecture — the link structure that builds site credibility instead of dispersing it",
+        "90-Day Phased Blueprint — the execution sequence, written for your team to run",
       ],
-      timeline: "Engagement begins with the Trust Deficit Audit",
+      timeline: "Engagement begins with the Trust Deficit Audit.",
     },
   ],
 };

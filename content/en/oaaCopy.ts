@@ -1,62 +1,70 @@
 export const oaaCopy = {
   tagline: "The Framework · Organic Authority Architecture",
-  title: "A framework built specifically for the trust-credibility gap in Healthcare SaaS.",
+  title: "A framework built specifically for the credibility gap in Healthcare SaaS.",
   subtitle:
     "Standard SEO frameworks were not built for regulated industries. OAA was designed from the ground up for the content environment Healthcare SaaS companies actually operate in.",
   whyItExists: {
     tagline: "The Origin · Why OAA Exists",
     title: "Google holds health-category content to a different standard. Most Healthcare SaaS companies are not meeting it.",
     body: [
-      "Healthcare SaaS sits in the YMYL category — Your Money or Your Life. That classification means Google applies its strictest quality evaluation signals to every piece of content a Healthcare SaaS company publishes.",
-      "The standard SEO playbook — keyword research, content volume, backlink building — was not built for this environment. It does not account for E-E-A-T at the site level. It does not address regulatory credibility as a structural input. It does not map content to the actual decision arc of a healthcare buyer.",
-      "OAA was built to do all three. It treats compliance and authority as structural foundations, not editorial afterthoughts.",
+      "Healthcare SaaS sits in the YMYL category — Your Money or Your Life. That classification means Google applies its strictest quality evaluation to every piece of content a Healthcare SaaS company publishes.",
+      "The standard approach — keyword research, content volume, backlink building — was not built for this environment. It does not account for credibility at the site level. It does not treat regulatory compliance as a structural input. It does not map content to the actual decision arc of a healthcare buyer.",
+      "OAA was built to do all three. It treats compliance and demonstrated expertise as structural foundations, not editorial afterthoughts.",
+    ],
+  },
+  definition: {
+    tagline: "One term worth defining",
+    title:
+      "Authority, as used here, means this: search engines and procurement teams clearly recognize your company as a credible expert on a topic.",
+    body: [
+      "Not because you claim it. Because your site structure, your content depth, and your regulatory fluency demonstrate it.",
+      "Every component of OAA is designed to build that recognition deliberately.",
     ],
   },
   pillars: {
     tagline: "The Architecture · Two Structural Pillars",
-    title: "Authority is built at the site level before it is built at the article level.",
+    title: "Credibility is built at the site level before it is built at the article level.",
     pillar1: {
       label: "Pillar 1",
-      name: "E-E-A-T Architecture",
+      name: "Site-Level Credibility Structure",
       body: [
-        "E-E-A-T — Experience, Expertise, Authoritativeness, Trustworthiness — is the standard Google uses to evaluate content quality in the health category. Most Healthcare SaaS companies understand it as a writing quality guideline. It is not.",
-        "E-E-A-T is evaluated at the site level. A single well-written article does not move the signal. The entire site structure, the author credibility signals, the internal routing of authority — these are what Google reads.",
-        "OAA builds E-E-A-T into the architecture of the site itself. Every content decision is made with site-level authority signals in mind, not just article-level optimization.",
+        "Google's quality evaluation for health-category content is not a writing standard. It is a site standard. A single well-written article does not move the signal. The entire site structure, author credibility, and internal linking architecture — these are what Google reads.",
+        "OAA builds credibility into the architecture of the site itself. Every content decision is made with site-level proof of expertise in mind, not just article-level optimization.",
       ],
     },
     pillar2: {
       label: "Pillar 2",
       name: "Regulatory Compliance Content Layer",
       body: [
-        "Every Healthcare SaaS company in the market claims compliance. HIPAA. PIPEDA. RGPD. UK GDPR. The claims are identical across every competitor. None of them are differentiated because none of them are demonstrated.",
-        "The Regulatory Compliance Content Layer changes that. It embeds actual regulatory citation — HIPAA §164.308, PIPEDA Schedule 1, RGPD Article 9 — directly into content at the article level. This transforms a generic SaaS site into a trusted authority in its market.",
+        "Every Healthcare SaaS company in the market claims compliance. HIPAA. PIPEDA. GDPR. UK GDPR. The claims are identical across every competitor. None of them are differentiated because none of them are demonstrated.",
+        "The Regulatory Compliance Content Layer changes that. It embeds actual regulatory citation — HIPAA §164.308, PIPEDA Schedule 1, GDPR Article 9 — directly into content at the article level. This transforms a generic SaaS site into a recognized authority in its market.",
         "This layer requires a proprietary regulatory reference library. It cannot be replicated by a generalist agency. It is one of the two core assets that makes OAA work in practice.",
       ],
     },
   },
   intentFramework: {
-    tagline: "The Buyer Journey · Three-Tier Intent Framework",
+    tagline: "The Buyer Journey · Three Stages of Evaluation",
     title: "Healthcare buyers do not move in a straight line. The content architecture has to reflect that.",
     intro:
-      "Most Healthcare SaaS content programs address one tier of the buyer journey — usually top-of-funnel awareness content. OAA maps content architecture across all three tiers, capturing buyers at every stage of the decision cycle.",
+      "Most Healthcare SaaS content programs address one stage of the buyer journey — usually early-stage awareness. OAA maps content across all three stages, so your site is credible at the moment a buyer arrives, regardless of where they are in the decision.",
     tiers: [
       {
-        label: "Tier 1",
-        name: "Regulatory and Operational Pain",
+        label: "Stage 1",
+        name: "Identifying the Problem",
         description:
-          "Urgency-driven searches. Prospects with a compliance problem or operational failure to solve immediately. Content at this tier needs to demonstrate regulatory depth and provide credible, substantiated guidance.",
+          "Urgency-driven searches. Prospects with a compliance problem or operational failure to solve immediately. Content at this stage needs to demonstrate regulatory depth and provide credible, substantiated guidance.",
       },
       {
-        label: "Tier 2",
-        name: "Solution Evaluation",
+        label: "Stage 2",
+        name: "Evaluating Vendors",
         description:
-          "Workflow and feature comparison language. Prospects actively comparing platforms and building shortlists. Content at this tier needs to position the platform against alternatives with clarity and specificity.",
+          "Workflow and feature comparison language. Prospects actively comparing platforms and building shortlists. Content at this stage needs to position the platform against alternatives with clarity and specificity.",
       },
       {
-        label: "Tier 3",
-        name: "Platform Validation",
+        label: "Stage 3",
+        name: "Validating the Decision Internally",
         description:
-          "ROI proof and trust confirmation. Procurement-stage buyers verifying the decision internally. Content at this tier needs to provide the credibility infrastructure that supports sign-off.",
+          "ROI proof and procurement-stage confidence. Buyers verifying the decision internally before sign-off. Content at this stage provides the credibility infrastructure that makes internal justification straightforward.",
       },
     ],
   },
@@ -66,23 +74,28 @@ export const oaaCopy = {
     items: [
       {
         name: "Central Pillar Asset",
-        description: "The authority hub that every cluster piece routes through. The single most important piece of content on your site.",
+        description:
+          "The credibility hub that every supporting piece links through. The single most important content asset on your site.",
       },
       {
-        name: "Cluster Architecture",
-        description: "A mapped content system organized by buyer intent tier. Every piece has a defined role, a defined audience, and a defined routing destination.",
+        name: "Related Content System",
+        description:
+          "A mapped content plan organized by buyer evaluation stage. Every piece has a defined role, a defined audience, and a defined destination.",
       },
       {
         name: "Regulatory Validation Layer",
-        description: "The citation and compliance framework embedded in every relevant content piece. Demonstration, not declaration.",
+        description:
+          "The citation and compliance framework embedded in every relevant content piece. Demonstration, not declaration.",
       },
       {
-        name: "Internal Authority Routing Design",
-        description: "The link architecture that builds site authority instead of dispersing it. Every internal link is a deliberate authority signal.",
+        name: "Internal Linking Architecture",
+        description:
+          "The link structure that concentrates site credibility instead of dispersing it. Every internal link is a deliberate decision.",
       },
       {
         name: "90-Day Phased Blueprint",
-        description: "The execution sequence, written for your team to run. What to build, in what order, and why.",
+        description:
+          "The execution sequence, written for your team to run. What to build, in what order, and why.",
       },
     ],
   },
@@ -90,14 +103,14 @@ export const oaaCopy = {
     tagline: "The Logic · Why It Compounds",
     title: "You are not buying content. You are building infrastructure.",
     body: [
-      "Paid traffic stops the moment the budget does. Content volume without architecture produces traffic spikes with no compounding effect. Both approaches require continuous spend to maintain results.",
-      "Authority infrastructure works differently. Every indexed article strengthens the pillar. Every pillar strengthens the cluster. Every cluster strengthens the site-level authority signal. The territory grows without additional spend.",
-      "At month six, a correctly deployed OAA engagement is producing more organic authority than at month one — without any increase in publishing frequency. That is the compounding logic.",
+      "Paid traffic stops the moment the budget does. Content volume without architecture produces traffic spikes with no lasting effect. Both approaches require continuous spend to maintain results.",
+      "Credibility infrastructure works differently. Every indexed article strengthens the pillar. Every pillar strengthens the cluster. Every cluster strengthens the site's recognized expertise in its category. The footprint grows without additional spend.",
+      "At month six, a correctly deployed OAA engagement is producing more compounding pipeline than at month one — without any increase in publishing frequency. That is the structural logic.",
     ],
   },
   cta: {
-    tagline: "The Entry Point · Start Here",
-    title: "The Trust Deficit Audit tells you exactly where your authority gap is and how to close it.",
+    tagline: "CTA",
+    title: "The Trust Deficit Audit tells you exactly where your credibility gap is and how to close it.",
     cta: "Start with the Audit",
   },
 };

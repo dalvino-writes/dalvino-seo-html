@@ -85,7 +85,10 @@ export default function Services() {
                   </p>
                   <ul className="space-y-4">
                     {services.whoItsFor.fits.map((item, i) => (
-                      <li key={i} className="text-foreground text-sm flex items-start gap-2">
+                      <li
+                        key={i}
+                        className="text-foreground text-sm flex items-start gap-2"
+                      >
                         <span className="text-accent mt-0.5">+</span>
                         {item}
                       </li>
@@ -98,7 +101,10 @@ export default function Services() {
                   </p>
                   <ul className="space-y-4">
                     {services.whoItsFor.notFits.map((item, i) => (
-                      <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
+                      <li
+                        key={i}
+                        className="text-muted-foreground text-sm flex items-start gap-2"
+                      >
                         <span className="mt-0.5">×</span>
                         {item}
                       </li>

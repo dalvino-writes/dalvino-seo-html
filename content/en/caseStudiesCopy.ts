@@ -1,61 +1,65 @@
 export const caseStudiesCopy = {
-  tagline: "Case Studies · Authority Architecture in Practice",
-  title: "What structured content infrastructure produces.",
+  tagline: "Case Studies · Credibility Architecture in Practice",
+  title: "What structural credibility changes in practice.",
   subtitle:
-    "Real engagements, documented outcomes. Each case study shows what changes when a Healthcare SaaS company stops publishing into a void and starts building from architecture.",
+    "Real engagements, documented outcomes. Each case study shows what changes when a Healthcare SaaS company stops publishing into a void and starts building from a credibility architecture.",
+
   labels: {
     challenge: "Challenge",
     approach: "Approach",
     results: "Results",
   },
+
   studies: [
     {
       id: "clinical-workflow-saas",
       client: "Clinical Workflow SaaS",
       sector: "Healthcare SaaS · Clinical Operations",
       challenge:
-        "Eighteen months of consistent publishing with no organic compounding. Outranked on every core keyword by a competitor publishing half as frequently. No regulatory signals on any content page.",
+        "Eighteen months of consistent publishing with no compounding effect. Outranked on every core topic by a competitor publishing half as frequently. No visible regulatory proof anywhere in the content.",
       approach:
-        "Trust Deficit Audit identified three critical gaps: absent E-E-A-T signals at the site level, zero regulatory citation across 40 published articles, and a keyword territory entirely misaligned with buyer intent. OAA engagement followed. Central pillar asset built. Cluster architecture mapped across all three intent tiers. Regulatory Validation Layer deployed across existing and new content.",
+        "The Trust Deficit Audit identified three critical gaps: no site-level credibility structure, no regulatory validation across 40 published articles, and a topic map disconnected from buyer evaluation. The OAA engagement followed. A central pillar asset was built. A related content system was mapped across all three stages of buyer evaluation. The Regulatory Validation Layer was deployed across both existing and new content.",
       results: [
         "Organic sessions compounding at 34% month over month by month four",
-        "First-page rankings on 11 high-intent clinical workflow queries within six months",
-        "Competitor displaced from position one on two primary territory keywords",
+        "First-page rankings on 11 high-intent clinical workflow topics within six months",
+        "Competitor displaced from position one on two primary territory terms",
       ],
       testimonial:
-        "We had the content. We did not have the structure underneath it. OAA gave us the foundation and the roadmap to build from.",
+        "We had content. We did not have the structure underneath it. OAA gave us the foundation and the sequence to build from.",
     },
+
     {
       id: "patient-data-platform",
       client: "Patient Data Platform",
       sector: "Healthcare SaaS · Data Infrastructure",
       challenge:
-        "Strong product, weak digital authority. Procurement-stage buyers could not find credible compliance content to support their internal sign-off process. Sales cycles were stalling at the validation stage.",
+        "Strong product, weak digital credibility. Procurement-stage buyers could not find content that clearly demonstrated compliance well enough to support internal sign-off. Sales cycles were stalling at the validation stage.",
       approach:
-        "Trust Deficit Audit revealed the site claimed HIPAA and PIPEDA compliance on one static page with no substantiation. OAA engagement built a Regulatory Compliance Content Layer with embedded citations across every relevant content asset. Internal authority routing redesigned to route trust signals toward the pillar, not away from it.",
+        "The Trust Deficit Audit revealed that the site claimed HIPAA and PIPEDA compliance on a single static page with no supporting proof. The OAA engagement built a Regulatory Validation Layer with embedded citations across every relevant content asset. Internal linking was redesigned so credibility accumulated toward the central pillar instead of being scattered across the site.",
       results: [
-        "Sales cycle length reduced by an average of 19 days within the first quarter post-launch",
-        "Compliance content pages became the second highest organic entry point within 90 days",
-        "Three enterprise procurement teams cited content infrastructure as a trust factor in signed contracts",
+        "Sales cycle length reduced by an average of 19 days within the first quarter after launch",
+        "Compliance-related content became the second-largest organic entry point within 90 days",
+        "Three enterprise procurement teams cited the content structure itself as a trust factor in signed contracts",
       ],
       testimonial:
-        "Our buyers needed proof, not promises. The content architecture gave them something to bring to their compliance teams.",
+        "Our buyers needed proof, not promises. The content architecture gave them something they could bring to their compliance teams.",
     },
+
     {
       id: "health-infrastructure-saas",
       client: "Health Infrastructure SaaS",
       sector: "Healthcare SaaS · Interoperability",
       challenge:
-        "Entering a market with two established competitors who had built significant content moats. No existing topical authority. Content team ready to execute but no strategic infrastructure to build from.",
+        "Entering a market with two established competitors that had already built strong content moats. No existing topical credibility. An internal content team ready to execute, but no architecture to build from.",
       approach:
-        "OAA engagement designed from the ground up for a market entry context. Territory intelligence mapped competitor content gaps across all three intent tiers. Central pillar asset positioned around an underserved regulatory angle neither competitor had addressed. 90-day phased blueprint handed to the client team for execution.",
+        "The OAA engagement was designed for a market-entry context. Territory intelligence mapped competitor gaps across all three stages of buyer evaluation. The central pillar asset was positioned around an underserved regulatory angle that neither competitor had addressed. A 90-day phased blueprint was then handed to the client team for execution.",
       results: [
-        "First-page presence on 8 target keywords within five months of blueprint execution",
-        "Central pillar asset ranked above both established competitors on primary territory keyword by month six",
-        "Content program producing compounding organic growth with zero increase in publishing frequency",
+        "First-page presence on 8 target topics within five months of blueprint execution",
+        "Central pillar asset ranked above both established competitors on a primary territory term by month six",
+        "Content program producing compounding organic growth with no increase in publishing frequency",
       ],
       testimonial:
-        "We came in late to a competitive market. The blueprint told us exactly where to build first and why. We did not waste a single piece of content.",
+        "We entered a competitive market late. The blueprint showed us exactly where to build first and why. We did not waste a single piece of content.",
     },
   ],
 };
