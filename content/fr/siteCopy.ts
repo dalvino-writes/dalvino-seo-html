@@ -1,8 +1,8 @@
 export const siteCopy = {
   brand: {
-    name: "D.digitactics",
+    name: "Digitactics",
     title: "Architecture d'Autorité Healthcare SaaS",
-    full: "D.digitactics · Organic Authority Architecture pour le Healthcare SaaS",
+    full: "Digitactics · Organic Authority Architecture pour le Healthcare SaaS",
   },
   nav: {
     home: "Accueil",
