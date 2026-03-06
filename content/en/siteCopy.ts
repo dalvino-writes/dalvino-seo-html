@@ -15,7 +15,7 @@ export const siteCopy = {
     faq: "FAQ",
   },
   hero: {
-    title: "TEST RUN",
+    title: "Your expertise deserves to be found. I help you turn it into SEO content that generates qualified leads, consistently.",
     subtitle:
       "Dalvino Luce helps startups and small businesses turn their knowledge into structured SEO content, to generate qualified leads consistently, without spending on ads.",
     cta: "Start my project",
