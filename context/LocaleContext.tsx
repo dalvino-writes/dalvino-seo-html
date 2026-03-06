@@ -11,7 +11,7 @@ interface LocaleContextType {
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
 export const LocaleProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>("fr");
+  const [locale, setLocaleState] = useState<Locale>("en");
 
   useEffect(() => {
     try {
@@ -20,10 +20,11 @@ export const LocaleProvider = ({ children }: { children: ReactNode }) => {
         setLocaleState(stored);
         return;
       }
+
       const browserLang = navigator.language || "";
-      setLocaleState(browserLang.startsWith("en") ? "en" : "fr");
+      setLocaleState(browserLang.startsWith("fr") ? "fr" : "en");
     } catch {
-      setLocaleState("fr");
+      setLocaleState("en");
     }
   }, []);
 

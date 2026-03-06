@@ -10,7 +10,7 @@ export const servicesCopy = {
     title: "Built for one type of company.",
     fits: [
       "Healthcare SaaS companies with an active content program that is not producing compounding organic growth",
-      "Companies operating in regulated environments — HIPAA, PIPEDA, RGPD, UK GDPR — that need their digital presence to reflect that",
+      "Companies operating in regulated environments (HIPAA, PIPEDA, GDPR, UK GDPR) that need their digital presence to reflect that",
       "Internal teams that can execute from a blueprint but need the right infrastructure to build from",
     ],
     notFits: [
@@ -26,11 +26,13 @@ export const servicesCopy = {
       id: "trust-deficit-audit",
       name: "The Trust Deficit Audit",
       audience: "For Healthcare SaaS companies with an active content program that is not compounding",
-      description: "A paid diagnostic that scores your site across four dimensions: regulatory compliance signals, E-E-A-T architecture, keyword territory, and competitive positioning.",
-      descriptionAccent: "This is not a free proposal. It is a product. Every engagement begins here.",
+      description:
+        "A paid diagnostic that scores your site across four dimensions: regulatory compliance signals, authority structure, keyword territory, and competitive positioning.",
+      descriptionAccent:
+        "This is not a free proposal. It is a product. Every engagement begins here.",
       deliverables: [
         "Regulatory compliance signal audit: what you claim versus what your site actually demonstrates",
-        "E-E-A-T architecture review: site-level authority signals assessed against Google health-category standards",
+        "Authority structure review: site-level credibility signals assessed against Google health-category standards",
         "Keyword territory map: where you own ground, where competitors have taken it, and where gaps exist",
         "Competitive positioning assessment: how your content infrastructure compares to direct competitors",
         "Written scorecard and gap priority map delivered at completion",
@@ -40,12 +42,15 @@ export const servicesCopy = {
     {
       id: "organic-authority-architecture",
       name: "Organic Authority Architecture",
-      audience: "For Healthcare SaaS companies ready to build content infrastructure their team can execute from",
-      description: "A strategic infrastructure engagement. Digitactics designs the architecture. Your team builds from the blueprint.",
-      descriptionAccent: "Digitactics does not write, publish, or manage your content. We are the architect, not the builder.",
+      audience:
+        "For Healthcare SaaS companies ready to build content infrastructure their team can execute from",
+      description:
+        "A strategic infrastructure engagement. Digitactics designs the architecture. Your team builds from the blueprint.",
+      descriptionAccent:
+        "Digitactics does not write, publish, or manage your content. We are the Architect. Not the builder.",
       deliverables: [
         "Central Pillar Asset: the authority hub every cluster piece routes through",
-        "Cluster Architecture: a mapped content system organized by buyer intent tier",
+        "Cluster Architecture: a mapped content system organized by buyer intent stage",
         "Regulatory Validation Layer: the citation and compliance framework embedded in every piece",
         "Internal Authority Routing Design: link architecture that builds site authority instead of dispersing it",
         "90-Day Phased Blueprint: the execution sequence, written for your team to run",

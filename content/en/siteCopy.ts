@@ -23,38 +23,38 @@ export const siteCopy = {
   },
   servicesPreview: {
     tagline: "Organic Authority Architecture · The Framework",
-    title: "A system built to close the trust deficit.",
+    title: "A system built to close the Trust Deficit.",
     subtitle:
-      "OAA closes the gap between what Healthcare SaaS companies claim and what Google and their market actually believe. Three structural pillars drive it: E-E-A-T Architecture, a Regulatory Compliance Content Layer, and a Three-Tier Intent Framework.",
-    cta: "See how OAA works →",
+      "OAA closes the gap between what Healthcare SaaS companies claim and what Google and their market actually believe. Three structural pillars drive it: an authority signal structure that proves expertise across the entire site, a regulatory credibility layer that demonstrates compliance in content rather than declaring it, and a content map aligned to how healthcare buyers actually make decisions.",
+    cta: "See how OAA works",
   },
   caseStudiesPreview: {
     tagline: "Case Studies · Proof of Results",
     title: "What authority architecture actually achieves.",
     subtitle:
-      "Organic compounding, keyword territory owned, inbound pipeline built: each case study documents the structural impact of a correctly deployed OAA engagement.",
+      "Organic compounding, keyword territory owned, inbound pipeline built. Each case study documents the structural impact of a correctly deployed OAA engagement.",
     cta: "View case studies",
   },
   newsletterSection: {
     tagline: "Entry Point · Trust Deficit Audit",
     title: "Start with the diagnostic, not a proposal.",
     subtitle:
-      "The Trust Deficit Audit scores your regulatory compliance signals, E-E-A-T architecture, keyword territory, and competitive positioning. What it delivers: a written scorecard and gap priority map. €3,000, credited in full against your OAA engagement if you proceed within 30 days.",
+      "The Trust Deficit Audit scores your regulatory compliance signals, authority structure, keyword territory, and competitive positioning. The deliverable is a written scorecard and gap priority map. €3,000, credited in full against your OAA engagement if you proceed within 30 days.",
     placeholder: "your@email.com",
     cta: "Start with the Audit",
   },
   footer: {
-    copyright: "© 2025 D.digitactics. All rights reserved.",
+    copyright: "© 2025 Digitactics. All rights reserved.",
     tagline: "Authority architecture for Healthcare SaaS.",
   },
   about: {
-    tagline: "About · D.digitactics",
+    tagline: "About · Digitactics",
     title: "Content without architecture is volume without compounding.",
     bio: [
-      "D.digitactics is an authority architecture firm. Not an SEO agency. Not a content studio. Not a monthly retainer.",
+      "Digitactics is an authority architecture firm. Not an SEO agency. Not a content studio. Not a monthly retainer.",
       "We exist because Healthcare SaaS companies were publishing more and ranking less. The infrastructure underneath their content was wrong, and standard SEO frameworks were not built to fix it.",
-      "OAA — Organic Authority Architecture — is the framework we built to address that gap. It treats compliance and authority as structural inputs, not editorial afterthoughts.",
-      "Every engagement starts with the Trust Deficit Audit. Every blueprint is built for the client's team to execute. Digitactics is the architect. The client builds.",
+      "OAA (Organic Authority Architecture) is the framework we built to address that gap. It treats compliance and authority as structural inputs, not editorial afterthoughts.",
+      "Every engagement starts with the Trust Deficit Audit. Every blueprint is built for the client's team to execute. Digitactics is the Architect. The client builds.",
     ],
     values: [
       {
@@ -67,7 +67,7 @@ export const siteCopy = {
       },
       {
         title: "Clarity of role",
-        description: "We are the architect. You are the builder. That distinction protects both the strategy and the execution.",
+        description: "We are the Architect. You are the builder. That distinction protects both the strategy and the execution.",
       },
     ],
   },
@@ -94,7 +94,7 @@ export const siteCopy = {
     title: "Your competitors are not outwriting you. They are outstructuring you.",
     body: [
       "Flat organic traffic despite consistent publishing. Competitors ranking above you on keywords you should own. Compliance pages that state the right things but move no one.",
-      "These are not content quality failures. They are structural ones. Google applies its strictest quality signals to health-category content. Most Healthcare SaaS sites are measured against those standards without knowing it.",
+      "These are not content quality failures. They are structural ones. Google applies its strictest quality standards to health-category content. Most Healthcare SaaS sites are measured against those standards without knowing it.",
       "The companies winning organic search in this space are not producing better content. They have built better architecture underneath it. Their content routes authority correctly, demonstrates regulatory credibility, and captures buyer intent at every stage of the decision cycle.",
       "That structural gap is the Trust Deficit. It is the distance between what a Healthcare SaaS company claims and what its market and search engines actually believe.",
     ],
@@ -103,9 +103,9 @@ export const siteCopy = {
     tagline: "The Diagnosis · Why It Happens",
     title: "Healthcare SaaS sits in one of the hardest content environments on the web.",
     body: [
-      "Google classifies health-related content as YMYL — Your Money or Your Life. That classification triggers the strictest quality evaluation signals in the entire search index. E-E-A-T is not a writing guideline here. It is a structural standard applied at the site level.",
-      "Most Healthcare SaaS companies publish into that environment with a framework built for general SaaS. No authority signals at the site level. No regulatory citation at the article level. No content architecture mapped to the actual buyer journey.",
-      "Compliance is the clearest example. Every competitor in the space claims HIPAA compliance, PIPEDA adherence, RGPD alignment. None of them demonstrate it in their content. That gap is where organic authority is built or lost.",
+      "Google classifies health-related content as YMYL (Your Money or Your Life). That classification triggers the strictest quality evaluation in the entire search index. Expertise, Experience, Authority, and Trustworthiness standards are not writing guidelines here. They are structural requirements applied at the site level.",
+      "Most Healthcare SaaS companies publish into that environment with a framework built for general SaaS. No authority signals at the site level. No regulatory citation at the article level. No content structure mapped to the actual buyer journey.",
+      "Compliance is the clearest example. Every competitor in the space claims HIPAA compliance, PIPEDA adherence, GDPR alignment. None of them demonstrate it in their content. That gap is where organic authority is built or lost.",
       "Standard SEO agencies do not address this. They were not built for regulated industries. They optimize for volume and velocity, not for the structural trust signals that move health-category rankings.",
     ],
   },
@@ -128,7 +128,7 @@ export const siteCopy = {
         "Every indexed article strengthens the pillar, every pillar strengthens the cluster",
         "Site-level authority signals in place and routing correctly",
         "Regulatory credibility embedded at the article level across every relevant piece",
-        "Content mapped to all three tiers of the buyer decision journey",
+        "Content mapped to all three stages of the buyer decision journey",
         "Organic territory that grows without additional spend",
       ],
     },
