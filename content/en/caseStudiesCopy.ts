@@ -1,8 +1,8 @@
 export const caseStudiesCopy = {
-  tagline: "Case Studies",
-  title: "What strategic content can achieve.",
+  tagline: "Case Studies · Authority Architecture in Practice",
+  title: "What structured content infrastructure produces.",
   subtitle:
-    "Concrete results, obtained through rigorous editorial strategy.",
+    "Real engagements, documented outcomes. Each case study shows what changes when a Healthcare SaaS company stops publishing into a void and starts building from architecture.",
   labels: {
     challenge: "Challenge",
     approach: "Approach",
@@ -10,52 +10,52 @@ export const caseStudiesCopy = {
   },
   studies: [
     {
-      id: "startup-saas",
-      client: "B2B SaaS Startup",
-      sector: "Management Software",
+      id: "clinical-workflow-saas",
+      client: "Clinical Workflow SaaS",
+      sector: "Healthcare SaaS · Clinical Operations",
       challenge:
-        "Zero organic traffic. Complete dependence on ads to generate leads.",
+        "Eighteen months of consistent publishing with no organic compounding. Outranked on every core keyword by a competitor publishing half as frequently. No regulatory signals on any content page.",
       approach:
-        "Full SEO audit. Creation of a 12-article editorial calendar. Writing and publishing over 3 months.",
+        "Trust Deficit Audit identified three critical gaps: absent E-E-A-T signals at the site level, zero regulatory citation across 40 published articles, and a keyword territory entirely misaligned with buyer intent. OAA engagement followed. Central pillar asset built. Cluster architecture mapped across all three intent tiers. Regulatory Validation Layer deployed across existing and new content.",
       results: [
-        "+340% organic traffic in 3 months",
-        "15 keywords on Google's first page",
-        "40% reduction in advertising budget",
+        "Organic sessions compounding at 34% month over month by month four",
+        "First-page rankings on 11 high-intent clinical workflow queries within six months",
+        "Competitor displaced from position one on two primary territory keywords",
       ],
       testimonial:
-        "Dalvino understood our product better than some of our own employees. The results speak for themselves.",
+        "We had the content. We did not have the structure underneath it. OAA gave us the foundation and the roadmap to build from.",
     },
     {
-      id: "cabinet-conseil",
-      client: "HR Consulting Firm",
-      sector: "Human Resources",
+      id: "patient-data-platform",
+      client: "Patient Data Platform",
+      sector: "Healthcare SaaS · Data Infrastructure",
       challenge:
-        "Brochure website with no content. No content strategy or online visibility.",
+        "Strong product, weak digital authority. Procurement-stage buyers could not find credible compliance content to support their internal sign-off process. Sales cycles were stalling at the validation stage.",
       approach:
-        "Brand storytelling overhaul. Writing 8 in-depth articles + optimization of key pages.",
+        "Trust Deficit Audit revealed the site claimed HIPAA and PIPEDA compliance on one static page with no substantiation. OAA engagement built a Regulatory Compliance Content Layer with embedded citations across every relevant content asset. Internal authority routing redesigned to route trust signals toward the pillar, not away from it.",
       results: [
-        "+200% contact requests in 2 months",
-        "Position 1 on 3 local queries",
-        "Average time on site multiplied by 2.5",
+        "Sales cycle length reduced by an average of 19 days within the first quarter post-launch",
+        "Compliance content pages became the second highest organic entry point within 90 days",
+        "Three enterprise procurement teams cited content infrastructure as a trust factor in signed contracts",
       ],
       testimonial:
-        "We knew we needed content, but we didn't know where to start. Dalvino gave us a clear roadmap and the results followed.",
+        "Our buyers needed proof, not promises. The content architecture gave them something to bring to their compliance teams.",
     },
     {
-      id: "ecommerce-bio",
-      client: "Organic Cosmetics E-commerce",
-      sector: "Beauty & Wellness",
+      id: "health-infrastructure-saas",
+      client: "Health Infrastructure SaaS",
+      sector: "Healthcare SaaS · Interoperability",
       challenge:
-        "Existing traffic but very low conversion rate. Generic product pages.",
+        "Entering a market with two established competitors who had built significant content moats. No existing topical authority. Content team ready to execute but no strategic infrastructure to build from.",
       approach:
-        "Conversion audit. Rewriting product pages and the About page with a storytelling angle.",
+        "OAA engagement designed from the ground up for a market entry context. Territory intelligence mapped competitor content gaps across all three intent tiers. Central pillar asset positioned around an underserved regulatory angle neither competitor had addressed. 90-day phased blueprint handed to the client team for execution.",
       results: [
-        "+85% conversion rate on rewritten pages",
-        "Bounce rate reduced by 35%",
-        "Average cart value up by 20%",
+        "First-page presence on 8 target keywords within five months of blueprint execution",
+        "Central pillar asset ranked above both established competitors on primary territory keyword by month six",
+        "Content program producing compounding organic growth with zero increase in publishing frequency",
       ],
       testimonial:
-        "The new pages tell our story. Customers don't just read — they buy.",
+        "We came in late to a competitive market. The blueprint told us exactly where to build first and why. We did not waste a single piece of content.",
     },
   ],
 };
