@@ -15,9 +15,9 @@ export const siteCopy = {
     faq: "FAQ",
   },
   hero: {
-    title: "Your Healthcare SaaS content isn't ranking because of a structural problem — not a content quality problem.",
+    title: "Healthcare SaaS companies publish more every year and rank less. The problem is structural, not editorial.",
     subtitle:
-      "Flat organic traffic. Outranked by competitors publishing less. Compliance claimed but never demonstrated. This is the Trust Deficit — and it is an architecture problem.",
+      "Flat organic traffic. Outranked by competitors publishing less. Compliance claimed but never proven. This is the Trust Deficit. It is an architecture problem.",
     cta: "Get Your Trust Deficit Audit",
     ctaSecondary: "See how OAA works",
   },
@@ -25,7 +25,7 @@ export const siteCopy = {
     tagline: "Organic Authority Architecture · The Framework",
     title: "A system built to close the trust deficit.",
     subtitle:
-      "OAA closes the gap between what Healthcare SaaS companies claim and what Google and their market actually believe — through three structural pillars: E-E-A-T Architecture, a Regulatory Compliance Content Layer, and a Three-Tier Intent Framework.",
+      "OAA closes the gap between what Healthcare SaaS companies claim and what Google and their market actually believe. Three structural pillars drive it: E-E-A-T Architecture, a Regulatory Compliance Content Layer, and a Three-Tier Intent Framework.",
     cta: "See how OAA works →",
   },
   caseStudiesPreview: {
@@ -37,9 +37,9 @@ export const siteCopy = {
   },
   newsletterSection: {
     tagline: "Entry Point · Trust Deficit Audit",
-    title: "Start with the diagnostic — not a proposal.",
+    title: "Start with the diagnostic, not a proposal.",
     subtitle:
-      "The Trust Deficit Audit scores your regulatory compliance signals, E-E-A-T architecture, keyword territory, and competitive positioning. What it delivers: a written scorecard and gap priority map. €3,000 — credited in full against your OAA engagement if you proceed within 30 days.",
+      "The Trust Deficit Audit scores your regulatory compliance signals, E-E-A-T architecture, keyword territory, and competitive positioning. What it delivers: a written scorecard and gap priority map. €3,000, credited in full against your OAA engagement if you proceed within 30 days.",
     placeholder: "your@email.com",
     cta: "Start with the Audit",
   },
@@ -52,8 +52,8 @@ export const siteCopy = {
     title: "Content without architecture is volume without compounding.",
     bio: [
       "D.digitactics is an authority architecture firm. Not an SEO agency. Not a content studio. Not a monthly retainer.",
-      "We exist because Healthcare SaaS companies were publishing more and ranking less — not because their content was bad, but because the infrastructure underneath it was wrong.",
-      "OAA — Organic Authority Architecture — is the framework we built to fix that. It treats compliance and authority as structural inputs, not editorial afterthoughts.",
+      "We exist because Healthcare SaaS companies were publishing more and ranking less. The infrastructure underneath their content was wrong, and standard SEO frameworks were not built to fix it.",
+      "OAA — Organic Authority Architecture — is the framework we built to address that gap. It treats compliance and authority as structural inputs, not editorial afterthoughts.",
       "Every engagement starts with the Trust Deficit Audit. Every blueprint is built for the client's team to execute. Digitactics is the architect. The client builds.",
     ],
     values: [
@@ -63,7 +63,7 @@ export const siteCopy = {
       },
       {
         title: "Compliance as trust signal",
-        description: "Regulatory credibility is structural, not a checkbox. We demonstrate it, not declare it.",
+        description: "Regulatory credibility is structural. We demonstrate it, we do not declare it.",
       },
       {
         title: "Clarity of role",
@@ -75,7 +75,7 @@ export const siteCopy = {
     tagline: "Contact · Start an Engagement",
     title: "Every engagement starts with the Audit.",
     subtitle:
-      "If you are a Healthcare SaaS company with an active content program that is not compounding, the Trust Deficit Audit is the correct first step. Describe your situation below and we will respond with a first assessment — not an automated reply.",
+      "If you are a Healthcare SaaS company with an active content program that is not compounding, the Trust Deficit Audit is the correct first step. Describe your situation below and we will respond with a first assessment, not an automated reply.",
     form: {
       name: "Name",
       email: "Professional email",
