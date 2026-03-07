@@ -2,7 +2,7 @@ export const methodCopy = {
   tagline: "Méthode · Comment fonctionne l'engagement",
   title: "Un processus clair pour combler le Trust Deficit.",
   subtitle:
-    "Digitactics ne fournit pas une activité marketing continue. Nous concevons l'architecture de crédibilité qui permet à votre contenu de produire un effet cumulatif. L'engagement suit trois phases précises.",
+    "Archoric ne fournit pas une activité marketing continue. Nous concevons l'architecture de crédibilité qui permet à votre contenu de produire un effet cumulatif. L'engagement suit trois phases précises.",
 
   phases: [
     {
@@ -20,7 +20,7 @@ export const methodCopy = {
     {
       title: "Phase 2 · Conception de l'Authority Architecture",
       description:
-        "Une fois les écarts identifiés, Digitactics conçoit l'architecture qui permettra de les combler. Cette phase crée la fondation sur laquelle votre programme de contenu va fonctionner.",
+        "Une fois les écarts identifiés, Archoric conçoit l'architecture qui permettra de les combler. Cette phase crée la fondation sur laquelle votre programme de contenu va fonctionner.",
       points: [
         "Actif pilier central d'autorité",
         "Architecture de clusters alignée sur les étapes d'évaluation des acheteurs",
@@ -32,7 +32,7 @@ export const methodCopy = {
     {
       title: "Phase 3 · Blueprint d'exécution sur 90 jours",
       description:
-        "Digitactics livre un blueprint d'exécution précis que votre équipe peut mettre en œuvre sans dépendance. Le plan indique ce qu'il faut construire, dans quel ordre et pourquoi.",
+        "Archoric livre un blueprint d'exécution précis que votre équipe peut mettre en œuvre sans dépendance. Le plan indique ce qu'il faut construire, dans quel ordre et pourquoi.",
       points: [
         "Plan d'exécution sur 90 jours",
         "Priorités de contenu par étape du parcours d'achat",

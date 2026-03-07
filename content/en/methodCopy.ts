@@ -2,7 +2,7 @@ export const methodCopy = {
   tagline: "Method · How the Engagement Works",
   title: "A clear process to close the Trust Deficit.",
   subtitle:
-    "Digitactics does not deliver ongoing marketing activity. We design the credibility architecture that allows your content to compound. The engagement follows three precise phases.",
+    "Archoric does not deliver ongoing marketing activity. We design the credibility architecture that allows your content to compound. The engagement follows three precise phases.",
 
   phases: [
     {
@@ -20,7 +20,7 @@ export const methodCopy = {
     {
       title: "Phase 2 · Authority Architecture Design",
       description:
-        "Once the structural gaps are identified, Digitactics designs the architecture that will close them. This phase builds the foundation your content program will operate on.",
+        "Once the structural gaps are identified, Archoric designs the architecture that will close them. This phase builds the foundation your content program will operate on.",
       points: [
         "Central pillar authority asset",
         "Cluster architecture mapped to buyer evaluation stages",
@@ -32,7 +32,7 @@ export const methodCopy = {
     {
       title: "Phase 3 · 90 Day Execution Blueprint",
       description:
-        "Digitactics delivers a precise execution blueprint your internal team can run without dependency. The blueprint specifies what to build, in what order, and why.",
+        "Archoric delivers a precise execution blueprint your internal team can run without dependency. The blueprint specifies what to build, in what order, and why.",
       points: [
         "90 day phased execution plan",
         "Content priorities by buyer intent stage",

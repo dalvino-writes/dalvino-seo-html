@@ -2,7 +2,7 @@ export const servicesCopy = {
   tagline: "Services · What We Build and What We Do Not",
   title: "Structural infrastructure, not content volume.",
   subtitle:
-    "Digitactics builds one thing: the credibility foundation Healthcare SaaS companies need for their content to compound into pipeline. This is not an SEO retainer. This is not a content agency. This is not a monthly blog package.",
+    "Archoric builds one thing: the credibility foundation Healthcare SaaS companies need for their content to compound into pipeline. This is not an SEO retainer. This is not a content agency. This is not a monthly blog package.",
   cta: "Begin with the Audit",
   deliverablesLabel: "Deliverables",
   whoItsFor: {
@@ -47,9 +47,9 @@ export const servicesCopy = {
       audience:
         "For Healthcare SaaS companies ready to build content infrastructure their team can execute from",
       description:
-        "A strategic infrastructure engagement. Digitactics designs the architecture. Your team builds from the blueprint.",
+        "A strategic infrastructure engagement. Archoric designs the architecture. Your team builds from the blueprint.",
       descriptionAccent:
-        "Digitactics does not write, publish, or manage your content. We are the Architect. Not the builder.",
+        "Archoric does not write, publish, or manage your content. We are the Architect. Not the builder.",
       deliverables: [
         "Central Pillar Asset — the credibility hub every supporting piece links through",
         "Related Content System — a mapped content plan organized by buyer evaluation stage",

@@ -7,19 +7,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  title: "Digitactics · Organic Authority Architecture for Healthcare SaaS",
+  title: "Archoric · Organic Authority Architecture for Healthcare SaaS",
   description:
-    "Digitactics builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
-  authors: [{ name: "Digitactics" }],
+    "Archoric builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
+  authors: [{ name: "Archoric" }],
   openGraph: {
-    title: "Digitactics · Organic Authority Architecture for Healthcare SaaS",
+    title: "Archoric · Organic Authority Architecture for Healthcare SaaS",
     description:
-      "Digitactics builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
+      "Archoric builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@digitactics",
+    site: "@archoric",
   },
 };
 

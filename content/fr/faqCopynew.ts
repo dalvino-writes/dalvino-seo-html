@@ -2,7 +2,7 @@ export const faqCopy = {
   tagline: "FAQ",
   title: "Réponses directes.",
   subtitle:
-    "Les questions les plus fréquentes avant de commencer un projet avec Digitactics.",
+    "Les questions les plus fréquentes avant de commencer un projet avec Archoric.",
 
   questions: [
     {

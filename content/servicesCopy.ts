@@ -2,7 +2,7 @@ export const servicesCopy = {
   tagline: "Services · Ce que nous vendons et ce que nous ne vendons pas",
   title: "Infrastructure architecturale, pas volume de contenu.",
   subtitle:
-    "Digitactics vend une seule chose : la fondation structurelle dont les entreprises Healthcare SaaS ont besoin pour que leur contenu se capitalise. Ce n'est pas un abonnement SEO. Ce n'est pas une agence de contenu. Ce n'est pas un forfait de blog mensuel.",
+    "Archoric vend une seule chose : la fondation structurelle dont les entreprises Healthcare SaaS ont besoin pour que leur contenu se capitalise. Ce n'est pas un abonnement SEO. Ce n'est pas une agence de contenu. Ce n'est pas un forfait de blog mensuel.",
   cta: "Commencer avec l'Audit",
   deliverablesLabel: "Livrables",
   offers: [
@@ -25,8 +25,8 @@ export const servicesCopy = {
       id: "organic-authority-architecture",
       name: "Organic Authority Architecture",
       audience: "Pour les entreprises Healthcare SaaS prêtes à construire une infrastructure de contenu que leur équipe peut exécuter",
-      description: "Un engagement d'infrastructure stratégique. Digitactics conçoit l'architecture. Votre équipe construit à partir du blueprint.",
-      descriptionAccent: "Digitactics ne rédige pas, ne publie pas et ne gère pas votre contenu. Nous sommes l'architecte, pas le constructeur.",
+      description: "Un engagement d'infrastructure stratégique. Archoric conçoit l'architecture. Votre équipe construit à partir du blueprint.",
+      descriptionAccent: "Archoric ne rédige pas, ne publie pas et ne gère pas votre contenu. Nous sommes l'architecte, pas le constructeur.",
       deliverables: [
         "Actif Pilier Central : le hub d'autorité à travers lequel chaque pièce de cluster transite",
         "Architecture de Cluster : un système de contenu cartographié organisé par niveau d'intention d'achat",

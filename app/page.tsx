@@ -4,7 +4,7 @@ import TrustDeficit from "@/components/sections/TrustDeficit";
 import WhyItHappens from "@/components/sections/WhyItHappens";
 import ServicesPreview from "@/components/sections/ServicesPreview";
 import Transformation from "@/components/sections/Transformation";
-import WhyDigitactics from "@/components/sections/WhyDigitactics";
+import WhyArchoric from "@/components/sections/WhyArchoric";
 import CaseStudiesPreview from "@/components/sections/CaseStudiesPreview";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import Footer from "@/components/sections/Footer";
@@ -19,7 +19,7 @@ export default function Home() {
         <WhyItHappens />
         <ServicesPreview />
         <Transformation />
-        <WhyDigitactics />
+        <WhyArchoric />
         <CaseStudiesPreview />
         <NewsletterSection />
       </main>

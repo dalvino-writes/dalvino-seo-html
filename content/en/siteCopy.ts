@@ -1,8 +1,8 @@
 export const siteCopy = {
   brand: {
-    name: "Digitactics",
+    name: "Archoric",
     title: "Healthcare SaaS Authority Architecture",
-    full: "Digitactics · Organic Authority Architecture for Healthcare SaaS",
+    full: "Archoric · Organic Authority Architecture for Healthcare SaaS",
   },
   nav: {
     home: "Home",
@@ -46,21 +46,21 @@ export const siteCopy = {
     cta: "Start with the Audit",
   },
   footer: {
-    copyright: "© 2026 Digitactics. All rights reserved.",
+    copyright: "© 2026 Archoric. All rights reserved.",
     tagline: "Authority architecture for Healthcare SaaS.",
   },
   about: {
-    tagline: "About · Digitactics",
+    tagline: "About · Archoric",
     title: "Content without architecture is volume without compounding.",
     bio: [
-      "Digitactics is an authority architecture firm. Not an SEO agency. Not a content studio. Not a monthly retainer.",
+      "Archoric is an authority architecture firm. Not an SEO agency. Not a content studio. Not a monthly retainer.",
       "We exist because Healthcare SaaS companies were publishing more and ranking less. The infrastructure underneath their content was wrong, and standard SEO frameworks were not built to fix it.",
       "The problem was not effort. It was structure.",
       "Healthcare SaaS companies operate in one of the most scrutinized content environments on the internet. Google evaluates health category content against strict quality standards. Procurement teams evaluate vendors against demonstrated regulatory fluency, not declared compliance. Generic content programs do not meet either standard.",
       "OAA, Organic Authority Architecture, is the framework we built to address that gap. It treats compliance demonstration and proven expertise as structural inputs, not editorial afterthoughts. The result is a content foundation that compounds: each piece strengthens the site, each site strengthens the category position, and the pipeline grows without proportional spend increases.",
-      "Behind every OAA engagement is Archoric — a proprietary system built and owned by Digitactics that governs the entire process: the audit criteria, the architecture logic, the regulatory validation layer, the content sequencing. It exists to make the process repeatable and the output consistent across every engagement.",
+      "Behind every OAA engagement is Archoric — a proprietary system built and owned by Archoric that governs the entire process: the audit criteria, the architecture logic, the regulatory validation layer, the content sequencing. It exists to make the process repeatable and the output consistent across every engagement.",
       "What Archoric does not do is think. Every engagement is led by a real Architect who reads the audit data, selects the competitive territory, and makes the calls that no system makes alone — the ones that determine whether the blueprint you execute from is the right one for your specific market position. The system holds the standard. The Architect decides where and how it gets applied.",
-      "Every engagement starts with the Trust Deficit Audit. Every blueprint is built for the client's team to execute. Digitactics is the Architect. The client builds.",
+      "Every engagement starts with the Trust Deficit Audit. Every blueprint is built for the client's team to execute. Archoric is the Architect. The client builds.",
     ],
     values: [
       {
@@ -146,39 +146,39 @@ export const siteCopy = {
     footnote:
       "Credibility infrastructure compounds. Paid traffic stops the moment the budget does.",
   },
-  whyDigitactics: {
-    tagline: "The Difference · Why Digitactics",
+  whyArchoric: {
+    tagline: "The Difference · Why Archoric",
     title: "Purpose built for Healthcare SaaS. Nothing else.",
     comparison: [
       {
         dimension: "Industry focus",
         generic: "Industry agnostic frameworks applied to any client",
-        digitactics:
+        Archoric:
           "Built exclusively for Healthcare SaaS, where health category quality standards apply",
       },
       {
         dimension: "Compliance approach",
         generic: "Compliance mentioned as a content topic",
-        digitactics:
+        Archoric:
           "Regulatory credibility treated as structural proof and demonstrated inside the content itself",
       },
       {
         dimension: "Topic strategy",
         generic:
           "Generic keyword planning based on search volume and difficulty",
-        digitactics:
+        Archoric:
           "Topic leadership mapping built around buyer evaluation stages and regulated market credibility gaps",
       },
       {
         dimension: "Entry point",
         generic: "Free proposals and discovery calls",
-        digitactics:
+        Archoric:
           "Paid diagnostic first. The Audit is a product, not a pitch.",
       },
       {
         dimension: "Engagement model",
         generic: "Ongoing production and management dependency",
-        digitactics:
+        Archoric:
           "A strategic architecture engagement your team can execute from without long term dependency",
       },
     ],

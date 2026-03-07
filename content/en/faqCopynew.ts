@@ -2,31 +2,31 @@ export const faqCopy = {
   tagline: "FAQ · Frequently Asked Questions",
   title: "Clear answers before you begin.",
   subtitle:
-    "Everything Healthcare SaaS teams usually want to understand before starting an engagement with Digitactics.",
+    "Everything Healthcare SaaS teams usually want to understand before starting an engagement with Archoric.",
 
   questions: [
     {
-      question: "What exactly does Digitactics do?",
+      question: "What exactly does Archoric do?",
       answer:
-        "Digitactics designs the credibility architecture behind a Healthcare SaaS company's content. Instead of producing more articles, we build the structural foundation that determines whether your site is trusted by search engines, AI platforms, and prospective buyers. The result is content that compounds over time instead of disappearing into the noise.",
+        "Archoric designs the credibility architecture behind a Healthcare SaaS company's content. Instead of producing more articles, we build the structural foundation that determines whether your site is trusted by search engines, AI platforms, and prospective buyers. The result is content that compounds over time instead of disappearing into the noise.",
     },
 
     {
       question: "What is Organic Authority Architecture (OAA)?",
       answer:
-        "Organic Authority Architecture (OAA) is the methodology Digitactics uses to structure a Healthcare SaaS company's content ecosystem. It combines three structural components: a site-wide authority structure, a regulatory credibility layer that demonstrates compliance directly in the content, and a content map aligned to how healthcare buyers actually evaluate solutions.",
+        "Organic Authority Architecture (OAA) is the methodology Archoric uses to structure a Healthcare SaaS company's content ecosystem. It combines three structural components: a site-wide authority structure, a regulatory credibility layer that demonstrates compliance directly in the content, and a content map aligned to how healthcare buyers actually evaluate solutions.",
     },
 
     {
       question: "How is this different from hiring an SEO agency?",
       answer:
-        "SEO agencies typically focus on ongoing activity: keyword research, publishing schedules, and ranking improvements. Digitactics focuses on the underlying structure that determines whether those efforts work in the first place. We design the architecture once. Your internal team then builds on top of that foundation.",
+        "SEO agencies typically focus on ongoing activity: keyword research, publishing schedules, and ranking improvements. Archoric focuses on the underlying structure that determines whether those efforts work in the first place. We design the architecture once. Your internal team then builds on top of that foundation.",
     },
 
     {
       question: "Do you write or publish the content?",
       answer:
-        "No. Digitactics designs the architecture and the execution blueprint. Your internal team or external writers create the content based on that blueprint. This separation keeps the strategy independent and ensures the system can operate without long-term dependency on us.",
+        "No. Archoric designs the architecture and the execution blueprint. Your internal team or external writers create the content based on that blueprint. This separation keeps the strategy independent and ensures the system can operate without long-term dependency on us.",
     },
 
     {
@@ -36,7 +36,7 @@ export const faqCopy = {
     },
 
     {
-      question: "What is the first step to working with Digitactics?",
+      question: "What is the first step to working with Archoric?",
       answer:
         "Every engagement begins with the Trust Deficit Audit. This diagnostic evaluates your site across four dimensions: regulatory credibility signals, authority structure, topic territory, and competitive positioning. The result is a written scorecard and a prioritized map of the gaps preventing your content from compounding.",
     },
@@ -50,7 +50,7 @@ export const faqCopy = {
     {
       question: "Do you only work with Healthcare SaaS companies?",
       answer:
-        "Yes. Digitactics is built exclusively for Healthcare SaaS. The methodology, regulatory reference library, and territory intelligence behind OAA are designed for that environment and are not applied to unrelated industries.",
+        "Yes. Archoric is built exclusively for Healthcare SaaS. The methodology, regulatory reference library, and territory intelligence behind OAA are designed for that environment and are not applied to unrelated industries.",
     },
   ],
 };

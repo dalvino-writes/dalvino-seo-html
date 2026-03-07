@@ -1,8 +1,8 @@
 export const siteCopy = {
   brand: {
-    name: "D.digitactics",
+    name: "D.Archoric",
     title: "Architecture d'Autorité Healthcare SaaS",
-    full: "D.digitactics · Organic Authority Architecture pour le Healthcare SaaS",
+    full: "D.Archoric · Organic Authority Architecture pour le Healthcare SaaS",
   },
   nav: {
     home: "Accueil",
@@ -44,17 +44,17 @@ export const siteCopy = {
     cta: "Commencer avec l'Audit",
   },
   footer: {
-    copyright: "© 2025 D.digitactics. Tous droits réservés.",
+    copyright: "© 2025 D.Archoric. Tous droits réservés.",
     tagline: "Architecture d'autorité pour le Healthcare SaaS.",
   },
   about: {
-    tagline: "À propos · D.digitactics",
+    tagline: "À propos · D.Archoric",
     title: "Le contenu sans architecture, c'est du volume sans capitalisation.",
     bio: [
-      "D.digitactics est un cabinet d'architecture d'autorité. Pas une agence SEO. Pas un studio de contenu. Pas un abonnement mensuel.",
+      "D.Archoric est un cabinet d'architecture d'autorité. Pas une agence SEO. Pas un studio de contenu. Pas un abonnement mensuel.",
       "Nous existons parce que les entreprises Healthcare SaaS publiaient de plus en plus et progressaient de moins en moins. L'infrastructure sous-jacente à leur contenu était défaillante, et les cadres SEO standard n'étaient pas conçus pour y remédier.",
       "OAA — Organic Authority Architecture — est le cadre que nous avons construit pour combler cet écart. Il traite la conformité et l'autorité comme des inputs structurels, pas comme des considérations éditoriales secondaires.",
-      "Chaque engagement commence par l'Audit du Déficit de Confiance. Chaque blueprint est conçu pour être exécuté par l'équipe du client. Digitactics est l'architecte. Le client construit.",
+      "Chaque engagement commence par l'Audit du Déficit de Confiance. Chaque blueprint est conçu pour être exécuté par l'équipe du client. Archoric est l'architecte. Le client construit.",
     ],
     values: [
       {
@@ -134,34 +134,34 @@ export const siteCopy = {
     },
     footnote: "L'infrastructure d'autorité se capitalise. Le trafic payant s'arrête dès que le budget s'arrête.",
   },
-  whyDigitactics: {
-    tagline: "La Différence · Pourquoi Digitactics",
+  whyArchoric: {
+    tagline: "La Différence · Pourquoi Archoric",
     title: "Conçu exclusivement pour le Healthcare SaaS. Rien d'autre.",
     comparison: [
       {
         dimension: "Focus sectoriel",
         generic: "Cadres SEO généralistes appliqués à tout type de client",
-        digitactics: "Conçu exclusivement pour le Healthcare SaaS, où les standards YMYL s'appliquent",
+        Archoric: "Conçu exclusivement pour le Healthcare SaaS, où les standards YMYL s'appliquent",
       },
       {
         dimension: "Approche de la conformité",
         generic: "La conformité évoquée comme un sujet de contenu",
-        digitactics: "La crédibilité réglementaire traitée comme un signal de confiance structurel et démontrée au niveau des articles",
+        Archoric: "La crédibilité réglementaire traitée comme un signal de confiance structurel et démontrée au niveau des articles",
       },
       {
         dimension: "Stratégie de mots-clés",
         generic: "Recherche de mots-clés générique basée sur le volume et la difficulté",
-        digitactics: "Cartographie de territoire intégrant la dimension réglementaire, construite sur une base de données d'intelligence propriétaire",
+        Archoric: "Cartographie de territoire intégrant la dimension réglementaire, construite sur une base de données d'intelligence propriétaire",
       },
       {
         dimension: "Point d'entrée",
         generic: "Propositions gratuites et appels de découverte",
-        digitactics: "Diagnostic payant en premier. L'Audit est un produit, pas un argument de vente.",
+        Archoric: "Diagnostic payant en premier. L'Audit est un produit, pas un argument de vente.",
       },
       {
         dimension: "Modèle d'engagement",
         generic: "Production et gestion de contenu en continu",
-        digitactics: "Architecture stratégique livrée une fois, conçue pour se capitaliser sans dépendance continue",
+        Archoric: "Architecture stratégique livrée une fois, conçue pour se capitaliser sans dépendance continue",
       },
     ],
   },

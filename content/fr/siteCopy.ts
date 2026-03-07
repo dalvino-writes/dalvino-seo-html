@@ -1,8 +1,8 @@
 export const siteCopy = {
   brand: {
-    name: "Digitactics",
+    name: "Archoric",
     title: "Architecture d'Autorité Organique pour les SaaS de Santé",
-    full: "Digitactics · Architecture d'Autorité Organique pour les SaaS de Santé",
+    full: "Archoric · Architecture d'Autorité Organique pour les SaaS de Santé",
   },
 
   nav: {
@@ -98,33 +98,33 @@ export const siteCopy = {
       "Une architecture d'autorité produit un effet cumulatif. La publicité cesse dès que le budget s'arrête.",
   },
 
-  whyDigitactics: {
-    tagline: "Pourquoi Digitactics",
+  whyArchoric: {
+    tagline: "Pourquoi Archoric",
     title: "Conçu exclusivement pour les SaaS de santé.",
     comparison: [
       {
         dimension: "Positionnement",
         generic: "Agences SEO généralistes",
-        digitactics:
+        Archoric:
           "Architecture d'autorité conçue pour les SaaS de santé",
       },
       {
         dimension: "Approche conformité",
         generic: "La conformité comme sujet de contenu",
-        digitactics:
+        Archoric:
           "La conformité comme signal structurel démontré dans le contenu",
       },
       {
         dimension: "Engagement",
         generic: "Production continue de contenu",
-        digitactics:
+        Archoric:
           "Architecture stratégique conçue pour produire un effet cumulatif",
       },
     ],
   },
 
   footer: {
-    copyright: "© 2026 Digitactics. Tous droits réservés.",
+    copyright: "© 2026 Archoric. Tous droits réservés.",
     tagline: "Architecture d'autorité pour les SaaS de santé",
   },
 
@@ -132,10 +132,10 @@ export const siteCopy = {
     tagline: "À propos",
     title: "Le contenu sans architecture ne produit pas d'autorité.",
     bio: [
-      "Digitactics est un cabinet d'architecture d'autorité.",
+      "Archoric est un cabinet d'architecture d'autorité.",
       "Nous travaillons exclusivement avec des entreprises SaaS de santé.",
       "Notre rôle est de concevoir l'infrastructure stratégique qui permet à leur contenu de produire un effet cumulatif.",
-      "Derrière chaque engagement OAA se trouve Archoric — un système propriétaire développé et détenu par Digitactics qui gouverne l'ensemble du processus : les critères d'audit, la logique d'architecture, la couche de validation réglementaire, le séquençage du contenu. Il existe pour rendre le processus reproductible et les livrables cohérents d'un engagement à l'autre.",
+      "Derrière chaque engagement OAA se trouve Archoric — un système propriétaire développé et détenu par Archoric qui gouverne l'ensemble du processus : les critères d'audit, la logique d'architecture, la couche de validation réglementaire, le séquençage du contenu. Il existe pour rendre le processus reproductible et les livrables cohérents d'un engagement à l'autre.",
       "Ce qu'Archoric ne fait pas, c'est penser. Chaque engagement est piloté par un véritable Architecte qui analyse les données d'audit, sélectionne le territoire concurrentiel et prend les décisions qu'aucun système ne prend seul — celles qui déterminent si le blueprint que vous exécutez est le bon pour votre position spécifique sur le marché. Le système maintient le standard. L'Architecte décide où et comment il s'applique.",
     ],
     values: [],
