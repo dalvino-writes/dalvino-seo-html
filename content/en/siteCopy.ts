@@ -46,7 +46,7 @@ export const siteCopy = {
     cta: "Start with the Audit",
   },
   footer: {
-    copyright: "© 2025 Digitactics. All rights reserved.",
+    copyright: "© 2026 Digitactics. All rights reserved.",
     tagline: "Authority architecture for Healthcare SaaS.",
   },
   about: {
@@ -58,6 +58,8 @@ export const siteCopy = {
       "The problem was not effort. It was structure.",
       "Healthcare SaaS companies operate in one of the most scrutinized content environments on the internet. Google evaluates health category content against strict quality standards. Procurement teams evaluate vendors against demonstrated regulatory fluency, not declared compliance. Generic content programs do not meet either standard.",
       "OAA, Organic Authority Architecture, is the framework we built to address that gap. It treats compliance demonstration and proven expertise as structural inputs, not editorial afterthoughts. The result is a content foundation that compounds: each piece strengthens the site, each site strengthens the category position, and the pipeline grows without proportional spend increases.",
+      "Behind every OAA engagement is Archoric — a proprietary system built and owned by Digitactics that governs the entire process: the audit criteria, the architecture logic, the regulatory validation layer, the content sequencing. It exists to make the process repeatable and the output consistent across every engagement.",
+      "What Archoric does not do is think. Every engagement is led by a real Architect who reads the audit data, selects the competitive territory, and makes the calls that no system makes alone — the ones that determine whether the blueprint you execute from is the right one for your specific market position. The system holds the standard. The Architect decides where and how it gets applied.",
       "Every engagement starts with the Trust Deficit Audit. Every blueprint is built for the client's team to execute. Digitactics is the Architect. The client builds.",
     ],
     values: [
