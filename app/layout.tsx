@@ -3,7 +3,7 @@ import "./globals.css";
 import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dalvinoseo.com"),
+  metadataBase: new URL("https://archoric.com"),
   alternates: {
   canonical: "/",
 },
