@@ -44,8 +44,8 @@ export default function Contact() {
 
   const calendlyUrl =
     locale === "fr"
-      ? "https://calendly.com/dalvinoseo/new-meeting"
-      : "https://calendly.com/dalvinoseo/30min";
+      ? "https://calendly.com/" // todo : replace with fr calendly link
+      : "https://calendly.com/dalvino-archoric/30min";
 
   return (
     <div className="min-h-screen flex flex-col">
