@@ -44,8 +44,8 @@ export default function Contact() {
 
   const calendlyUrl =
     locale === "fr"
-      ? "https://calendly.com/dalvino-archoric/30min"
-      : "https://calendly.com/"; // todo : replace with fr calendly link
+      ? "https://calendly.com/" // todo : replace with fr calendly link
+      : "https://calendly.com/dalvino-archoric/30min";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -81,10 +81,10 @@ export default function Contact() {
                 </p>
 
                 <a
-                  href="mailto:dalvinoseo@gmail.com"
+                  href="mailto:dalvino@archoric.com"
                   className="inline-block text-sm font-semibold text-accent underline hover:no-underline"
                 >
-                  dalvinoseo@gmail.com
+                  dalvino@archoric.com
                 </a>
               </div>
             ) : (
