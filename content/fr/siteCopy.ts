@@ -6,15 +6,16 @@ export const siteCopy = {
   },
 
   nav: {
-    home: "Accueil",
-    services: "Services",
-    caseStudies: "OAA",
-    about: "À propos",
-    blog: "Blog",
-    contact: "Contact",
-    newsletter: "Newsletter",
-    faq: "FAQ",
-  },
+  home: "Accueil",
+  services: "Services",
+  oaa: "OAA",
+  caseStudies: "Études de cas",
+  about: "À propos",
+  blog: "Blog",
+  contact: "Contact",
+  newsletter: "Newsletter",
+  faq: "FAQ",
+},
 
   hero: {
     title:

@@ -7,7 +7,8 @@ export const siteCopy = {
   nav: {
     home: "Home",
     services: "Services",
-    caseStudies: "OAA",
+    oaa: "OAA",
+    caseStudies: "Case Studies",
     method: "Method",
     about: "About",
     blog: "Blog",
