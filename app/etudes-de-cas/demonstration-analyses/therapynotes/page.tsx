@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
 
@@ -40,13 +41,13 @@ export default function TherapyNotesAnalysisPage() {
               </p>
 
               <p>
-                Using the <strong>Layered Trust Defense Architecture (LTDA)</strong>{" "}
+                Using the{" "}
+                <strong>Layered Trust Defense Architecture (LTDA)</strong>{" "}
                 framework, we evaluated TherapyNotes across four credibility
                 layers.
               </p>
             </div>
 
-            {/* SCREENSHOT 1 + SCREENSHOT 2 */}
             <div className="grid gap-6 md:grid-cols-2 mb-14">
               <figure className="border border-border bg-card overflow-hidden">
                 <Image
@@ -154,7 +155,6 @@ export default function TherapyNotesAnalysisPage() {
                   HIPAA-compliant messaging system.”
                 </blockquote>
 
-                {/* SCREENSHOT 3 */}
                 <figure className="border border-border bg-card overflow-hidden mb-6">
                   <Image
                     src="/images/case-studies/therapynotes/therapynotes-hipaa-messaging.png"
@@ -202,7 +202,6 @@ export default function TherapyNotesAnalysisPage() {
                   from the ground up.
                 </p>
 
-                {/* SCREENSHOT 4 */}
                 <figure className="border border-border bg-card overflow-hidden mb-6">
                   <Image
                     src="/images/case-studies/therapynotes/therapynotes-privacy-by-design.png"
@@ -258,10 +257,10 @@ export default function TherapyNotesAnalysisPage() {
 
               <div className="space-y-6 text-base md:text-lg text-foreground leading-relaxed">
                 <p>
-                  TherapyNotes clearly deploys <strong>multiple layers of trust
-                  signals</strong>: regulatory language, security architecture
-                  claims, certification references, strong social proof, and
-                  operational reassurance.
+                  TherapyNotes clearly deploys{" "}
+                  <strong>multiple layers of trust signals</strong>: regulatory
+                  language, security architecture claims, certification
+                  references, strong social proof, and operational reassurance.
                 </p>
 
                 <p>
@@ -427,27 +426,6 @@ export default function TherapyNotesAnalysisPage() {
 
             <section>
               <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-6">
-                Curious What Your Trust Score Would Be?
-              </h2>
-
-              <p className="text-base md:text-lg text-foreground leading-relaxed mb-6">
-                Healthcare software buyers evaluate risk long before they commit
-                to a platform. If your website doesn’t clearly demonstrate how
-                your product protects them, trust can break long before the
-                trial stage.
-              </p>
-
-              <div className="border border-border bg-card p-8">
-                <p className="text-lg font-medium leading-relaxed">
-                  Request a Trust Deficit Audit to see where your trust
-                  architecture may be weakening your conversion path.
-                </p>
-              </div>
-            </section>
-
-            {/* SCREENSHOT 5 */}
-            <section>
-              <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-6">
                 Additional Operational Reassurance Signal
               </h2>
 
@@ -470,6 +448,50 @@ export default function TherapyNotesAnalysisPage() {
                   emphasizing availability, responsiveness, and human support.
                 </figcaption>
               </figure>
+            </section>
+
+            <section>
+              <div className="border border-border bg-card p-8 md:p-10">
+                <p className="text-sm font-semibold uppercase tracking-widest text-accent mb-3">
+                  Curious what your trust architecture is actually signaling?
+                </p>
+
+                <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-5">
+                  See where trust breaks before buyers disappear.
+                </h2>
+
+                <div className="space-y-5 text-base md:text-lg text-foreground leading-relaxed mb-8">
+                  <p>
+                    Healthcare software buyers evaluate risk before they
+                    evaluate features. When compliance, authority, and
+                    verification signals are fragmented, trust can erode long
+                    before a demo request or trial ever happens.
+                  </p>
+
+                  <p>
+                    The Trust Deficit Audit helps identify where your site is
+                    relying on claims instead of structural proof, where buyer
+                    validation paths break down, and where credibility signals
+                    need to be surfaced earlier in the journey.
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground font-semibold transition-opacity hover:opacity-90"
+                  >
+                    Request a Trust Deficit Audit
+                  </Link>
+
+                  <Link
+                    href="/method"
+                    className="inline-flex items-center justify-center px-6 py-3 border border-border font-semibold transition-colors hover:bg-muted"
+                  >
+                    Explore the Method
+                  </Link>
+                </div>
+              </div>
             </section>
 
             <section>
