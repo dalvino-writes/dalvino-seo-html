@@ -24,7 +24,7 @@ const Header = () => {
 ];
 
   return (
-    <header className="border-b border-border bg-background">
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-[#f6f4ef]/78 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] supports-[backdrop-filter]:bg-[#f6f4ef]/62">
       <div className="container flex items-center justify-between py-5">
         <Link href="/" className="font-heading text-lg font-bold tracking-tight text-primary">
           {site.brand.name}
