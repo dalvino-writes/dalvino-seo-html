@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
   if (host.startsWith("www.")) {
-    const newUrl = request.url.replace(`://${host}`, "://dalvinoseo.com");
+    const newUrl = request.url.replace(`://${host}`, "://archoric.com");
     return NextResponse.redirect(newUrl, 301);
   }
   return NextResponse.next();

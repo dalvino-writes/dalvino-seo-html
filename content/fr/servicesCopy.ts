@@ -53,4 +53,11 @@ export const servicesCopy = {
       timeline: "L'engagement commence avec l'Audit du Déficit de Confiance",
     },
   ],
+  approachLink: {
+  tagline: "Notre approche",
+  title: "Découvrez comment fonctionne l’audit",
+  description:
+    "Explorez les quatre couches de crédibilité, le modèle en 20 points et la manière dont le Trust Deficit Audit s’intègre dans le framework global d’Archoric.",
+  cta: "Voir notre approche",
+},
 };

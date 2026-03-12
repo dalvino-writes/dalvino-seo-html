@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
-        has: [{ type: "host", value: "www.dalvinoseo.com" }],
-        destination: "https://dalvinoseo.com/:path*",
+        has: [{ type: "host", value: "www.archoric.com" }],
+        destination: "https://archoric.com/:path*",
         permanent: true,
       },
     ];

@@ -9,7 +9,7 @@ export const siteCopy = {
     services: "Services",
     oaa: "OAA",
     caseStudies: "Case Studies",
-    method: "Method",
+    method: "Our Approach",
     about: "About",
     blog: "Blog",
     contact: "Contact",

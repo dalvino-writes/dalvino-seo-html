@@ -60,4 +60,11 @@ export const servicesCopy = {
       timeline: "Engagement begins with the Trust Deficit Audit.",
     },
   ],
+  approachLink: {
+  tagline: "Our Approach",
+  title: "See how the audit works",
+  description:
+    "Explore the four credibility layers, the 20-point model, and how the Trust Deficit Audit fits into the broader Archoric framework.",
+  cta: "View our approach",
+},
 };

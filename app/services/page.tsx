@@ -114,6 +114,21 @@ export default function Services() {
               </div>
             </div>
 
+            <div className="container max-w-3xl mt-24">
+              <p className="text-sm font-semibold uppercase tracking-widest text-accent mb-3">
+                {services.approachLink.tagline}
+              </p>
+              <h2 className="text-3xl md:text-4xl font-black leading-tight tracking-tight mb-6">
+                {services.approachLink.title}
+              </h2>
+              <p className="text-base md:text-lg text-foreground leading-relaxed mb-8">
+                {services.approachLink.description}
+              </p>
+              <Button asChild variant="outline" size="lg" className="font-semibold">
+                <Link href="/method">{services.approachLink.cta}</Link>
+              </Button>
+            </div>
+
             <div className="mt-16 text-center">
               <Button asChild size="lg" className="font-semibold">
                 <Link href="/contact">{services.cta}</Link>

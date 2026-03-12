@@ -13,14 +13,15 @@ const Header = () => {
   const { locale, setLocale } = useLocale();
 
   const navLinks = [
-    { to: "/", label: site.nav.home },
-    { to: "/services", label: site.nav.services },
-    { to: "/oaa", label: site.nav.oaa },
-    { to: "/etudes-de-cas", label: site.nav.caseStudies },
-    { to: "/a-propos", label: site.nav.about },
-    { to: "/blog", label: site.nav.blog },
-    { to: "/contact", label: site.nav.contact },
-  ];
+  { to: "/", label: site.nav.home },
+  { to: "/services", label: site.nav.services },
+  { to: "/oaa", label: site.nav.oaa },
+  { to: "/method", label: site.nav.method },
+  { to: "/etudes-de-cas", label: site.nav.caseStudies },
+  { to: "/a-propos", label: site.nav.about },
+  { to: "/blog", label: site.nav.blog },
+  { to: "/contact", label: site.nav.contact },
+];
 
   return (
     <header className="border-b border-border bg-background">
