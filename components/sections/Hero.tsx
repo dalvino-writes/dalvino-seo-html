@@ -10,14 +10,29 @@ const Hero = () => {
     <section className="pt-20 pb-24 md:pt-28 md:pb-32">
       <div className="container max-w-5xl">
         <div className="max-w-4xl rounded-[30px] border border-black/8 bg-white/40 backdrop-blur-xl px-8 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.06)]">
+
+          {/* Identity Bar */}
+          <div className="mb-6">
+            <p className="text-sm font-semibold tracking-wide text-[#163629]">
+              Dalvino Luce
+            </p>
+
+            <p className="text-xs uppercase tracking-[0.18em] text-[#4f635a]">
+              Healthcare SaaS Trust Architecture Strategist
+            </p>
+          </div>
+
+          {/* Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tighter mb-8 text-[#163629]">
             {site.hero.title}
           </h1>
 
+          {/* Subtitle */}
           <p className="text-base md:text-lg text-[#2f3e36] leading-relaxed mb-10 max-w-2xl whitespace-pre-line">
             {site.hero.subtitle}
           </p>
 
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
               asChild
@@ -36,6 +51,7 @@ const Hero = () => {
               <Link href="/etudes-de-cas">{site.hero.ctaSecondary}</Link>
             </Button>
           </div>
+
         </div>
       </div>
     </section>
