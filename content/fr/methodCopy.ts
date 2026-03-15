@@ -1,6 +1,6 @@
 export const methodCopy = {
   hero: {
-    tagline: "Notre Approche· Trust Deficit Audit",
+    tagline: "Notre Approche · Trust Deficit Audit",
     title: "Comment fonctionne le Trust Deficit Audit",
     subtitle:
       "Un diagnostic structuré pour les entreprises Healthcare SaaS qui doivent identifier où la confiance se dégrade à travers la conformité, la crédibilité opérationnelle, la structure d’autorité et la validation.",
@@ -9,10 +9,11 @@ export const methodCopy = {
 
   whyItExists: {
     tagline: "Pourquoi cet audit existe",
-    title: "La plupart des problèmes de crédibilité sont structurels avant d’être éditoriaux.",
+    title:
+      "La plupart des problèmes de crédibilité sont structurels avant d’être éditoriaux.",
     body: [
       "Beaucoup d’entreprises Healthcare SaaS n’ont pas d’abord un problème de contenu.",
-      "Elles ont un problème de structure de crédibilité.",
+      "Elles ont un problème d’infrastructure de crédibilité.",
       "Une entreprise peut publier des pages utiles, mentionner la conformité et expliquer correctement son produit en surface. Mais si les signaux de confiance plus profonds sont faibles, fragmentés ou difficiles à découvrir, la plateforme peut quand même paraître risquée.",
       "C’est précisément ce que le Trust Deficit Audit est conçu pour révéler.",
     ],
@@ -24,22 +25,22 @@ export const methodCopy = {
     intro: "L’audit examine quatre couches structurelles de crédibilité.",
     items: [
       {
-        name: "Profondeur Réglementaire & Conformité",
+        name: "Compréhension réglementaire & conformité",
         description:
           "Cette couche évalue si votre site démontre une compréhension réelle de l’environnement réglementaire de santé propre à votre marché. Elle examine si les affirmations de confiance sont soutenues par un cadrage clair, de la précision et des preuves visibles.",
       },
       {
-        name: "Maîtrise Opérationnelle",
+        name: "Maîtrise opérationnelle",
         description:
           "Cette couche évalue si votre contenu reflète une compréhension réelle des workflows de santé. Elle recherche des signes de réalité d’implémentation, d’interopérabilité et de maîtrise pratique, au-delà d’un simple discours marketing logiciel.",
       },
       {
-        name: "Architecture d’Autorité",
+        name: "Architecture d’autorité",
         description:
           "Cette couche évalue si les signaux de crédibilité sont réellement découvrables sur le site. Une expertise forte peut malgré tout sous-performer si l’architecture de l’information est fragmentée, déconnectée ou difficile à interpréter.",
       },
       {
-        name: "Validation & Transparence",
+        name: "Validation & transparence",
         description:
           "Cette couche évalue si vos affirmations sont renforcées par des signaux de confiance visibles tels que des études de cas, de l’attribution experte, des documents de preuve, des indicateurs de performance et d’autres formes de validation externe.",
       },
@@ -77,12 +78,12 @@ export const methodCopy = {
 
   deliverable: {
     tagline: "Ce que vous recevez",
-    title: "Un diagnostic, pas un simple audit de site",
+    title: "Un diagnostic structurel, pas un simple audit de site",
     items: [
       "Un score diagnostique structuré",
       "Une lecture répartie sur quatre couches de crédibilité",
       "L’identification des principales fuites de confiance",
-      "Une vision plus claire des signaux faibles ou absents",
+      "Une vision claire des signaux faibles ou absents",
       "Une direction stratégique sur la suite à donner",
     ],
     closing:
@@ -99,7 +100,7 @@ export const methodCopy = {
       "Organic Authority Architecture",
     ],
     body:
-      "La méthodologie définit comment la crédibilité est évaluée. L’audit rend le problème visible. Le framework en couches explique comment la confiance se dégrade à plusieurs niveaux. OAA est le framework d’implémentation utilisé pour renforcer ces signaux dans le temps.",
+      "La méthodologie définit comment la crédibilité est évaluée. L’audit révèle les faiblesses structurelles. Le modèle en couches explique où la confiance se dégrade. OAA est le cadre d’implémentation utilisé pour renforcer ces signaux dans le temps.",
   },
 
   clarification: {

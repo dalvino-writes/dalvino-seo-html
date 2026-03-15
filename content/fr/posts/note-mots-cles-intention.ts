@@ -1,27 +1,28 @@
 export const post = {
   id: "note-mots-cles-intention",
-  title: "Mot-clé ≠ intention. Et c'est là que tout se joue.",
-  excerpt: "Chercher un mot-clé sans comprendre l'intention, c'est comme crier dans le vide.",
-  category: "seo",
+  title: "Requête ≠ intention d'évaluation",
+  excerpt:
+    "Dans les marchés réglementés, une recherche n’est pas seulement une question. C’est souvent le début d’une évaluation de risque.",
+  category: "strategy",
   type: "visual-note",
-  date: "2025-02-18",
+  date: "2026-03-15",
   readTime: "2 min",
   content: [
     {
       type: "paragraph",
-      text: "Un mot-clé est une suite de mots. L'intention est la raison derrière ces mots. Ce n'est pas la même chose, et les confondre est l'une des erreurs les plus coûteuses en SEO.",
+      text: "Une requête de recherche est une suite de mots. L'intention d'évaluation est la raison pour laquelle ces mots sont tapés. Ce n'est pas la même chose, et confondre les deux est l'une des erreurs les plus fréquentes dans le contenu B2B.",
     },
     {
       type: "paragraph",
-      text: "Quelqu'un qui cherche 'stratégie de contenu SEO' veut peut-être comprendre ce que c'est, embaucher quelqu'un pour le faire, comparer des outils, ou trouver un modèle. Même mot-clé. Quatre intentions complètement différentes. Si vous rédigez un article informatif ciblant une intention transactionnelle, vous vous positionnerez pour la mauvaise audience et ne convertirez personne.",
+      text: "Quelqu'un qui cherche « logiciel gestion cabinet médical » peut vouloir comprendre le sujet, comparer des solutions, vérifier des exigences réglementaires ou préparer une décision interne. Même requête. Des intentions d’évaluation complètement différentes.",
     },
     {
       type: "paragraph",
-      text: "Avant d'écrire un seul mot, posez-vous la question : que veut vraiment cette personne quand elle tape cette requête ? Cherche-t-elle à apprendre quelque chose, à faire quelque chose, à trouver quelque chose ou à acheter quelque chose ? La réponse détermine tout : le format, le ton, l'appel à l'action et la structure de la page.",
+      text: "Si votre contenu répond uniquement à la surface de la requête sans comprendre l’étape réelle de l’acheteur, vous attirerez peut-être du trafic mais pas de confiance. Le contenu doit correspondre non seulement à la question, mais aussi au moment de décision dans lequel se trouve l’acheteur.",
     },
     {
       type: "paragraph",
-      text: "Les mots-clés vous font entrer dans la pièce. L'intention vous permet de conclure.",
+      text: "Les mots tapés dans la barre de recherche vous rendent visible. Comprendre l’intention d’évaluation vous rend crédible.",
     },
   ],
 };

@@ -1,12 +1,12 @@
 export const post = {
-  id: "customer-journey",
-  title: "Why Your Best Customers Never Find You",
+  id: "trust-fails-before-demo",
+  title: "Why Trust Fails Before the Demo",
   excerpt:
-    "Most founders build great products and invest in marketing then wonder why growth stalls. The answer is almost always a broken customer journey.",
+    "Most healthcare SaaS founders think buyers evaluate features first. In regulated environments, buyers evaluate risk first. That changes everything.",
   category: "strategy",
   type: "visual-note",
-  date: "2025-02-25",
-  readTime: "3 min",
+  date: "2026-03-15",
+  readTime: "4 min",
   htmlContent: `
     <style>
       .vn-wrap *, .vn-wrap *::before, .vn-wrap *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -196,156 +196,138 @@ export const post = {
     <div class="vn-wrap">
 
       <div class="vn-meta">
-        <span class="vn-meta-label">Visual Note · Content Strategy</span>
-        <span class="vn-tag">Customer Journey</span>
+        <span class="vn-meta-label">Visual Note · Healthcare SaaS Trust</span>
+        <span class="vn-tag">Trust Architecture</span>
       </div>
 
       <div class="vn-title-block">
         <div class="vn-number">VN 001</div>
-        <h1 class="vn-h1">Why Your Best<br/>Customers Never<br/>Find You.</h1>
-        <p class="vn-lead">Most founders build great products and invest in marketing then wonder why growth stalls. The answer is almost always a broken customer journey. Here's the framework to fix it.</p>
+        <h1 class="vn-h1">Why Trust Fails<br/>Before the<br/>Demo.</h1>
+        <p class="vn-lead">Most healthcare SaaS founders think the buying journey starts at the demo. In regulated environments, the real evaluation starts earlier. Buyers assess risk before they assess product depth.</p>
       </div>
 
       <div class="vn-reframe">
-        <div class="vn-reframe-label">The Core Misconception</div>
-        <div class="vn-reframe-text">A marketing funnel shows what <em>you</em> do to get a sale.<br/>A customer journey shows what <em>they</em> experience before saying yes and after. These are not the same thing. Optimizing only your funnel means fixing half the problem.</div>
+        <div class="vn-reframe-label">The Core Reframe</div>
+        <div class="vn-reframe-text">Healthcare software is rarely bought as a simple feature decision. It is filtered through <em>risk perception</em>, operational credibility, and trust signals. If those signals are weak, the demo never gets a fair chance.</div>
       </div>
 
-      <div class="vn-section-label">01 · Funnel Thinking vs. Journey Thinking</div>
+      <div class="vn-section-label">01 · Feature Evaluation vs. Risk Evaluation</div>
       <div class="vn-compare-grid">
         <div class="vn-compare-col">
-          <div class="vn-compare-col-label bad">Funnel mindset</div>
-          <div class="vn-compare-item">Focused on your conversion steps</div>
-          <div class="vn-compare-item">Ends at the sale</div>
-          <div class="vn-compare-item">Treats all leads the same</div>
-          <div class="vn-compare-item">Optimizes for volume</div>
-          <div class="vn-compare-item">Ignores post-purchase experience</div>
+          <div class="vn-compare-col-label bad">What founders assume</div>
+          <div class="vn-compare-item">Buyers compare feature lists first</div>
+          <div class="vn-compare-item">A strong demo can fix weak positioning</div>
+          <div class="vn-compare-item">Compliance is a later-stage concern</div>
+          <div class="vn-compare-item">Trust is mostly a brand or design issue</div>
+          <div class="vn-compare-item">Interest automatically leads to pipeline</div>
         </div>
         <div class="vn-compare-col">
-          <div class="vn-compare-col-label good">Journey mindset</div>
-          <div class="vn-compare-item">Focused on their decision process</div>
-          <div class="vn-compare-item">Continues through loyalty and referral</div>
-          <div class="vn-compare-item">Maps each stage of trust-building</div>
-          <div class="vn-compare-item">Optimizes for long-term value</div>
-          <div class="vn-compare-item">Turns clients into growth engines</div>
+          <div class="vn-compare-col-label good">What buyers actually do</div>
+          <div class="vn-compare-item">Scan for risk before engaging deeply</div>
+          <div class="vn-compare-item">Use trust signals to decide who is worth evaluating</div>
+          <div class="vn-compare-item">Look for evidence of regulatory awareness early</div>
+          <div class="vn-compare-item">Interpret weak structure as operational risk</div>
+          <div class="vn-compare-item">Drop vendors before the demo if trust feels incomplete</div>
         </div>
       </div>
-      <div class="vn-compare-caption">The difference compounds over time. Journey-led companies retain more, spend less on acquisition, and grow through referrals.</div>
+      <div class="vn-compare-caption">The first filter is rarely “can this platform do the job?” It is often “does this company feel safe enough to evaluate further?”</div>
 
-      <div class="vn-section-label">02 · The Six Stages Every B2B Buyer Goes Through</div>
+      <div class="vn-section-label">02 · The Four Layers Buyers Read Before They Buy</div>
       <div class="vn-timeline">
 
         <div class="vn-timeline-row">
           <div class="vn-t-marker"><div class="vn-t-dot green"></div><div class="vn-t-line"></div></div>
           <div class="vn-t-content">
-            <div class="vn-t-stage">Stage 01</div>
-            <div class="vn-t-title">They realize they have a problem</div>
-            <div class="vn-t-desc">Before they search for you, they're searching for answers. This is where your content either shows up or doesn't. Most founders miss this stage entirely because they only create sales pages, not educational content.</div>
-            <span class="vn-t-flag">Your content lives here</span>
+            <div class="vn-t-stage">Layer 01</div>
+            <div class="vn-t-title">Regulatory awareness</div>
+            <div class="vn-t-desc">Does the company show that it understands the compliance environment it sells into? Not with vague claims, but with signs of real domain awareness.</div>
+            <span class="vn-t-flag">Trust starts here</span>
           </div>
         </div>
 
         <div class="vn-timeline-row">
           <div class="vn-t-marker"><div class="vn-t-dot"></div><div class="vn-t-line"></div></div>
           <div class="vn-t-content">
-            <div class="vn-t-stage">Stage 02</div>
-            <div class="vn-t-title">They compare options</div>
-            <div class="vn-t-desc">They've identified 3–5 possible solutions. They're reading, comparing, and building an internal shortlist. Trust signals, clear positioning, and proof-of-results determine who makes the cut.</div>
+            <div class="vn-t-stage">Layer 02</div>
+            <div class="vn-t-title">Data trust</div>
+            <div class="vn-t-desc">Can buyers quickly understand how sensitive information is handled, protected, or governed? Silence here creates anxiety fast.</div>
           </div>
         </div>
 
         <div class="vn-timeline-row">
           <div class="vn-t-marker"><div class="vn-t-dot"></div><div class="vn-t-line"></div></div>
           <div class="vn-t-content">
-            <div class="vn-t-stage">Stage 03</div>
-            <div class="vn-t-title">They align with their team</div>
-            <div class="vn-t-desc">In B2B, one person rarely decides alone. Multiple stakeholders need to agree. The brand that makes this internal sell easiest with clear messaging and sharp case studies wins.</div>
-          </div>
-        </div>
-
-        <div class="vn-timeline-row">
-          <div class="vn-t-marker"><div class="vn-t-dot"></div><div class="vn-t-line"></div></div>
-          <div class="vn-t-content">
-            <div class="vn-t-stage">Stage 04</div>
-            <div class="vn-t-title">They test the relationship</div>
-            <div class="vn-t-desc">The first project is never just about the deliverable. It's a test of your responsiveness, clarity, and professionalism. First impressions post-sale are as critical as pre-sale marketing.</div>
-          </div>
-        </div>
-
-        <div class="vn-timeline-row">
-          <div class="vn-t-marker"><div class="vn-t-dot"></div><div class="vn-t-line"></div></div>
-          <div class="vn-t-content">
-            <div class="vn-t-stage">Stage 05</div>
-            <div class="vn-t-title">They hit a problem</div>
-            <div class="vn-t-desc">Every client relationship will face friction. How you handle that moment, speed, honesty, ownership determines whether they renew or leave and tell others why.</div>
+            <div class="vn-t-stage">Layer 03</div>
+            <div class="vn-t-title">Operational credibility</div>
+            <div class="vn-t-desc">Does the product and messaging reflect the real workflow logic of clinics, practices, or healthcare teams? Buyers look for operational fluency, not generic SaaS language.</div>
           </div>
         </div>
 
         <div class="vn-timeline-row">
           <div class="vn-t-marker"><div class="vn-t-dot green"></div><div class="vn-t-line" style="background:transparent"></div></div>
           <div class="vn-t-content">
-            <div class="vn-t-stage">Stage 06</div>
-            <div class="vn-t-title">They become your marketing department</div>
-            <div class="vn-t-desc">A client who reaches this stage refers others without being asked, defends your brand publicly, and comes back without needing a sales pitch. This is the stage most founders don't design for, it doesn't happen by accident.</div>
-            <span class="vn-t-flag">Highest ROI stage</span>
+            <div class="vn-t-stage">Layer 04</div>
+            <div class="vn-t-title">Structural proof</div>
+            <div class="vn-t-desc">Once the earlier layers feel credible, buyers look for reinforcement: proof, clarity, authority, and consistency across the journey. This is where trust compounds instead of leaking.</div>
+            <span class="vn-t-flag">Compounding layer</span>
           </div>
         </div>
 
       </div>
 
-      <div class="vn-section-label">03 · The Four Moments That Make or Break the Journey</div>
+      <div class="vn-section-label">03 · The Four Places Trust Usually Breaks</div>
       <div class="vn-insight">
         <div>
-          <div class="vn-insight-q">Moment 01 · Discovery</div>
-          <div class="vn-insight-a">Does your content answer the exact question they're asking right now? If not, a competitor does.</div>
+          <div class="vn-insight-q">Break 01 · Positioning</div>
+          <div class="vn-insight-a">The company says it serves healthcare, but the messaging could apply to any SaaS business. Buyers read that as distance from their world.</div>
         </div>
         <div>
-          <div class="vn-insight-q">Moment 02 · First contact</div>
-          <div class="vn-insight-a">Does your tone, speed, and clarity match what they expected? This is where most warm leads go cold.</div>
+          <div class="vn-insight-q">Break 02 · Compliance language</div>
+          <div class="vn-insight-a">Claims are vague, generic, or buried. Even if the product is sound, the information architecture fails to communicate safety.</div>
         </div>
         <div>
-          <div class="vn-insight-q">Moment 03 · First result</div>
-          <div class="vn-insight-a">Does your first deliverable match the promise you made during the sales conversation? Expectations set before the sale must be met after it.</div>
+          <div class="vn-insight-q">Break 03 · Operational mismatch</div>
+          <div class="vn-insight-a">The copy speaks in abstract software language instead of the real workflow pressures buyers deal with every day.</div>
         </div>
         <div>
-          <div class="vn-insight-q">Moment 04 · First friction</div>
-          <div class="vn-insight-a">When something goes wrong and it will, does your response build trust or destroy it? This moment determines loyalty more than any success.</div>
+          <div class="vn-insight-q">Break 04 · Proof gaps</div>
+          <div class="vn-insight-a">There is no clear bridge between claims and evidence. Without visible reinforcement, buyers default to caution.</div>
         </div>
       </div>
 
-      <div class="vn-section-label">04 · The AI Factor That Changes Everything</div>
+      <div class="vn-section-label">04 · What This Means for Healthcare SaaS Founders</div>
       <div class="vn-stats-row">
         <div class="vn-stat-block">
-          <div class="vn-stat-number"><span>80</span>%</div>
-          <div class="vn-stat-label">of B2B tech buyers now research vendors using AI tools before making any human contact with a brand.</div>
+          <div class="vn-stat-number"><span>4</span></div>
+          <div class="vn-stat-label">distinct trust layers shape how buyers interpret credibility before a trial or demo is seriously considered.</div>
         </div>
         <div class="vn-stat-block">
-          <div class="vn-stat-number"><span>40</span>%</div>
-          <div class="vn-stat-label">more likely: structured content in clear segments gets cited by AI search engines over dense, unbroken prose.</div>
+          <div class="vn-stat-number"><span>1</span></div>
+          <div class="vn-stat-label">weak structural layer can distort how the rest of the company is perceived, even when the product itself is strong.</div>
         </div>
       </div>
 
       <div class="vn-for-you">
-        <div class="vn-for-you-label">What this means if you're a founder building organic growth</div>
+        <div class="vn-for-you-label">If you are selling into regulated healthcare environments</div>
         <ul class="vn-for-you-list">
-          <li>Stage 01 now happens inside an AI chat window, not on Google. Your content needs to be structured for AI to cite it, not just indexed.</li>
-          <li>If you only have a homepage and a services page, you're invisible at the most critical stage of the journey.</li>
-          <li>Educational content articles, frameworks, visual notes is the only asset that compounds. Ads stop when you stop paying. Content doesn't.</li>
-          <li>Your post-sale experience is a content strategy problem. Case studies, onboarding clarity, and follow-up communication are all journey touchpoints.</li>
+          <li>Your website is not just a brochure. It is part of the buyer’s risk assessment process.</li>
+          <li>A strong product does not automatically create trust if the surrounding signals are weak or fragmented.</li>
+          <li>Compliance, workflow understanding, and proof should appear as part of a coherent structure, not as isolated claims.</li>
+          <li>The question is not only whether your platform is credible. It is whether that credibility is legible to the buyer early enough.</li>
         </ul>
       </div>
 
       <div class="vn-takeaway">
         <div class="vn-takeaway-label">The one thing to remember</div>
-        <div class="vn-takeaway-text">Your customer's journey starts long before they reach your website and ends long after they buy. The founders who win organic growth design for the whole arc, not just the moment of sale.</div>
+        <div class="vn-takeaway-text">In healthcare SaaS, buyers do not move from features to trust. They move from trust to features. If trust fails early, the rest of the buying journey never fully starts.</div>
       </div>
 
       <div class="vn-footer">
         <div class="vn-author">
           <strong>Dalvino Luce</strong>
-          Rédacteur Web · Stratégie de contenu
+          Healthcare SaaS Trust Architecture Strategist
         </div>
-        <div class="vn-watermark">dalvinoluce.com</div>
+        <div class="vn-watermark">archoric.com</div>
       </div>
 
     </div>

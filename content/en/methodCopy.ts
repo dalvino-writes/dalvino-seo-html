@@ -3,7 +3,7 @@ export const methodCopy = {
     tagline: "Our Approach · Trust Deficit Audit",
     title: "How the Trust Deficit Audit Works",
     subtitle:
-      "A structured diagnostic for Healthcare SaaS companies that need to identify where trust breaks down across compliance, operational credibility, authority structure, and validation.",
+      "A structured diagnostic for Healthcare SaaS companies that need to identify where trust weakens across compliance signals, operational credibility, authority structure, and validation.",
     cta: "Get Your Trust Deficit Audit",
   },
 
@@ -11,37 +11,38 @@ export const methodCopy = {
     tagline: "Why this audit exists",
     title: "Most credibility problems are structural before they are editorial.",
     body: [
-      "Many Healthcare SaaS companies do not have a content problem first.",
-      "They have a credibility structure problem.",
-      "A company may publish useful pages, mention compliance, and explain its product well enough on the surface. But if the deeper trust signals are weak, fragmented, or difficult to discover, the platform can still appear risky.",
-      "That is the problem the Trust Deficit Audit is designed to uncover.",
+      "Many Healthcare SaaS companies do not start with a content problem.",
+      "They start with a credibility structure problem.",
+      "A company may publish useful pages, reference compliance standards, and explain its product clearly on the surface. But if the deeper trust signals are weak, fragmented, or difficult to discover, the platform can still appear risky to buyers.",
+      "The Trust Deficit Audit is designed to make those structural weaknesses visible.",
     ],
   },
 
   layers: {
     tagline: "What the audit evaluates",
     title: "Four structural layers of credibility",
-    intro: "The audit examines four structural layers of credibility.",
+    intro:
+      "The audit examines four layers that collectively shape how credible a Healthcare SaaS company appears during buyer evaluation.",
     items: [
       {
         name: "Regulatory & Compliance Depth",
         description:
-          "This layer evaluates whether your site demonstrates real awareness of the healthcare regulatory environment relevant to your market. It looks at whether trust claims are supported with clear framing, specificity, and visible evidence rather than generic reassurance.",
+          "Evaluates whether the site demonstrates real awareness of the regulatory environment relevant to the product. It examines whether compliance claims are supported by specificity, framing, and visible supporting evidence rather than generic reassurance.",
       },
       {
         name: "Operational Fluency",
         description:
-          "This layer evaluates whether your content reflects real-world understanding of healthcare workflows. It looks for implementation reality, interoperability awareness, and language that demonstrates practical operational understanding rather than surface-level software marketing.",
+          "Evaluates whether the content reflects practical understanding of healthcare workflows. Buyers look for signs that the company understands implementation realities, interoperability constraints, and operational context.",
       },
       {
         name: "Authority Architecture",
         description:
-          "This layer evaluates whether credibility signals are actually discoverable across the site. Strong expertise can still underperform if the information architecture is fragmented, disconnected, or difficult to interpret.",
+          "Evaluates whether credibility signals are structurally discoverable across the site. Even strong expertise can underperform if the information architecture is fragmented, disconnected, or difficult to interpret.",
       },
       {
         name: "Validation & Transparency",
         description:
-          "This layer evaluates whether your claims are reinforced by visible trust signals such as case studies, expert attribution, trust-supporting documentation, performance indicators, and other forms of external validation.",
+          "Evaluates whether the company’s claims are reinforced by visible trust signals such as case evidence, expert attribution, documentation, or other forms of validation that reduce perceived risk.",
       },
     ],
   },
@@ -50,9 +51,9 @@ export const methodCopy = {
     tagline: "How the scoring works",
     title: "A structured 20-point diagnostic",
     body: [
-      "The Trust Deficit Audit uses a structured 20-point model across four layers.",
-      "Each layer contains five evaluation points.",
-      "Each signal is assessed based on visible evidence, not assumptions.",
+      "The Trust Deficit Audit applies a structured 20-point scoring model.",
+      "Each of the four credibility layers contains five evaluation signals.",
+      "Each signal is assessed based on visible evidence, not internal claims.",
     ],
     classifications: [
       { label: "Critical Trust Gap", score: "0–7" },
@@ -61,7 +62,7 @@ export const methodCopy = {
       { label: "Strong Trust Foundation", score: "16–20" },
     ],
     closing:
-      "The goal is not to reduce a site to a number. The goal is to make structural credibility weaknesses visible in a way that can be prioritized and acted on.",
+      "The purpose of the score is not to reduce a company to a number, but to make structural credibility weaknesses easier to prioritize and address.",
   },
 
   diagnosis: {
@@ -69,9 +70,9 @@ export const methodCopy = {
     title: "The Trust Gap",
     body: [
       "At Archoric, we use the term Trust Gap to describe the distance between what a vendor claims and what its information environment actually demonstrates.",
-      "That gap rarely comes from one missing page or one weak sentence.",
-      "It usually appears when multiple credibility layers are underdeveloped at the same time: vague regulatory language, limited operational detail, fragmented architecture, and weak validation.",
-      "The audit is designed to make that pattern visible.",
+      "That gap rarely comes from a single missing page or sentence.",
+      "More often, multiple credibility layers weaken simultaneously: vague regulatory framing, shallow operational language, fragmented architecture, or insufficient validation.",
+      "The audit is designed to identify those patterns before they undermine buyer confidence.",
     ],
   },
 
@@ -79,14 +80,14 @@ export const methodCopy = {
     tagline: "What you receive",
     title: "A diagnostic, not a generic website review",
     items: [
-      "A structured diagnostic score",
+      "A structured credibility score",
       "A breakdown across four credibility layers",
-      "Identification of the biggest trust leaks",
-      "A clearer view of where credibility signals are weak or missing",
-      "Strategic direction on what should happen next",
+      "Identification of the most significant trust gaps",
+      "Clear visibility into where credibility signals are weak or missing",
+      "Strategic direction on what should be strengthened first",
     ],
     closing:
-      "The result is a clearer picture of why trust may be underperforming across your site and what needs to be strengthened first.",
+      "The result is a clearer understanding of how your site currently communicates trust — and where credibility can be reinforced.",
   },
 
   flow: {
@@ -99,16 +100,16 @@ export const methodCopy = {
       "Organic Authority Architecture",
     ],
     body:
-      "The methodology defines how credibility is evaluated. The audit makes the trust problem visible. The layered framework explains how trust breaks down across multiple levels. OAA is the implementation framework used to strengthen those signals over time.",
+      "The scoring methodology defines how credibility signals are evaluated. The audit makes the structural trust gaps visible. The Layered Trust Defense Architecture explains how those gaps appear across the buyer journey. Organic Authority Architecture is the implementation framework used to strengthen those signals over time.",
   },
 
   clarification: {
     tagline: "Important clarification",
     title: "What this audit does and does not do",
     body: [
-      "The Trust Deficit Audit evaluates visible credibility signals.",
+      "The Trust Deficit Audit evaluates visible credibility signals across your public information environment.",
       "It does not verify a company’s internal legal compliance, internal security implementation, or private operational processes.",
-      "It evaluates how clearly trust is demonstrated to external evaluators, including buyers, search systems, and AI-driven discovery environments.",
+      "The audit focuses exclusively on how clearly trust is communicated to external evaluators such as buyers, analysts, and research systems.",
     ],
   },
 
@@ -116,7 +117,7 @@ export const methodCopy = {
     tagline: "Start with the diagnostic",
     title: "Structure before volume.",
     body:
-      "If your site is publishing content but still failing to project the level of trust your market requires, the issue may not be volume. It may be structure.",
+      "If your company is publishing consistently but still struggling to project the level of trust your market requires, the issue may not be volume. It may be structural credibility.",
     cta: "Get Your Trust Deficit Audit",
   },
 };

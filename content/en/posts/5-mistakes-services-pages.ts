@@ -1,55 +1,56 @@
 export const post = {
-  id: "5-mistakes-services-pages",
-  title: "5 mistakes I see on 90% of Services pages",
-  excerpt: "Your Services page is probably driving prospects away. Here's why.",
-  category: "content",
+  id: "5-trust-breaks-healthcare-saas",
+  title: "5 trust breaks I see on most Healthcare SaaS websites",
+  excerpt:
+    "Most Healthcare SaaS sites do not lose buyers because of weak products. They lose them because trust breaks before evaluation deepens.",
+  category: "strategy",
   type: "article",
-  date: "2025-02-12",
+  date: "2026-03-15",
   readTime: "5 min",
   content: [
     {
       type: "paragraph",
-      text: "Your Services page is doing one of two things: converting visitors into leads, or quietly driving them away. In my experience auditing dozens of business websites, the second outcome is far more common. Here are the five mistakes I see most often.",
+      text: "Most Healthcare SaaS websites are doing one of two things: reinforcing buyer confidence or quietly increasing perceived risk. In regulated environments, that second outcome is more common than founders realize. The product may be strong, but if the surrounding trust signals are weak, unclear, or fragmented, buyers hesitate before they ever reach serious evaluation.",
     },
     {
       type: "heading",
-      text: "1. Leading with what you do instead of what they get",
+      text: "1. Generic positioning that could belong to any SaaS company",
     },
     {
       type: "paragraph",
-      text: "Most Services pages open with a description of the provider. 'We are a full-service digital agency offering SEO, content, and social media management.' Nobody cares. Your visitor arrived with a problem. Lead with the outcome they are looking for, not a description of your process.",
+      text: "Many websites say they serve healthcare, but the messaging remains generic. The language could apply to sales software, HR software, or almost any B2B platform. In a regulated context, buyers look for signs that you understand their world specifically. If your positioning does not reflect healthcare realities, they start questioning whether your product understanding is equally shallow.",
     },
     {
       type: "heading",
-      text: "2. Using jargon that only insiders understand",
+      text: "2. Compliance language that is vague, buried, or disconnected",
     },
     {
       type: "paragraph",
-      text: "Terms like 'omnichannel strategy,' 'synergistic content ecosystem,' and 'holistic brand alignment' mean nothing to a founder trying to get more leads. Write in the language your clients use to describe their problems, not the language you use internally to describe your solutions.",
+      text: "Saying 'secure,' 'compliant,' or 'enterprise-grade' is not enough. Buyers need to understand what those claims actually mean in context. When compliance language is vague, hidden, or isolated from the rest of the journey, it creates ambiguity instead of reassurance. Even a strong product can feel risky when safety is communicated poorly.",
     },
     {
       type: "heading",
-      text: "3. No clear next step",
+      text: "3. Messaging that explains software but not workflow reality",
     },
     {
       type: "paragraph",
-      text: "A Services page without a single, clear call to action is a dead end. If your visitor has to scroll back to the top to find a contact link, you have already lost them. Every service description should end with one specific action: book a call, request a quote, or start a project.",
+      text: "A surprising number of Healthcare SaaS sites describe features clearly but fail to show real operational understanding. Buyers are not only asking what the platform does. They are asking whether your team understands the real pressure points inside clinics, practices, or healthcare operations. If your copy sounds abstract, polished, and generic, it weakens operational credibility.",
     },
     {
       type: "heading",
-      text: "4. Listing features instead of outcomes",
+      text: "4. Proof signals that are too thin to support the claims",
     },
     {
       type: "paragraph",
-      text: "'4 SEO articles per month' is a feature. 'Consistent organic traffic that brings qualified leads without ad spend' is an outcome. Clients do not buy deliverables. They buy results. Rewrite every service description around what changes for the client after working with you.",
+      text: "Claims without reinforcement create friction. Buyers want to see how your authority is supported across the site: evidence, clarity, consistency, and visible signs that the company can be trusted. When proof is weak or absent, buyers do not usually argue with you. They simply downgrade confidence and move on more cautiously.",
     },
     {
       type: "heading",
-      text: "5. No proof that it works",
+      text: "5. A journey that assumes interest automatically becomes trust",
     },
     {
       type: "paragraph",
-      text: "A Services page without social proof is an assertion. Add a specific result, a client quote, or a link to a case study next to each service. Even one concrete example transforms a claim into evidence. Evidence converts. Assertions do not.",
+      text: "Interest is not trust. A visitor can be curious about your platform and still feel uncertain about engaging further. Many sites assume that once a buyer arrives, the main job is to push toward a demo. In reality, there is often an earlier job: reducing uncertainty. If the site does not help buyers resolve risk questions first, conversion friction builds silently.",
     },
   ],
 };

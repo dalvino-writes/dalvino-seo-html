@@ -1,30 +1,31 @@
 export const caseStudiesCopy = {
-  tagline: "Études de cas · Architecture d’autorité en pratique",
-  title: "Ce que produit une infrastructure de contenu structurée.",
+  tagline: "Analyses stratégiques · Trust Architecture en pratique",
+  title: "Comment la crédibilité structurelle peut transformer l’évaluation d’un vendeur.",
   subtitle:
-    "Des missions réelles. Des résultats documentés. Chaque étude de cas montre ce qui change lorsqu’une entreprise SaaS de santé construit son contenu à partir d’une architecture.",
+    "Des analyses illustratives montrant comment une entreprise Healthcare SaaS peut réduire la friction de confiance, renforcer sa crédibilité réglementaire et rendre son évaluation plus fluide pour les acheteurs.",
 
   labels: {
     challenge: "Problème",
-    approach: "Approche",
-    results: "Résultats",
+    approach: "Analyse",
+    results: "Effet potentiel",
   },
 
   studies: [
     {
       id: "clinical-workflow-saas",
       client: "SaaS de gestion clinique",
-      sector: "SaaS de santé · opérations cliniques",
+      sector: "Healthcare SaaS · opérations cliniques",
       challenge:
-        "Dix huit mois de publication continue sans croissance organique cumulative.",
+        "Une entreprise peut publier régulièrement pendant des mois sans voir la confiance se cumuler si son contenu ne repose sur aucune structure de crédibilité visible. Le site peut sembler utile sans pour autant démontrer clairement une compréhension réglementaire ou une vraie légitimité aux yeux de l’acheteur.",
       approach:
-        "Le Trust Deficit Audit a révélé trois lacunes majeures. Absence de signaux d’autorité. Aucune démonstration réglementaire dans les contenus. Territoire de mots clés mal aligné.",
+        "Dans ce scénario, l’analyse met en évidence trois faiblesses structurelles : une architecture de crédibilité insuffisante à l’échelle du site, une faible démonstration de compréhension réglementaire dans les contenus publiés, et une logique éditoriale déconnectée des étapes réelles d’évaluation de l’acheteur. La réponse recommandée consiste à construire un pilier central de confiance, à réaligner les contenus sur les moments d’évaluation, et à intégrer les signaux de crédibilité de manière cohérente dans l’ensemble du parcours.",
       results: [
-        "Croissance organique mensuelle de 34 pour cent après quatre mois",
-        "Présence en première page sur onze requêtes stratégiques",
+        "Une meilleure lisibilité de l’expertise pour les acheteurs",
+        "Des signaux de crédibilité réglementaire plus visibles et mieux distribués",
+        "Une structure conçue pour faire cumuler la confiance plutôt que disperser l’attention",
       ],
       testimonial:
-        "Nous avions du contenu. Nous n’avions pas l’architecture qui lui permettait de produire un impact.",
+        "Analyse illustrative uniquement — pas un témoignage client.",
     },
   ],
 };

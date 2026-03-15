@@ -1,13 +1,13 @@
 export const caseStudiesCopy = {
-  tagline: "Case Studies · Credibility Architecture in Practice",
-  title: "What structural credibility changes in practice.",
+  tagline: "Strategic Analyses · Trust Architecture in Practice",
+  title: "How structural credibility can change buyer evaluation.",
   subtitle:
-    "Real engagements, documented outcomes. Each case study shows what changes when a Healthcare SaaS company stops publishing into a void and starts building from a credibility architecture.",
+    "Illustrative analyses showing how Healthcare SaaS companies can reduce trust friction, strengthen regulatory credibility, and make buyer evaluation easier through clearer structural signals.",
 
   labels: {
     challenge: "Challenge",
-    approach: "Approach",
-    results: "Results",
+    approach: "Analysis",
+    results: "Potential Shift",
   },
 
   studies: [
@@ -16,16 +16,16 @@ export const caseStudiesCopy = {
       client: "Clinical Workflow SaaS",
       sector: "Healthcare SaaS · Clinical Operations",
       challenge:
-        "Eighteen months of consistent publishing with no compounding effect. Outranked on every core topic by a competitor publishing half as frequently. No visible regulatory proof anywhere in the content.",
+        "A company may publish consistently for months without seeing trust compound if its content lacks a visible credibility structure. Messaging can remain informative while still failing to demonstrate regulatory awareness and buyer-relevant proof.",
       approach:
-        "The Trust Deficit Audit identified three critical gaps: no site-level credibility structure, no regulatory validation across 40 published articles, and a topic map disconnected from buyer evaluation. The OAA engagement followed. A central pillar asset was built. A related content system was mapped across all three stages of buyer evaluation. The Regulatory Validation Layer was deployed across both existing and new content.",
+        "In this scenario, the analysis focuses on three structural gaps: weak site-level credibility sequencing, limited regulatory validation across educational assets, and a topic architecture disconnected from real buyer evaluation stages. The recommended response is to build a central trust pillar, align content with evaluation intent, and integrate regulatory credibility signals across the journey.",
       results: [
-        "Organic sessions compounding at 34% month over month by month four",
-        "First-page rankings on 11 high-intent clinical workflow topics within six months",
-        "Competitor displaced from position one on two primary territory terms",
+        "Clearer alignment between educational content and buyer evaluation stages",
+        "Stronger visibility of regulatory and operational credibility signals",
+        "A content system designed to compound trust instead of scattering attention",
       ],
       testimonial:
-        "We had content. We did not have the structure underneath it. OAA gave us the foundation and the sequence to build from.",
+        "Illustrative analysis only — not a client testimonial.",
     },
 
     {
@@ -33,16 +33,16 @@ export const caseStudiesCopy = {
       client: "Patient Data Platform",
       sector: "Healthcare SaaS · Data Infrastructure",
       challenge:
-        "Strong product, weak digital credibility. Procurement-stage buyers could not find content that clearly demonstrated compliance well enough to support internal sign-off. Sales cycles were stalling at the validation stage.",
+        "A strong product can still feel risky when compliance language is isolated, static, or poorly connected to the rest of the site. In procurement-sensitive environments, buyers often need clearer support for internal validation.",
       approach:
-        "The Trust Deficit Audit revealed that the site claimed HIPAA and PIPEDA compliance on a single static page with no supporting proof. The OAA engagement built a Regulatory Validation Layer with embedded citations across every relevant content asset. Internal linking was redesigned so credibility accumulated toward the central pillar instead of being scattered across the site.",
+        "This analysis examines what happens when compliance claims appear in only one location without enough surrounding reinforcement. The recommended structural response is to distribute trust signals more clearly across relevant pages, strengthen proof pathways, and ensure credibility accumulates rather than remaining buried.",
       results: [
-        "Sales cycle length reduced by an average of 19 days within the first quarter after launch",
-        "Compliance-related content became the second-largest organic entry point within 90 days",
-        "Three enterprise procurement teams cited the content structure itself as a trust factor in signed contracts",
+        "Reduced ambiguity around compliance and data trust messaging",
+        "Better support for buyers navigating internal validation processes",
+        "A stronger bridge between product claims and perceived credibility",
       ],
       testimonial:
-        "Our buyers needed proof, not promises. The content architecture gave them something they could bring to their compliance teams.",
+        "Illustrative analysis only — not a client testimonial.",
     },
 
     {
@@ -50,16 +50,16 @@ export const caseStudiesCopy = {
       client: "Health Infrastructure SaaS",
       sector: "Healthcare SaaS · Interoperability",
       challenge:
-        "Entering a market with two established competitors that had already built strong content moats. No existing topical credibility. An internal content team ready to execute, but no architecture to build from.",
+        "When entering a market shaped by established competitors, publishing alone is rarely enough. Without a clear credibility position, a newer entrant may remain structurally weaker even with a capable internal team.",
       approach:
-        "The OAA engagement was designed for a market-entry context. Territory intelligence mapped competitor gaps across all three stages of buyer evaluation. The central pillar asset was positioned around an underserved regulatory angle that neither competitor had addressed. A 90-day phased blueprint was then handed to the client team for execution.",
+        "This scenario explores how trust architecture can be used in a market-entry context: identifying underdeveloped credibility angles, mapping buyer evaluation gaps, and designing a phased structure that allows content to reinforce authority instead of competing randomly.",
       results: [
-        "First-page presence on 8 target topics within five months of blueprint execution",
-        "Central pillar asset ranked above both established competitors on a primary territory term by month six",
-        "Content program producing compounding organic growth with no increase in publishing frequency",
+        "A clearer territory for differentiation in a crowded market",
+        "A phased architecture for building credibility with intent",
+        "A more efficient foundation for future content execution",
       ],
       testimonial:
-        "We entered a competitive market late. The blueprint showed us exactly where to build first and why. We did not waste a single piece of content.",
+        "Illustrative analysis only — not a client testimonial.",
     },
   ],
 };

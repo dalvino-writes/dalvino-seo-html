@@ -1,27 +1,28 @@
 export const post = {
-  id: "authority-is-published",
-  title: "Authority isn't declared. It's published.",
-  excerpt: "A note on the difference between saying you're an expert and proving it through content.",
+  id: "authority-is-structured",
+  title: "Trust isn't declared. It's structured.",
+  excerpt:
+    "In healthcare SaaS, credibility is not something you claim. It is something buyers infer from the signals your company publishes.",
   category: "strategy",
   type: "visual-note",
-  date: "2025-02-05",
+  date: "2026-03-15",
   readTime: "2 min",
   content: [
     {
       type: "paragraph",
-      text: "Anyone can write 'expert' in their bio. Anyone can list credentials on a LinkedIn profile. But the businesses that actually dominate their niche do something different: they publish their thinking consistently, in public, over time.",
+      text: "Any SaaS company can say they are secure, compliant, or trusted by healthcare teams. Those words appear on almost every website in the industry. Buyers know this, which is why they rarely rely on declarations alone.",
     },
     {
       type: "paragraph",
-      text: "Authority is not a status you claim. It is a reputation you build, one piece of content at a time. Every article that solves a real problem, every analysis that reveals something non-obvious, every case study that documents a real result — these are deposits in an authority account that compounds over time.",
+      text: "What buyers actually look for are signals that suggest the company understands the environment it sells into. Signs of regulatory awareness. Evidence of operational understanding. Proof that the product was designed with real workflows in mind.",
     },
     {
       type: "paragraph",
-      text: "The businesses I see struggling with visibility are almost always the ones waiting until they feel ready to publish. The ones winning are the ones who have been publishing for two years, imperfectly, consistently, and with genuine intent to be useful.",
+      text: "These signals rarely appear as a single page or claim. They emerge across the structure of the site: how compliance is explained, how workflows are described, how credibility is reinforced through examples, documentation, and clarity.",
     },
     {
       type: "paragraph",
-      text: "You do not need more credentials. You need more published thinking.",
+      text: "Trust is not built by saying you are credible. It is built when the structure of your information makes that credibility obvious.",
     },
   ],
 };

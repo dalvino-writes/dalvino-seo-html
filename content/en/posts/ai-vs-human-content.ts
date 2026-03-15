@@ -1,51 +1,60 @@
 export const post = {
-  id: "ai-vs-human-content",
-  title: "AI content vs human content: the real debate",
-  excerpt: "AI can write. But can it persuade? An analysis of what separates generic content from strategic content.",
-  category: "content",
+  id: "generic-vs-credible-content",
+  title: "Generic content vs credible content",
+  excerpt:
+    "AI can generate content at scale. But scale does not automatically create credibility.",
+  category: "strategy",
   type: "article",
-  date: "2025-01-28",
+  date: "2026-03-15",
   readTime: "8 min",
   content: [
     {
       type: "paragraph",
-      text: "AI can produce a 1500-word article in 30 seconds. It can optimize for keywords, match a tone, and structure an argument. So why would anyone pay a human writer in 2025? That is the question I get asked constantly. And the answer is not what most people expect.",
+      text: "AI can produce a 1500-word article in seconds. It can structure arguments, summarize information, and replicate writing styles convincingly. So why do some companies still struggle to generate trust with large amounts of content? Because content volume and credibility are not the same thing.",
     },
     {
       type: "heading",
-      text: "What AI does extremely well",
+      text: "What AI-generated content does extremely well",
     },
     {
       type: "paragraph",
-      text: "AI is exceptional at pattern recognition. It has read more content than any human ever could, and it knows how successful articles are structured. It can generate a first draft faster than any writer, handle repetitive content formats at scale, and never has a bad day. For high-volume, low-stakes content, AI is genuinely hard to beat on efficiency.",
+      text: "AI is exceptionally good at identifying patterns. It has absorbed millions of articles and understands how common topics are typically explained. It can generate drafts quickly, summarize existing knowledge, and help teams produce structured material efficiently. For documentation, summaries, and early drafts, AI can dramatically accelerate the writing process.",
     },
     {
       type: "heading",
-      text: "What AI cannot replicate",
+      text: "Where credibility begins to break",
     },
     {
       type: "paragraph",
-      text: "AI has no first-hand experience. It cannot tell you what it felt like to lose a client because of a poorly written Services page. It cannot describe the moment a content strategy clicked and organic traffic doubled in 90 days. It cannot interview your team and extract the specific insight that makes your business different from every competitor. Experience is the raw material of trust, and AI has none of it.",
+      text: "The problem appears when content tries to communicate expertise. Buyers evaluating a product or company are not only asking whether the information is correct. They are asking whether the people behind it actually understand the environment they are speaking about. Generic explanations rarely answer that question.",
     },
     {
       type: "heading",
-      text: "Why Google and AI engines are penalizing generic content",
+      text: "Why generic content feels interchangeable",
     },
     {
       type: "paragraph",
-      text: "Google's helpful content updates have made one thing clear: content that exists solely to rank, without adding genuine value, is being demoted. AI-generated content that lacks original perspective, real data, or first-hand expertise is exactly the kind of content these updates target. The irony is that the businesses rushing to produce AI content at scale are building on a foundation that search engines are actively undermining.",
+      text: "Most AI-generated content is built from patterns that already exist online. That makes it readable and structured, but it also makes it predictable. When multiple companies publish variations of the same explanation, none of them stand out as particularly authoritative. The result is content that fills space but does not strengthen credibility.",
     },
     {
       type: "heading",
-      text: "The hybrid that actually works",
+      text: "What creates credible content instead",
     },
     {
       type: "paragraph",
-      text: "The most effective content strategy I have seen combines both. Use AI for research, structure, and first drafts. Use human expertise to add original insight, real examples, and the kind of specific detail that only comes from doing the work. The result is content that is efficient to produce and impossible to replicate, because it is built on genuine experience.",
+      text: "Credible content usually reflects a specific perspective: observations from working with clients, patterns noticed across real projects, or frameworks developed from experience. These signals tell readers that the author is not simply repeating information but interpreting it through real exposure to the problem.",
+    },
+    {
+      type: "heading",
+      text: "The model that actually works",
     },
     {
       type: "paragraph",
-      text: "The question is not AI versus human. The question is whether your content contains something that only you could have written. If the answer is no, it will not perform. If the answer is yes, no AI can compete with it.",
+      text: "The strongest approach today combines both. AI accelerates drafting, research, and structure. Human expertise provides interpretation, context, and original thinking. When those elements work together, the result is content that is efficient to produce but still carries the signals buyers use to judge credibility.",
+    },
+    {
+      type: "paragraph",
+      text: "The real question is not whether AI writes the content. The question is whether the content communicates something that only your experience could produce. If it does not, it becomes interchangeable with thousands of other pages.",
     },
   ],
 };

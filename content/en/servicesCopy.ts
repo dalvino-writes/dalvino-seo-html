@@ -1,70 +1,86 @@
 export const servicesCopy = {
   tagline: "Services · What We Build and What We Do Not",
-  title: "Structural infrastructure, not content volume.",
+  title: "Credibility infrastructure. Not content production.",
   subtitle:
-    "Archoric builds one thing: the credibility foundation Healthcare SaaS companies need for their content to compound into pipeline. This is not an SEO retainer. This is not a content agency. This is not a monthly blog package.",
+    "Most Healthcare SaaS companies publish content that remains invisible to their best buyers. At Archoric, we don't just 'do marketing'. We build the Layered Trust Defense Architecture (LTDA),We provide the structural proof your buyers need to answer one question: “Is this safe?",
   cta: "Begin with the Audit",
   deliverablesLabel: "Deliverables",
+
   whoItsFor: {
     tagline: "Fit · Who This Is For",
-    title: "Built for one type of company.",
+    title: "Built for a specific type of company.",
     fitsLabel: "A strong fit",
     notFitsLabel: "Not a fit",
+
     fits: [
-      "Healthcare SaaS companies with an active content program that is not producing compounding organic growth",
-      "Companies operating in regulated markets (HIPAA, PIPEDA, GDPR, UK GDPR) that need their digital presence to reflect that",
-      "Internal teams that can execute from a blueprint but need the right infrastructure to build from",
+      "Healthcare SaaS companies publishing content that is not translating into buyer confidence or compounding organic visibility",
+      "Companies operating in regulated environments (HIPAA, PIPEDA, GDPR, UK GDPR) that need their digital presence to reflect that reality",
+      "Internal teams capable of executing content but lacking the structural architecture to build from",
     ],
+
     notFits: [
-      "Early-stage companies with no existing content program",
-      "Companies seeking ongoing monthly content production or management",
+      "Early-stage companies without an existing content or credibility foundation",
+      "Organizations looking for ongoing content writing or publishing services",
       "Businesses outside the Healthcare SaaS category",
     ],
   },
+
   offers: [
     {
       id: "trust-deficit-audit",
       name: "The Trust Deficit Audit",
+
       audience:
-        "For Healthcare SaaS companies with an active content program that is not producing compounding organic results",
+        "For Healthcare SaaS companies publishing consistently but still struggling to convert visibility into credibility and pipeline.",
+
       description:
-        "A paid diagnostic that scores your site across four dimensions: regulatory compliance demonstration, site-level credibility structure, topic leadership gaps, and competitive positioning.",
+        "A structured diagnostic that evaluates how your site communicates trust across four credibility layers: regulatory awareness, operational fluency, authority structure, and validation signals.",
+
       descriptionAccent:
-        "This is not a free proposal. It is a product. Every engagement begins here.",
+        "This is a standalone diagnostic product. Every engagement begins here.",
+
       deliverables: [
-        "Regulatory compliance audit — what your site claims versus what it actually demonstrates",
-        "Site credibility review — your proof of expertise assessed against Google's health-category standards",
-        "Topic leadership map — where you own ground, where competitors have taken it, and where gaps exist",
-        "Competitive positioning assessment — how your content infrastructure compares to your direct competitors",
-        "Written scorecard and gap priority map delivered at completion",
+        "Regulatory credibility review — how clearly your site demonstrates awareness of the healthcare compliance environment",
+        "Structural credibility audit — how trust signals appear across your information architecture",
+        "Topic territory analysis — where your expertise is visible, where competitors dominate, and where authority gaps exist",
+        "Competitive credibility comparison — how your trust signals compare to those of direct competitors",
+        "Written diagnostic scorecard with prioritized credibility gaps",
       ],
+
       timeline:
-        "€3,000 — credited in full against your OAA engagement if you proceed within 30 days",
+        "€3,000 — credited in full toward an Organic Authority Architecture engagement if you proceed within 30 days",
     },
+
     {
       id: "organic-authority-architecture",
       name: "Organic Authority Architecture",
+
       audience:
-        "For Healthcare SaaS companies ready to build content infrastructure their team can execute from",
+        "For Healthcare SaaS companies ready to build a credibility infrastructure their internal team can execute from.",
+
       description:
-        "A strategic infrastructure engagement. Archoric designs the architecture. Your team builds from the blueprint.",
+        "A strategic architecture engagement. Archoric designs the credibility structure. Your team builds the assets within that structure.",
+
       descriptionAccent:
-        "Archoric does not write, publish, or manage your content. We are the Architect. Not the builder.",
+        "Archoric designs the system. Your team executes the blueprint.",
+
       deliverables: [
-        "Central Pillar Asset — the credibility hub every supporting piece links through",
-        "Related Content System — a mapped content plan organized by buyer evaluation stage",
-        "Regulatory Validation Layer — the citation and compliance framework embedded in every relevant piece",
-        "Internal Linking Architecture — the link structure that builds site credibility instead of dispersing it",
-        "90-Day Phased Blueprint — the execution sequence, written for your team to run",
+        "Central Pillar Asset — the core credibility hub anchoring your authority territory",
+        "Related Content System — a mapped content structure aligned with buyer evaluation stages",
+        "Regulatory Credibility Layer — a framework for integrating compliance awareness into relevant content",
+        "Internal Linking Architecture — a link system designed to concentrate authority instead of dispersing it",
+        "90-Day Execution Blueprint — the build sequence your team follows to deploy the architecture",
       ],
-      timeline: "Engagement begins with the Trust Deficit Audit.",
+
+      timeline: "Every OAA engagement begins with the Trust Deficit Audit.",
     },
   ],
+
   approachLink: {
-  tagline: "Our Approach",
-  title: "See how the audit works",
-  description:
-    "Explore the four credibility layers, the 20-point model, and how the Trust Deficit Audit fits into the broader Archoric framework.",
-  cta: "View our approach",
-},
+    tagline: "Our Approach",
+    title: "Understand how the diagnostic works",
+    description:
+      "Explore the four credibility layers, the diagnostic model, and how the Trust Deficit Audit connects to the broader Archoric framework.",
+    cta: "View our approach",
+  },
 };

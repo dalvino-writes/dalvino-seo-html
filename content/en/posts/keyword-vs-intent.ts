@@ -1,27 +1,28 @@
 export const post = {
-  id: "keyword-vs-intent",
-  title: "Keyword ≠ intent. And that's where it all plays out.",
-  excerpt: "Targeting a keyword without understanding intent is like shouting into the void.",
-  category: "seo",
+  id: "trust-vs-features",
+  title: "Features ≠ trust. And that’s where the sale is lost.",
+  excerpt:
+    "In healthcare SaaS, product strength alone does not create buyer confidence. If trust fails first, features never get a fair evaluation.",
+  category: "strategy",
   type: "visual-note",
-  date: "2025-02-18",
+  date: "2026-03-15",
   readTime: "2 min",
   content: [
     {
       type: "paragraph",
-      text: "A keyword is a string of words. Intent is the reason behind those words. They are not the same thing, and confusing them is one of the most expensive mistakes in SEO.",
+      text: "A feature is product capability. Trust is perceived safety. They are not the same thing, and confusing them is one of the most expensive mistakes a healthcare SaaS company can make.",
     },
     {
       type: "paragraph",
-      text: "Someone searching 'SEO content strategy' might want to learn what it is, hire someone to do it, compare tools, or find a template. Same keyword. Four completely different intents. If you write an informational article targeting a transactional intent, you will rank for the wrong audience and convert nobody.",
+      text: "A buyer can look at the same platform and ask very different first questions: Does this team understand healthcare operations? Can they be trusted with sensitive data? Do they understand the regulatory environment we work in? Or only then: what does the software actually do? Same product. Completely different evaluation path.",
     },
     {
       type: "paragraph",
-      text: "Before writing a single word, ask: what does this person actually want when they type this query? Are they trying to learn something, do something, find something, or buy something? The answer determines everything: the format, the tone, the call to action, and the structure of the page.",
+      text: "Before trying to persuade with demos, feature lists, or product pages, ask a more structural question: what does this buyer need to believe before they are even willing to evaluate us seriously? That answer shapes positioning, proof, compliance messaging, and the way trust signals are sequenced across the site.",
     },
     {
       type: "paragraph",
-      text: "Keywords get you in the room. Intent gets you the deal.",
+      text: "Features get you considered. Trust gets you through the decision.",
     },
   ],
 };

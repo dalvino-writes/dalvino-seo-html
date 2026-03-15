@@ -8,49 +8,49 @@ export const faqCopy = {
     {
       question: "What exactly does Archoric do?",
       answer:
-        "Archoric designs the credibility architecture behind a Healthcare SaaS company's content. Instead of producing more articles, we build the structural foundation that determines whether your site is trusted by search engines, AI platforms, and prospective buyers. The result is content that compounds over time instead of disappearing into the noise.",
+        "Archoric helps Healthcare SaaS companies strengthen the trust signals buyers encounter before a demo, trial, or serious evaluation. The work focuses on structural credibility: how regulatory awareness, operational understanding, proof, and clarity are communicated across the site so the company feels safer to evaluate.",
     },
 
     {
       question: "What is Organic Authority Architecture (OAA)?",
       answer:
-        "Organic Authority Architecture (OAA) is the methodology Archoric uses to structure a Healthcare SaaS company's content ecosystem. It combines three structural components: a site-wide authority structure, a regulatory credibility layer that demonstrates compliance directly in the content, and a content map aligned to how healthcare buyers actually evaluate solutions.",
+        "Organic Authority Architecture (OAA) is the structural system Archoric uses to help a Healthcare SaaS company build credibility more coherently over time. It is designed to align content, proof, and trust signals around how buyers actually evaluate software in regulated environments, rather than around publishing activity alone.",
     },
 
     {
       question: "How is this different from hiring an SEO agency?",
       answer:
-        "SEO agencies typically focus on ongoing activity: keyword research, publishing schedules, and ranking improvements. Archoric focuses on the underlying structure that determines whether those efforts work in the first place. We design the architecture once. Your internal team then builds on top of that foundation.",
+        "Most SEO agencies focus on activity: keyword targets, content production, and ranking growth. Archoric focuses earlier in the chain, on the structural conditions that shape whether a Healthcare SaaS company feels credible enough to evaluate in the first place. The goal is not just more visibility, but stronger buyer confidence.",
     },
 
     {
       question: "Do you write or publish the content?",
       answer:
-        "No. Archoric designs the architecture and the execution blueprint. Your internal team or external writers create the content based on that blueprint. This separation keeps the strategy independent and ensures the system can operate without long-term dependency on us.",
+        "No. Archoric focuses on diagnosis, structure, and strategic direction. The output is the credibility architecture and the execution logic behind it. Your internal team, freelance writers, or external partners can then produce content from that foundation.",
     },
 
     {
       question: "Why is Healthcare SaaS treated differently?",
       answer:
-        "Healthcare software sits in what search engines classify as a high-credibility category. This means the standards for expertise, trust signals, and regulatory clarity are significantly higher than in most SaaS markets. Generic SEO frameworks rarely account for those requirements, which is why many Healthcare SaaS content programs publish consistently but fail to gain authority.",
+        "Healthcare SaaS buyers operate in a higher-risk environment than most software categories. They are often evaluating products through the lens of compliance, workflow impact, data sensitivity, and internal sign-off. That means credibility has to be communicated more clearly and more deliberately than in general SaaS markets.",
     },
 
     {
       question: "What is the first step to working with Archoric?",
       answer:
-        "Every engagement begins with the Trust Deficit Audit. This diagnostic evaluates your site across four dimensions: regulatory credibility signals, authority structure, topic territory, and competitive positioning. The result is a written scorecard and a prioritized map of the gaps preventing your content from compounding.",
+        "Every engagement begins with the Trust Deficit Audit. This diagnostic reviews how your company currently communicates trust across the buyer journey and identifies the structural gaps that may be weakening confidence before buyers ever reach serious product evaluation.",
     },
 
     {
       question: "How long does an OAA engagement take?",
       answer:
-        "The architecture itself is typically designed over several weeks. The final deliverable is a 90-day execution blueprint that your team implements. Because the system is structural rather than tactical, the benefits accumulate as more content is built on top of it.",
+        "The architecture work itself is designed over a focused engagement period, then translated into a practical blueprint your team can use. Because the work is structural, its value does not come from short-term activity alone, but from improving how credibility is built and reinforced over time.",
     },
 
     {
       question: "Do you only work with Healthcare SaaS companies?",
       answer:
-        "Yes. Archoric is built exclusively for Healthcare SaaS. The methodology, regulatory reference library, and territory intelligence behind OAA are designed for that environment and are not applied to unrelated industries.",
+        "Yes. Archoric is built specifically for Healthcare SaaS. The positioning, diagnostic lens, and trust architecture methodology are tailored to regulated healthcare software environments rather than generalized B2B marketing contexts.",
     },
   ],
 };
