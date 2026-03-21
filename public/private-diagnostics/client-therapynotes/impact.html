@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archoric Diagnostic - Revenue Suppression Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="client-data.js"></script>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    :root {
+      --bg-cream: #F7F4EE;
+      --primary-green: #1F3A2E;
+      --body-charcoal: #2F2F2F;
+      --muted-grey: #7A766F;
+      --accent-amber: #B88746;
+      --divider-line: #D8D2C8;
+      --danger-red: #B00020;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--body-charcoal);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .hidden { display: none !important; }
+    .serif { font-family: 'EB Garamond', serif; }
+
+    #audit-shell {
+      transition: filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease;
+    }
+
+    #audit-shell.is-locked {
+      filter: blur(4px);
+      opacity: 0.9;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #access-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(31, 58, 46, 0.02);
+      padding: 20px;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    #access-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .access-card {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 60px 40px;
+      width: 100%;
+      max-width: 460px;
+      border: 1px solid var(--divider-line);
+      box-shadow: 0 40px 80px rgba(31, 58, 46, 0.15);
+      text-align: center;
+    }
+
+    .access-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 28px;
+      color: var(--primary-green);
+      margin-bottom: 12px;
+    }
+
+    .access-subtitle {
+      font-size: 14px;
+      color: var(--body-charcoal);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .access-subtitle strong {
+      color: var(--primary-green);
+      font-weight: 700;
+    }
+
+    .access-input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--divider-line);
+      background: white;
+      font-size: 14px;
+      margin-bottom: 16px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .access-input:focus { border-color: var(--accent-amber); }
+
+    .access-btn {
+      background: var(--primary-green);
+      color: white;
+      width: 100%;
+      padding: 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .access-btn:hover {
+      background: #152920;
+      transform: translateY(-1px);
+    }
+
+    #access-error {
+      color: var(--danger-red);
+      font-size: 11px;
+      margin-top: 12px;
+      font-weight: 600;
+      min-height: 16px;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-anchor {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--muted-grey);
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      color: var(--primary-green);
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--muted-grey);
+      font-weight: 400;
+      max-width: 700px;
+      margin-bottom: 12px;
+    }
+
+    .system-context {
+      font-size: 14px;
+      color: var(--body-charcoal);
+      opacity: 0.8;
+      margin-bottom: 32px;
+      font-style: italic;
+    }
+
+    .methodology-strip {
+      background: rgba(31, 58, 46, 0.03);
+      border-left: 2px solid var(--primary-green);
+      padding: 20px 24px;
+      font-size: 13px;
+      color: var(--primary-green);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .assumptions-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .assumption-box {
+      border: 1px solid var(--divider-line);
+      padding: 16px;
+      background: white;
+      position: relative;
+    }
+
+    .label-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .label-tiny {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted-grey);
+      font-weight: 700;
+    }
+
+    .value-sm {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-green);
+    }
+
+    .tooltip-icon {
+      cursor: help;
+      color: var(--divider-line);
+      font-size: 10px;
+      border: 1px solid var(--divider-line);
+      border-radius: 50%;
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .tooltip-icon:hover {
+      opacity: 1;
+      border-color: var(--primary-green);
+      color: var(--primary-green);
+    }
+
+    .tooltip-text {
+      visibility: hidden;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      background-color: #1F3A2E;
+      color: white;
+      padding: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      z-index: 50;
+      font-size: 11px;
+      line-height: 1.5;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.2s ease;
+      pointer-events: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      text-align: left;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .label-wrap:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(-5px);
+    }
+
+    .reading-guidance {
+      font-size: 14px;
+      color: var(--muted-grey);
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--divider-line);
+      padding-bottom: 16px;
+      font-style: italic;
+    }
+
+    .flow-container {
+      margin-bottom: 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .flow-header-row {
+      display: grid;
+      grid-template-columns: 1fr 200px 1fr;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--primary-green);
+      padding-bottom: 12px;
+    }
+
+    .flow-header-text {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+    }
+
+    .flow-stage {
+      display: grid;
+      grid-template-columns: 1fr 200px 1fr;
+      align-items: center;
+      padding: 32px 0;
+      position: relative;
+      border-bottom: 1px solid var(--divider-line);
+    }
+
+    .flow-stage:last-child { border-bottom: 0; }
+
+    .flow-label-cell {
+      text-align: center;
+      padding: 0 20px;
+      z-index: 2;
+    }
+
+    .flow-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted-grey);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .flow-value {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .flow-left { text-align: right; color: var(--primary-green); padding-right: 40px; }
+    .flow-right { text-align: left; color: var(--accent-amber); padding-left: 40px; }
+
+    .loss-suffix {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-left: 8px;
+      opacity: 0.8;
+    }
+
+    .logic-trigger {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted-grey);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      transition: color 0.2s;
+    }
+
+    .logic-trigger:hover { color: var(--primary-green); }
+
+    .logic-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: rgba(31, 58, 46, 0.02);
+      font-size: 11px;
+      margin-top: 10px;
+    }
+
+    .logic-content.open {
+      max-height: 500px;
+      padding: 20px;
+      border: 1px dashed var(--divider-line);
+    }
+
+    .bridge-statement {
+      font-size: 15px;
+      color: var(--primary-green);
+      text-align: center;
+      max-width: 650px;
+      margin: 64px auto 40px;
+      font-style: italic;
+    }
+
+    .annual-impact-block {
+      text-align: center;
+      padding: 60px 60px 40px;
+      border: 1px solid var(--divider-line);
+      background: white;
+      margin-bottom: 40px;
+    }
+
+    .annual-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--muted-grey);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .big-annual-number {
+      font-size: 64px;
+      color: var(--primary-green);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .annual-clarifier {
+      font-size: 13px;
+      color: var(--muted-grey);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: -8px;
+      display: block;
+    }
+
+    .observable-loss-note {
+      font-size: 13px;
+      color: var(--muted-grey);
+      max-width: 480px;
+      margin: 24px auto 0;
+      line-height: 1.5;
+    }
+
+    .impact-context-block,
+    .pipeline-block,
+    .arr-impact-block {
+      padding: 32px;
+      background: white;
+      border: 1px solid var(--divider-line);
+      margin-bottom: 24px;
+    }
+
+    .context-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-amber);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .impact-context-block p,
+    .pipeline-block p,
+    .arr-impact-block p {
+      font-size: 14px;
+      color: var(--body-charcoal);
+      line-height: 1.6;
+    }
+
+    .conversion-uplift {
+      display: flex;
+      gap: 40px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--divider-line);
+    }
+
+    .conversion-uplift span {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--muted-grey);
+      margin-right: 8px;
+    }
+
+    .conversion-uplift b {
+      font-size: 18px;
+      color: var(--primary-green);
+    }
+
+    .pipeline-stats {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .pipeline-stats li {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-green);
+      padding: 12px;
+      background: rgba(31, 58, 46, 0.03);
+      border-left: 2px solid var(--primary-green);
+    }
+
+    .highlight {
+      font-weight: 600;
+      color: var(--primary-green);
+      background: rgba(184, 135, 70, 0.1);
+      padding: 4px 8px;
+      display: inline-block;
+      margin-top: 12px;
+    }
+
+    .scale-section {
+      padding-top: 40px;
+      border-top: 1px solid var(--divider-line);
+      margin-bottom: 60px;
+    }
+
+    .scale-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--body-charcoal);
+    }
+
+    .scale-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .scale-box {
+      background: white;
+      padding: 20px;
+      border: 1px solid var(--divider-line);
+    }
+
+    .bottom-note {
+      margin-top: auto;
+      padding-top: 40px;
+      border-top: 1px solid var(--divider-line);
+      font-size: 13px;
+      color: var(--muted-grey);
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    #admin-panel {
+      position: fixed;
+      right: -450px;
+      top: 0;
+      width: 450px;
+      height: 100vh;
+      background: white;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      padding: 2.5rem;
+      overflow-y: auto;
+      border-left: 1px solid var(--divider-line);
+    }
+
+    #admin-panel.open { right: 0; }
+
+    .admin-toggle {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: var(--primary-green);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      z-index: 1001;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    @media print {
+      #access-overlay, .admin-toggle, #admin-panel, .no-print {
+        display: none !important;
+      }
+
+      body { background-color: white; }
+
+      #audit-shell.is-locked {
+        filter: none;
+        opacity: 1;
+        pointer-events: auto;
+        user-select: auto;
+      }
+
+      .container { padding: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="access-overlay">
+    <div class="access-card">
+      <h2 class="access-title">Private Diagnostic Access</h2>
+      <p id="access-subtitle-text" class="access-subtitle">
+        This diagnostic was prepared for <strong id="access-client-name">Client</strong> and requires access credentials.
+      </p>
+      <input
+        type="password"
+        id="access-password"
+        class="access-input"
+        placeholder="Enter Password"
+        onkeypress="if(event.key==='Enter') unlockAudit()"
+      >
+      <button onclick="unlockAudit()" class="access-btn">Unlock Diagnostic</button>
+      <div id="access-error"></div>
+      <p class="text-[9px] text-gray-400 uppercase tracking-widest mt-8">Access restricted to intended recipient</p>
+    </div>
+  </div>
+
+  <div id="audit-shell" class="is-locked">
+    <div class="container">
+      <div class="brand-anchor">ARCHORIC CONSULTING</div>
+
+      <header>
+        <h1 class="serif page-title">Revenue Suppression Analysis</h1>
+        <p class="subtitle">Quantifying how trust-related friction suppresses pipeline generation and limits revenue potential before sales engagement.</p>
+        <p class="system-context">This model estimates not only what is lost due to trust leakage, but how much revenue remains inaccessible due to structural inefficiencies in the buyer journey.</p>
+      </header>
+
+      <div class="methodology-strip">
+        <strong>Methodology Note:</strong> This model integrates standard B2B SaaS benchmarks with the weighted Trust Leakage coefficient derived from your <strong><span id="disp-profile-name">Detected Profile</span></strong>. It maps the behavioral drop-off simulated in the previous journey map to tangible commercial outcomes.
+      </div>
+
+      <div class="assumptions-grid">
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">Monthly Traffic</span>
+            <span class="tooltip-icon">?</span>
+            <div class="tooltip-text">Estimated number of relevant visitors evaluating the platform monthly.</div>
+          </div>
+          <span class="value-sm" id="disp-traffic">1,000</span>
+        </div>
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">Current Conv.</span>
+            <span class="tooltip-icon">?</span>
+            <div class="tooltip-text">Percentage of visitors expected to convert into demo opportunities under current trust conditions.</div>
+          </div>
+          <span class="value-sm" id="disp-conv">2.0%</span>
+        </div>
+        <div class="assumption-box" style="border-color: var(--accent-amber);">
+          <div class="label-wrap">
+            <span class="label-tiny" style="color: var(--accent-amber);">Trust Leakage</span>
+            <span class="tooltip-icon" style="border-color: var(--accent-amber); color: var(--accent-amber);">?</span>
+            <div class="tooltip-text">Calculated percentage of qualified buyers exiting the journey due to the structural weaknesses of your current Trust Profile.</div>
+          </div>
+          <span class="value-sm text-[#B88746]" id="disp-leak">--%</span>
+        </div>
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">ACV</span>
+            <span class="tooltip-icon">?</span>
+            <div class="tooltip-text">Estimated Annual Contract Value generated per customer account.</div>
+          </div>
+          <span class="value-sm"><span class="currency-label">$</span><span id="disp-era">1,500</span></span>
+        </div>
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">Demo-to-Close</span>
+            <span class="tooltip-icon">?</span>
+            <div class="tooltip-text">Percentage of demos expected to convert into paying customers.</div>
+          </div>
+          <span class="value-sm" id="disp-close">5%</span>
+        </div>
+      </div>
+
+      <p id="disp-guidance" class="reading-guidance">
+        These inputs contrast expected target performance against the measurable drag created by trust drop-off.
+      </p>
+
+      <div class="flow-container">
+        <div class="text-[11px] font-bold uppercase tracking-widest text-[#B88746] mb-2">Performance Comparison: Target vs. Leakage</div>
+
+        <div class="flow-header-row">
+          <div class="flow-header-text text-right pr-10 text-[#1F3A2E]">Target Performance</div>
+          <div></div>
+          <div class="flow-header-text text-left pl-10 text-[#B88746]">Lost Due to Trust Friction</div>
+        </div>
+
+        <div class="flow-stage">
+          <div class="flow-left flow-value" id="disp-exp-demos">0</div>
+          <div class="flow-label-cell">
+            <div class="label-wrap justify-center">
+              <span class="flow-label">Monthly Demos <span class="tooltip-icon">?</span></span>
+              <div class="tooltip-text">
+                <strong>Target:</strong> Demos generated under ideal trust conditions.<br><br>
+                <strong>Lost:</strong> Potential demo requests lost due to unresolved trust signals.
+              </div>
+            </div>
+            <div class="text-[#D8D2C8] text-lg mt-1">→</div>
+          </div>
+          <div class="flow-right flow-value impact-value">
+            <span id="disp-lost-demos">0</span><span class="loss-suffix">Lost</span>
+          </div>
+        </div>
+
+        <div class="flow-stage">
+          <div class="flow-left flow-value" id="disp-exp-deals">0</div>
+          <div class="flow-label-cell">
+            <div class="label-wrap justify-center">
+              <span class="flow-label">Monthly Deals <span class="tooltip-icon">?</span></span>
+              <div class="tooltip-text">
+                <strong>Target:</strong> New accounts acquired monthly.<br><br>
+                <strong>Lost:</strong> Accounts not acquired due to reduced demo volume.
+              </div>
+            </div>
+            <div class="text-[#D8D2C8] text-lg mt-1">→</div>
+          </div>
+          <div class="flow-right flow-value impact-value">
+            <span id="disp-lost-deals">0</span><span class="loss-suffix">Lost</span>
+          </div>
+        </div>
+
+        <div class="flow-stage" style="background: rgba(31, 58, 46, 0.02); margin-top: 10px; border-radius: 4px;">
+          <div class="flow-left flow-value"><span class="currency-label">$</span><span id="disp-exp-rev">0</span></div>
+          <div class="flow-label-cell">
+            <div class="label-wrap justify-center">
+              <span class="flow-label">Monthly Impact <span class="tooltip-icon">?</span></span>
+              <div class="tooltip-text">
+                <strong>Target:</strong> Monthly revenue opportunity.<br><br>
+                <strong>Lost:</strong> Revenue leakage caused by trust gaps.
+              </div>
+            </div>
+            <div class="text-[#D8D2C8] text-lg mt-1">→</div>
+          </div>
+          <div class="flow-right flow-value impact-value">
+            <span class="currency-label">$</span><span id="disp-lost-rev">0</span><span class="loss-suffix">Lost</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="logic-trigger" onclick="toggleLogic()">
+        <span id="logic-icon">⊕</span> View Calculation Logic
+      </div>
+      <div id="logic-block" class="logic-content serif">
+        <div class="grid grid-cols-2 gap-x-12 gap-y-4 italic opacity-80">
+          <div>Monthly Demos = Traffic × Conversion Rate</div>
+          <div>Estimated Demos Lost = Monthly Demos × Trust Leakage %</div>
+          <div>Monthly Deals = Monthly Demos × Demo-to-Close</div>
+          <div>Estimated Deals Lost = Estimated Demos Lost × Demo-to-Close</div>
+          <div>Revenue Leakage = Estimated Deals Lost × (ACV ÷ 12)</div>
+          <div class="pt-4 border-t col-span-2">
+            <strong>Trust Leakage Logic:</strong><br>
+            Derived automatically from the Trust Weakness Index (TWI): (5 - Structural) + (5 - Validation), weighted against your specific profile range.
+          </div>
+        </div>
+      </div>
+
+      <p class="bridge-statement">
+        Even modest reductions in buyer progression compound significantly when trust gaps affect qualified traffic before sales engagement.
+      </p>
+
+      <div class="annual-impact-block">
+        <span class="annual-label">Directional Annualized Revenue Leakage</span>
+        <div class="big-annual-number serif"><span class="currency-label">$</span><span id="disp-annual-total">0</span></div>
+        <span class="annual-clarifier">Total Yearly Opportunity Loss</span>
+        <p class="observable-loss-note italic">
+          This represents only the directly observable loss. The broader impact lies in suppressed pipeline generation and unrealized conversion potential.
+        </p>
+      </div>
+
+      <div class="impact-context-block">
+        <div class="context-label">Relative Performance Impact</div>
+        <p id="disp-relative-context">
+          Based on the current trust structure, your platform is operating below its full conversion potential.
+        </p>
+        <div class="conversion-uplift">
+          <div><span>Current Conversion:</span> <b id="uplift-current">0%</b></div>
+          <div><span>Potential Conversion:</span> <b id="uplift-potential">0%</b></div>
+        </div>
+      </div>
+
+      <div class="pipeline-block">
+        <div class="context-label">Pipeline Expansion Potential</div>
+        <p id="disp-pipeline-context">
+          If trust leakage is reduced, the same traffic volume could generate significantly more qualified demos.
+        </p>
+        <ul class="pipeline-stats">
+          <li>Projected Demo Increase: <span id="stat-demo-inc">+0%</span></li>
+          <li>Projected Deal Increase: <span id="stat-deal-inc">+0%</span></li>
+        </ul>
+      </div>
+
+      <div class="arr-impact-block">
+        <div class="context-label">Revenue Opportunity Unlock</div>
+        <p id="disp-arr-context">
+          This reflects revenue currently inaccessible due to trust friction within the existing buyer journey.
+        </p>
+        <p class="highlight">
+          Improving trust structure can unlock a materially higher revenue ceiling from your current demand.
+        </p>
+      </div>
+
+      <section class="scale-section">
+        <h3 class="scale-title">Projected Impact at Growth Scale</h3>
+        <p class="text-[13px] text-[#7A766F] mb-6">At <span id="disp-scale-target" class="font-bold">10,000</span> monthly visitors, maintaining this same Trust Profile produces materially higher financial drag.</p>
+        <div class="scale-grid">
+          <div class="scale-box">
+            <span class="label-tiny">Scaled Monthly Deal Loss</span>
+            <div class="text-xl font-bold mt-2" id="disp-scale-deals">0</div>
+          </div>
+          <div class="scale-box">
+            <span class="label-tiny">Scaled Monthly Rev Leakage</span>
+            <div class="text-xl font-bold mt-2 text-[#B88746]"><span class="currency-label">$</span><span id="disp-scale-rev">0</span></div>
+          </div>
+          <div class="scale-box">
+            <span class="label-tiny">Scaled Annual Opportunity Loss</span>
+            <div class="text-xl font-bold mt-2 text-[#B88746]"><span class="currency-label">$</span><span id="disp-scale-annual">0</span></div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="bottom-note">
+        The following section identifies the highest-leverage structural fixes required to reduce trust leakage and recover this lost potential.
+      </footer>
+
+      <div class="no-print w-full flex justify-between items-center py-10 border-t border-[#D8D2C8] mt-12">
+        <a href="journey.html" style="color: #7A766F; text-decoration: none; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">← Journey Map</a>
+        <a href="index.html" style="color: #1F3A2E; text-decoration: none; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; opacity: 0.6;">Main Scorecard</a>
+        <a href="priority.html" style="background: #1F3A2E; color: white; padding: 12px 24px; text-decoration: none; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">Next: Priority Fixes →</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="admin-panel">
+    <h3 class="font-bold text-xl text-[#1F3A2E] serif mb-8">Strategic Variable Control</h3>
+    <div class="space-y-6">
+      <div class="bg-gray-50 p-3 border rounded mb-4">
+        <label class="label-tiny block mb-1">Detected Trust Identity</label>
+        <div id="admin-detected-profile" class="text-xs font-bold text-[#1F3A2E]">Analyzing...</div>
+      </div>
+      <div>
+        <label class="label-tiny">Currency Symbol</label>
+        <input type="text" id="in-currency" class="w-full border p-2 text-sm focus:outline-none focus:border-[#B88746]" oninput="calculate()">
+      </div>
+      <div>
+        <label class="label-tiny">Monthly Traffic</label>
+        <input type="number" id="in-traffic" class="w-full border p-2 text-sm focus:outline-none focus:border-[#B88746]" oninput="calculate()">
+      </div>
+      <div>
+        <label class="label-tiny">Current Conversion (%)</label>
+        <input type="number" id="in-conv" step="0.1" class="w-full border p-2 text-sm focus:outline-none focus:border-[#B88746]" oninput="calculate()">
+      </div>
+      <div>
+        <label class="label-tiny">Annual Contract Value (ACV)</label>
+        <input type="number" id="in-era" class="w-full border p-2 text-sm focus:outline-none focus:border-[#B88746]" oninput="calculate()">
+      </div>
+      <div>
+        <label class="label-tiny">Demo-to-Close (%)</label>
+        <input type="number" id="in-close" class="w-full border p-2 text-sm focus:outline-none focus:border-[#B88746]" oninput="calculate()">
+      </div>
+      <div class="pt-4 border-t">
+        <label class="label-tiny">Growth Scale Target (Traffic)</label>
+        <input type="number" id="in-scale-target" class="w-full border p-2 text-sm focus:outline-none focus:border-[#B88746]" oninput="calculate()">
+      </div>
+      <div class="pt-6 border-t">
+        <button onclick="resetAuditAccess()" class="w-full text-[10px] uppercase tracking-widest text-gray-400 hover:text-red-600 transition-colors">
+          Reset Session Access
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-toggle" onclick="toggleAdmin()">✨ Adjust Assumptions</div>
+
+  <script>
+    const utils = window.archoricAuditUtils;
+    const ACCESS = utils.getAccessConfig();
+
+    function setUnlockedState(isUnlocked) {
+      const shell = document.getElementById("audit-shell");
+      const overlay = document.getElementById("access-overlay");
+      const input = document.getElementById("access-password");
+      const button = document.querySelector(".access-btn");
+      const subtitle = document.getElementById("access-subtitle-text");
+      const accessName = document.getElementById("access-client-name");
+
+      if (accessName) accessName.textContent = ACCESS.companyName;
+
+      if (isUnlocked) {
+        shell.classList.remove("is-locked");
+        overlay.classList.add("hidden");
+        document.body.style.overflow = "auto";
+        return;
+      }
+
+      shell.classList.add("is-locked");
+      overlay.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+
+      if (!ACCESS.requirePresentationUnlock) {
+        subtitle.innerHTML = `This diagnostic was prepared for <strong>${ACCESS.companyName}</strong> and is being opened through a protected route.`;
+        if (input) input.classList.add("hidden");
+        if (button) button.classList.add("hidden");
+      } else {
+        subtitle.innerHTML = `This diagnostic was prepared for <strong>${ACCESS.companyName}</strong> and requires access credentials.`;
+      }
+    }
+
+    function checkAccess() {
+      if (ACCESS.adminMode) return setUnlockedState(true);
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
+
+      const unlocked = sessionStorage.getItem(ACCESS.accessKey) === "true";
+      setUnlockedState(unlocked);
+    }
+
+    function unlockAudit() {
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
+
+      const inputEl = document.getElementById("access-password");
+      const errorEl = document.getElementById("access-error");
+      const input = inputEl ? inputEl.value : "";
+
+      if (input === ACCESS.runtimePassword) {
+        sessionStorage.setItem(ACCESS.accessKey, "true");
+        if (errorEl) errorEl.innerText = "";
+        checkAccess();
+      } else {
+        if (errorEl) errorEl.innerText = "Incorrect password. Please try again.";
+        if (inputEl) inputEl.value = "";
+      }
+    }
+
+    function resetAuditAccess() {
+      sessionStorage.removeItem(ACCESS.accessKey);
+      location.reload();
+    }
+
+    function toggleAdmin() {
+      const panel = document.getElementById("admin-panel");
+      if (panel) panel.classList.toggle("open");
+    }
+
+    function toggleLogic() {
+      const block = document.getElementById("logic-block");
+      const icon = document.getElementById("logic-icon");
+      if (!block || !icon) return;
+      block.classList.toggle("open");
+      icon.innerText = block.classList.contains("open") ? "⊖" : "⊕";
+    }
+
+    function getGuidanceText(profileName, leakage) {
+      const guidance = {
+        "High-Trust Engine": `With your profile, expected targets are nearly aligned with potential. Your ${leakage}% leakage represents minor frictional drag rather than structural failure.`,
+        "Validation-Constrained": `Your profile successfully builds interest but fails to capture it. These inputs contrast your target performance against the significant drag created by validation gaps.`,
+        "Compliance-Heavy": `Your profile provides institutional safety but lacks operational utility. This data contrasts your targets against the heavy drag created by this clinical disconnect.`,
+        "Product-Centric Blind Spot": `Your profile generates product clarity but lacks framing trust. These figures contrast your expected growth against the material drag of low conviction.`,
+        "Fragmented Authority": `Your profile is suffering from a structural collapse. These inputs contrast your target performance against the catastrophic drag created by signal disconnects.`,
+        "Surface / Underdeveloped Trust System": `Your profile is structurally thin. These figures contrast your expected targets against the significant drag created by a lack of deep credibility.`
+      };
+      return guidance[profileName] || guidance["Surface / Underdeveloped Trust System"];
+    }
+
+    function getSuppressionNarrative(profileName) {
+      const narratives = {
+        "High-Trust Engine": {
+          relative: "Your platform is currently operating near peak efficiency. Suppression is localized to minor conversion gaps that, if optimized, represent a high-leverage final scaling step.",
+          pipeline: "Recovery efforts should focus on conversion path optimization rather than structural rebuilding. Small gains in trust will yield outsized revenue results at scale.",
+          arr: "This reflects the revenue unlock available from fine-tuning a high-performing system to capture the final remaining percentage of qualified demand."
+        },
+        "Fragmented Authority": {
+          relative: "Your current trust structure is causing a massive suppression of demand. Buyers are actively disqualifying themselves due to signal disconnects in the journey.",
+          pipeline: "By unifying your authority architecture, you could effectively increase qualified demo flow from your existing traffic volume without new marketing spend.",
+          arr: "This is currently hidden ARR. It exists within your current traffic but is structurally inaccessible until trust coherence is established."
+        },
+        "Product-Centric Blind Spot": {
+          relative: "Your product clarity is being suppressed by a framing deficit. Buyers understand the solution but do not trust the vendor enough to commit to a demo.",
+          pipeline: "Injecting high-fidelity trust signals will bridge the conviction gap, allowing interested traffic to convert into committed pipeline.",
+          arr: "This revenue is currently lost to late-stage evaluation hesitation. Trust-framing is the single highest-leverage unlock for your current journey."
+        }
+      };
+
+      return narratives[profileName] || {
+        relative: "Based on the current trust structure, your platform is operating below its full conversion potential. A significant portion of qualified traffic disengages before entering sales due to unresolved signals.",
+        pipeline: "If trust leakage is reduced, the same traffic volume could generate significantly more qualified demos and downstream revenue through improved journey velocity.",
+        arr: "This reflects revenue currently inaccessible due to trust friction within the existing buyer journey. Improving trust structure can unlock a materially higher revenue ceiling."
+      };
+    }
+
+    function hydrateInputsFromClientData() {
+      document.getElementById("in-currency").value = clientData.impact.currencySymbol || "$";
+      document.getElementById("in-traffic").value = Number(clientData.impact.monthlyTraffic) || 0;
+      document.getElementById("in-conv").value = Number(clientData.impact.currentConversionPercent) || 0;
+      document.getElementById("in-era").value = Number(clientData.impact.annualContractValue) || 0;
+      document.getElementById("in-close").value = Number(clientData.impact.demoToClosePercent) || 0;
+      document.getElementById("in-scale-target").value = Number(clientData.impact.growthScaleTarget) || 10000;
+    }
+
+    function calculate() {
+      const scores = utils.getScores(clientData.scores);
+      const profileName = utils.identifyProfile(scores.array);
+      const leakPercent = utils.computeLeakPercent(scores.array);
+      const leakage = leakPercent / 100;
+
+      const symbol = document.getElementById("in-currency").value || "$";
+      document.querySelectorAll(".currency-label").forEach(el => { el.innerText = symbol; });
+
+      document.getElementById("disp-profile-name").innerText = profileName;
+      document.getElementById("admin-detected-profile").innerText = profileName;
+
+      const traffic = parseFloat(document.getElementById("in-traffic").value) || 0;
+      const currentConv = (parseFloat(document.getElementById("in-conv").value) || 0) / 100;
+      const acv = parseFloat(document.getElementById("in-era").value) || 0;
+      const close = (parseFloat(document.getElementById("in-close").value) || 0) / 100;
+      const scaleTarget = parseFloat(document.getElementById("in-scale-target").value) || 10000;
+
+      const monthlyRevenuePerCustomer = acv / 12;
+
+      const expectedDemos = traffic * currentConv;
+      const expectedDeals = expectedDemos * close;
+      const expectedRevenue = expectedDeals * monthlyRevenuePerCustomer;
+
+      const lostDemos = expectedDemos * leakage;
+      const lostDeals = lostDemos * close;
+      const lostRevenue = lostDeals * monthlyRevenuePerCustomer;
+      const annualLoss = lostRevenue * 12;
+
+      const potentialConv = (1 - leakage) > 0 ? currentConv / (1 - leakage) : currentConv;
+      const upliftPercent = currentConv > 0 ? ((potentialConv - currentConv) / currentConv) * 100 : 0;
+
+      document.getElementById("disp-traffic").innerText = traffic.toLocaleString();
+      document.getElementById("disp-conv").innerText = (currentConv * 100).toFixed(1) + "%";
+      document.getElementById("disp-leak").innerText = leakPercent.toFixed(1) + "%";
+      document.getElementById("disp-era").innerText = acv.toLocaleString();
+      document.getElementById("disp-close").innerText = (close * 100).toFixed(0) + "%";
+
+      document.getElementById("disp-exp-demos").innerText = Math.round(expectedDemos);
+      document.getElementById("disp-exp-deals").innerText = expectedDeals.toFixed(1);
+      document.getElementById("disp-exp-rev").innerText = Math.round(expectedRevenue).toLocaleString();
+
+      document.getElementById("disp-lost-demos").innerText = Math.round(lostDemos);
+      document.getElementById("disp-lost-deals").innerText = lostDeals.toFixed(1);
+      document.getElementById("disp-lost-rev").innerText = Math.round(lostRevenue).toLocaleString();
+      document.getElementById("disp-annual-total").innerText = Math.round(annualLoss).toLocaleString();
+
+      document.getElementById("uplift-current").innerText = (currentConv * 100).toFixed(1) + "%";
+      document.getElementById("uplift-potential").innerText = (potentialConv * 100).toFixed(1) + "%";
+      document.getElementById("stat-demo-inc").innerText = "+" + upliftPercent.toFixed(0) + "%";
+      document.getElementById("stat-deal-inc").innerText = "+" + upliftPercent.toFixed(0) + "%";
+
+      document.getElementById("disp-guidance").innerText = getGuidanceText(profileName, leakPercent.toFixed(1));
+
+      const narrative = getSuppressionNarrative(profileName);
+      document.getElementById("disp-relative-context").innerText = narrative.relative;
+      document.getElementById("disp-pipeline-context").innerText = narrative.pipeline;
+      document.getElementById("disp-arr-context").innerText = narrative.arr;
+
+      document.getElementById("disp-scale-target").innerText = scaleTarget.toLocaleString();
+      const factor = traffic > 0 ? scaleTarget / traffic : 0;
+      document.getElementById("disp-scale-deals").innerText = (lostDeals * factor).toFixed(1);
+      document.getElementById("disp-scale-rev").innerText = Math.round(lostRevenue * factor).toLocaleString();
+      document.getElementById("disp-scale-annual").innerText = Math.round(annualLoss * factor).toLocaleString();
+    }
+
+    function setupAdminVisibility() {
+      if (!ACCESS.adminMode) {
+        const toggle = document.querySelector(".admin-toggle");
+        const panel = document.getElementById("admin-panel");
+        if (toggle) toggle.remove();
+        if (panel) panel.remove();
+      }
+    }
+
+    checkAccess();
+    hydrateInputsFromClientData();
+    calculate();
+    setupAdminVisibility();
+  </script>
+</body>
+</html>
