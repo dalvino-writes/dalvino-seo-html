@@ -9,8 +9,8 @@
   <script src="client-data.js"></script>
   <script>
   window.ARCHORIC_RUNTIME = {
-    requirePresentationUnlock: true,
-    accessPassword: "Audit2026"
+    requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
+    accessPassword: clientData.identity.accessPassword || ""
   };
 </script>
 

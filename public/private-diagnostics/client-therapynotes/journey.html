@@ -55,8 +55,8 @@ document.documentElement.classList.add("archoric-unlocked");
 
   <script>
   window.ARCHORIC_RUNTIME = {
-    requirePresentationUnlock: true,
-    accessPassword: "Audit2026"
+    requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
+    accessPassword: clientData.identity.accessPassword || ""
   };
 </script>
 <script>

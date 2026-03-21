@@ -7,11 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="client-data.js"></script>
-  <script>
-window.ARCHORIC_RUNTIME = {
-requirePresentationUnlock: true,
-accessPassword: "Audit2026"
-};
+ <script>
+  window.ARCHORIC_RUNTIME = {
+    requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
+    accessPassword: clientData.identity.accessPassword || ""
+  };
 </script>
 <script>
 (function () {
