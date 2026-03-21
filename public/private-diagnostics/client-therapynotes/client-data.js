@@ -7,7 +7,7 @@ const clientData = {
     auditDate: "March 2026",
     clientSegment: "Healthcare SaaS",
     clientRegion: "United States",
-    adminMode: true,
+    adminMode: false,
     presentationLockEnabled: false,
     geminiApiKey: "",
     geminiModel: "gemini-2.5-flash-preview-09-2025"
