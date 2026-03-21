@@ -7,8 +7,86 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="client-data.js"></script>
+  <script>
+window.ARCHORIC_RUNTIME = {
+requirePresentationUnlock: true,
+accessPassword: "Audit2026"
+};
+</script>
+<script>
+(function () {
+try {
+const key = `archoric_audit_unlocked_${clientData.identity.clientSlug}`;
+const runtime = window.ARCHORIC_RUNTIME || {};
+
+if (
+clientData.identity.adminMode ||
+!runtime.requirePresentationUnlock ||
+sessionStorage.getItem(key) === "true"
+) {
+document.documentElement.classList.add("archoric-unlocked");
+}
+} catch (e) {}
+})();
+</script>
+  <script>
+window.ARCHORIC_RUNTIME = {
+requirePresentationUnlock: true,
+accessPassword: "Audit2026"
+};
+</script>
+
+<script>
+(function () {
+try {
+const key = `archoric_audit_unlocked_${clientData.identity.clientSlug}`;
+const runtime = window.ARCHORIC_RUNTIME || {};
+
+if (
+clientData.identity.adminMode ||
+!runtime.requirePresentationUnlock ||
+sessionStorage.getItem(key) === "true"
+) {
+document.documentElement.classList.add("archoric-unlocked");
+}
+} catch (e) {}
+})();
+</script>
+
+  <script>
+  window.ARCHORIC_RUNTIME = {
+    requirePresentationUnlock: true,
+    accessPassword: "Audit2026"
+  };
+</script>
+<script>
+(function () {
+try {
+const key = `archoric_audit_unlocked_${clientData.identity.clientSlug}`;
+const runtime = window.ARCHORIC_RUNTIME || {};
+
+if (
+clientData.identity.adminMode ||
+!runtime.requirePresentationUnlock ||
+sessionStorage.getItem(key) === "true"
+) {
+document.documentElement.classList.add("archoric-unlocked");
+}
+} catch (e) {}
+})();
+</script>
   <meta name="robots" content="noindex, nofollow" />
   <style>
+    html.archoric-unlocked #access-overlay {
+display: none !important;
+}
+
+html.archoric-unlocked #audit-shell.is-locked {
+filter: none !important;
+opacity: 1 !important;
+pointer-events: auto !important;
+user-select: auto !important;
+}
     :root {
       --bg-cream: #F7F4EE;
       --primary-green: #1F3A2E;
