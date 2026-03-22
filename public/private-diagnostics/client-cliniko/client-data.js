@@ -7,7 +7,7 @@ const clientData = {
     auditDate: "March 2026",
     clientSegment: "Allied health practice management software",
     clientRegion: "UK GDPR",
-    adminMode: false,
+    adminMode: true,
     accessPassword: "Audit2026",
     presentationLockEnabled: true,
     geminiApiKey: "",
@@ -34,11 +34,11 @@ const clientData = {
 
   impact: {
     currencySymbol: "£",
-    monthlyTraffic: 0,
-    currentConversionPercent: 0,
-    annualContractValue: 0,
-    demoToClosePercent: 0,
-    growthScaleTarget: 0
+    monthlyTraffic: 1000,
+    currentConversionPercent: 2.0,
+    annualContractValue: 1500,
+    demoToClosePercent: 5.0,
+    growthScaleTarget: 15000,
   },
 
   methodology: {

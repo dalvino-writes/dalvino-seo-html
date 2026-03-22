@@ -4,419 +4,704 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Archoric Diagnostic - Methodology</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="client-data.js"></script>
-  
-<script>
-  window.ARCHORIC_RUNTIME = {
-    requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
-    accessPassword: clientData.identity.accessPassword || ""
-  };
-</script>
-<script>
-(function () {
-try {
-const key = `archoric_audit_unlocked_${clientData.identity.clientSlug}`;
-const runtime = window.ARCHORIC_RUNTIME || {};
-
-if (
-clientData.identity.adminMode ||
-!runtime.requirePresentationUnlock ||
-sessionStorage.getItem(key) === "true"
-) {
-document.documentElement.classList.add("archoric-unlocked");
-}
-} catch (e) {}
-})();
-</script>
-  <meta name="robots" content="noindex, nofollow" />
+  <script>
+    window.ARCHORIC_RUNTIME = {
+      requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
+      accessPassword: clientData.identity.accessPassword || ""
+    };
+  </script>
+  <meta name="robots" content="noindex, nofollow">
   <style>
-    
-html.archoric-unlocked #access-overlay {
-display: none !important;
-}
-
-html.archoric-unlocked #audit-shell.is-locked {
-filter: none !important;
-opacity: 1 !important;
-pointer-events: auto !important;
-user-select: auto !important;
-}
     :root {
-      --bg-cream: #F7F4EE;
-      --primary-green: #1F3A2E;
-      --body-charcoal: #2F2F2F;
-      --muted-grey: #7A766F;
-      --accent-amber: #B88746;
-      --divider-line: #D8D2C8;
-      --danger-red: #B00020;
+      --bg: #f3efe8;
+      --card: rgba(255,255,255,0.34);
+      --text: #2e2a26;
+      --text-strong: #221f1c;
+      --muted: #6e655c;
+      --line: #cfc4b4;
+      --strong: #8a5a44;
+      --accent: #b77b57;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 20px;
+      --danger: #a65151;
     }
 
-    body {
-      background-color: var(--bg-cream);
-      color: var(--body-charcoal);
+    html, body {
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
       margin: 0;
-      overflow-x: hidden;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .hidden { display: none !important; }
-    .serif { font-family: 'EB Garamond', serif; }
+    body.locked { overflow: hidden; }
 
-    #audit-shell {
-      transition: filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease;
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px 72px;
     }
 
-    #audit-shell.is-locked {
-      filter: blur(4px);
-      opacity: 0.9;
-      pointer-events: none;
-      user-select: none;
+    .eyebrow {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
     }
 
-    #access-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
+    h1, h2, h3, h4 {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text-strong);
+    }
+
+    h1 { font-size: clamp(40px, 7vw, 74px); line-height: 0.95; }
+    h2 { font-size: clamp(28px, 4.5vw, 48px); line-height: 1.02; }
+    h3 { font-size: 28px; line-height: 1.08; }
+    h4 { font-size: 22px; line-height: 1.15; }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(46,42,38,0.92);
+    }
+
+    .top-nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .top-nav-left, .top-nav-right {
       display: flex;
       align-items: center;
+      gap: 10px;
+    }
+
+    .top-nav-right { justify-content: flex-end; }
+
+    .nav-button, .home-button, .cta-button, .cta-secondary, .admin-fab, .admin-toggle, .save-button, .access-btn {
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
-      background: rgba(31, 58, 46, 0.02);
-      padding: 20px;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-
-    #access-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .access-card {
-      background: rgba(255, 255, 255, 0.92);
-      padding: 60px 40px;
-      width: 100%;
-      max-width: 460px;
-      border: 1px solid var(--divider-line);
-      box-shadow: 0 40px 80px rgba(31, 58, 46, 0.15);
-      text-align: center;
-    }
-
-    .access-title {
-      font-family: 'EB Garamond', serif;
-      font-size: 28px;
-      color: var(--primary-green);
-      margin-bottom: 12px;
-    }
-
-    .access-subtitle {
-      font-size: 14px;
-      color: var(--body-charcoal);
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
-
-    .access-subtitle strong {
-      color: var(--primary-green);
-      font-weight: 700;
-    }
-
-    .access-input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid var(--divider-line);
-      background: white;
-      font-size: 14px;
-      margin-bottom: 16px;
-      text-align: center;
-      outline: none;
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-    }
-
-    .access-input:focus { border-color: var(--accent-amber); }
-
-    .access-btn {
-      background: var(--primary-green);
-      color: white;
-      width: 100%;
-      padding: 14px;
-      font-size: 11px;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.55);
+      color: var(--text-strong);
+      font-size: 12px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-weight: 600;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, background 0.18s ease;
       cursor: pointer;
-      transition: all 0.2s;
-      border: none;
     }
 
-    .access-btn:hover {
-      background: #152920;
+    .nav-button:hover, .home-button:hover, .cta-button:hover, .cta-secondary:hover, .admin-fab:hover, .admin-toggle:hover, .save-button:hover, .access-btn:hover {
       transform: translateY(-1px);
     }
 
-    #access-error {
-      color: var(--danger-red);
-      font-size: 11px;
-      margin-top: 12px;
-      font-weight: 600;
-      min-height: 16px;
+    .home-button {
+      min-width: 180px;
+      background: linear-gradient(120deg, rgba(255,255,255,0.88), rgba(233,225,212,0.82));
     }
 
-    .container {
-      max-width: 850px;
-      margin: 0 auto;
-      min-height: 100vh;
-      padding: 80px 60px;
+    .hero-grid, .analysis-grid, .pillar-grid {
+      display: grid;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+      margin-bottom: 28px;
+    }
+
+    .analysis-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      margin-top: 26px;
+    }
+
+    .pillar-grid {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 10px;
+    }
+
+    .hero-card, .summary-card, .pillar-card, .panel-card, .scope-card, .cta-card, .overlay-card, .editor-card {
+      background: rgba(255,255,255,0.34);
+      border: 1px solid rgba(110,101,92,0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card, .summary-card, .panel-card, .scope-card, .cta-card {
+      padding: 28px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
       display: flex;
       flex-direction: column;
-      position: relative;
+      justify-content: space-between;
     }
 
-    .brand-anchor {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      color: var(--muted-grey);
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -30px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(183,123,87,0.18), transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-sub {
+      margin-top: 18px;
+      max-width: 720px;
+      font-size: 17px;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-pill {
+      border: 1px solid rgba(110,101,92,0.2);
+      background: rgba(255,255,255,0.48);
+      color: var(--muted);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 60px;
     }
 
-    .page-title {
-      font-size: 32px;
-      color: var(--primary-green);
-      margin-bottom: 8px;
-      font-weight: 400;
+    .summary-card {
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .subtitle {
+    .summary-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed rgba(110,101,92,0.28);
+      padding-bottom: 10px;
+      gap: 16px;
+    }
+
+    .summary-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .summary-value {
       font-size: 16px;
-      color: var(--muted-grey);
-      margin-bottom: 40px;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-align: right;
+      max-width: 62%;
     }
 
-    .intro-line {
-      font-size: 15px;
-      color: var(--body-charcoal);
-      margin-bottom: 50px;
-      max-width: 650px;
-      line-height: 1.7;
+    .summary-note {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(110,101,92,0.16);
+      color: rgba(46,42,38,0.78);
+      font-size: 14px;
     }
 
-    .methodology-pillar {
-      padding: 30px 0;
-      border-bottom: 1px solid var(--divider-line);
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 36px 0 20px;
     }
 
-    .pillar-header {
-      font-size: 18px;
-      color: var(--primary-green);
-      margin-bottom: 12px;
-      font-weight: 500;
+    .section-head p {
+      max-width: 640px;
+      color: rgba(46,42,38,0.76);
+    }
+
+    .pillar-card {
+      padding: 24px;
+      background: rgba(255,255,255,0.42);
+      min-height: 260px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 18px 18px auto;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(183,123,87,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .pillar-index {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 14px;
     }
 
     .pillar-text {
-      font-size: 14px;
-      color: var(--body-charcoal);
-      max-width: 600px;
+      margin-top: 14px;
+      font-size: 15px;
+      color: rgba(46,42,38,0.9);
+      max-width: 92%;
     }
 
-    .scope-container {
-      margin-top: 50px;
-      padding: 25px;
-      background: rgba(216, 210, 200, 0.25);
-      border-left: 3px solid var(--accent-amber);
+    .scope-card {
+      margin-top: 28px;
+      background: rgba(255,255,255,0.44);
+      border-left: 3px solid var(--accent);
     }
 
-    .scope-header {
+    .scope-label {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent-amber);
-      font-weight: 600;
-      margin-bottom: 8px;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 10px;
       display: block;
     }
 
     .scope-text {
-      font-size: 13px;
-      color: var(--muted-grey);
-      line-height: 1.6;
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(46,42,38,0.78);
+      font-style: italic;
     }
 
-    #admin-panel {
-      position: fixed;
-      right: -450px;
-      top: 0;
-      width: 450px;
-      height: 100vh;
-      background: white;
-      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-      z-index: 1000;
-      transition: right 0.3s ease;
-      overflow-y: auto;
-      padding: 2.5rem;
-      border-left: 1px solid var(--divider-line);
+    .panel-card {
+      padding: 24px;
+      position: relative;
     }
 
-    #admin-panel.open { right: 0; }
-
-    .admin-toggle {
-      position: fixed;
-      right: 24px;
-      bottom: 24px;
-      background: var(--primary-green);
-      color: white;
-      padding: 14px 24px;
-      border-radius: 999px;
-      cursor: pointer;
-      z-index: 1001;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      font-size: 13px;
-      font-weight: 600;
+    .panel-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 14px;
     }
 
-    .loading-spinner {
-      border: 2px solid #f3f3f3;
-      border-top: 2px solid var(--primary-green);
+    .panel-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .bullet {
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      width: 14px;
-      height: 14px;
-      animation: spin 1s linear infinite;
-      display: inline-block;
-      margin-right: 8px;
-      vertical-align: middle;
+      border: 1px solid rgba(110,101,92,0.26);
+      background: rgba(255,255,255,0.42);
+      margin-top: 4px;
     }
 
-    .disabled-btn {
-      opacity: 0.45;
-      cursor: not-allowed;
-      pointer-events: none;
+    .insight-block {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.28);
+      border: 1px solid rgba(110,101,92,0.18);
     }
 
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .insight-label {
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .cta-card {
+      margin-top: 36px;
+      text-align: center;
+      background: rgba(255,255,255,0.44);
+    }
+
+    .cta-copy {
+      max-width: 700px;
+      margin: 14px auto 0;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .cta-actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      border: none;
+      min-width: 220px;
+    }
+
+    .cta-secondary {
+      background: rgba(255,255,255,0.72);
+      min-width: 180px;
+    }
+
+    .admin-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 82;
+      display: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      border: none;
+    }
+
+    .archoric-unlocked .admin-fab { display: inline-flex; }
+
+    .admin-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 78px;
+      width: min(420px, calc(100vw - 32px));
+      max-height: 78vh;
+      overflow: auto;
+      padding: 22px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(110,101,92,0.22);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 80;
+    }
+
+    .archoric-unlocked .admin-panel.visible { display: block; }
+
+    .admin-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-panel h4 {
+      margin: 0;
+      font-size: 22px;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      color: var(--text-strong);
+    }
+
+    .editor-group {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .editor-card {
+      padding: 14px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 16px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.9);
+      font: inherit;
+      color: var(--text-strong);
+      box-sizing: border-box;
+      min-height: 42px;
+      outline: none;
+      resize: vertical;
+    }
+
+    textarea { min-height: 88px; }
+
+    .save-button {
+      width: 100%;
+      border: none;
+      margin-top: 16px;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,36,32,0.38);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 90;
+    }
+
+    .overlay.active { display: flex; }
+
+    .overlay-card {
+      width: min(480px, 100%);
+      padding: 28px;
+      background: rgba(255,255,255,0.94);
+    }
+
+    .overlay-card h3 { margin-bottom: 10px; }
+    .overlay-card p { color: rgba(46,42,38,0.76); margin-bottom: 18px; }
+
+    .access-btn {
+      width: 100%;
+      border: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .access-error {
+      color: var(--danger);
+      font-size: 12px;
+      min-height: 18px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid, .analysis-grid, .pillar-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .top-nav { grid-template-columns: 1fr; }
+      .top-nav-left, .top-nav-right { justify-content: center; }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell { padding: 20px 16px 48px; }
+      .hero-grid, .analysis-grid, .pillar-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head { flex-direction: column; align-items: start; }
+      .pillar-text { max-width: 100%; }
+    }
 
     @media print {
-      #access-overlay, .admin-toggle, #admin-panel, .no-print { display: none !important; }
-      body { background-color: white; }
-      #audit-shell.is-locked { filter: none; opacity: 1; pointer-events: auto; user-select: auto; }
-      .container { padding: 40px; }
+      .overlay, .admin-fab, .admin-panel, .top-nav { display: none !important; }
+      body { background: white; }
     }
   </style>
 </head>
 <body>
-  <div id="access-overlay">
-    <div class="access-card">
-      <h2 class="access-title">Private Diagnostic Access</h2>
-      <p id="access-subtitle-text" class="access-subtitle">
-        This diagnostic was prepared for <strong id="access-client-name">Client</strong> and requires access credentials.
-      </p>
-      <input
-        type="password"
-        id="access-password"
-        class="access-input"
-        placeholder="Enter Password"
-        onkeypress="if(event.key==='Enter') unlockAudit()"
-      >
-      <button onclick="unlockAudit()" class="access-btn">Unlock Diagnostic</button>
-      <div id="access-error"></div>
-      <p class="text-[9px] text-gray-400 uppercase tracking-widest mt-8">Access restricted to intended recipient</p>
+  <div class="overlay" id="accessOverlay">
+    <div class="overlay-card">
+      <div class="eyebrow">Private Diagnostic Access</div>
+      <h3>Methodology</h3>
+      <p>This diagnostic was prepared for <strong id="accessClientName">Client</strong> and requires access credentials.</p>
+      <label class="field-label" for="accessInput">Password</label>
+      <input class="input" id="accessInput" type="password" placeholder="Enter access password">
+      <button class="access-btn" id="unlockButton" type="button">Unlock Diagnostic</button>
+      <div class="access-error" id="accessError"></div>
     </div>
   </div>
 
-  <div id="audit-shell" class="is-locked">
-    <div class="container">
-      <div class="brand-anchor">ARCHORIC CONSULTING</div>
+  <div class="page-shell" id="auditShell">
+    <nav class="top-nav">
+      <div class="top-nav-left">
+        <a class="nav-button" href="priority.html">← Previous</a>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <a class="home-button" href="index.html">Main Scorecard</a>
+      </div>
+      <div class="top-nav-right">
+        <span class="nav-button" style="opacity:0.5;pointer-events:none;">Diagnostic Complete</span>
+      </div>
+    </nav>
 
-      <div class="title-block">
-        <h1 class="serif page-title">Methodology</h1>
-        <p class="subtitle">How trust is structurally evaluated, and where this private diagnostic fits within the broader Archoric system.</p>
+    <section class="hero-grid">
+      <article class="hero-card">
+        <div>
+          <div class="eyebrow">Methodology</div>
+          <h1>How this diagnostic evaluates trust.</h1>
+          <p class="hero-sub" id="displayIntro">
+            This document is a preliminary diagnostic derived from the Trust Deficit Audit™ framework. Its purpose is to surface likely trust friction, structural weaknesses, and directional impact before a deeper diagnostic engagement.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span class="meta-pill" id="metaClient">Client</span>
+          <span class="meta-pill">Trust Deficit Audit™</span>
+          <span class="meta-pill">Organic Authority Architecture</span>
+        </div>
+      </article>
+
+      <aside class="summary-card">
+        <div>
+          <div class="eyebrow">Method Summary</div>
+          <div class="summary-stack">
+            <div class="summary-row">
+              <span class="summary-label">Document Type</span>
+              <span class="summary-value">Preliminary Diagnostic</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Evaluation Basis</span>
+              <span class="summary-value" id="displayScoringBasisShort">Four-layer trust model</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Strategic Use</span>
+              <span class="summary-value">Buyer-friction interpretation</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Implementation Layer</span>
+              <span class="summary-value">Organic Authority Architecture</span>
+            </div>
+          </div>
+        </div>
+        <p class="summary-note" id="displayClosingNote">
+          This document surfaces where trust likely breaks. The full Trust Deficit Audit defines the deeper diagnostic path, and OAA provides the implementation layer for recovery.
+        </p>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Framework Pillars</div>
+          <h2>The three layers of this methodology</h2>
+        </div>
+        <p>
+          This page explains how the diagnostic interprets trust signals, where it stops, and how it connects into the broader Archoric system.
+        </p>
       </div>
 
-      <p id="display-intro" class="intro-line">
-        This document is a preliminary diagnostic derived from the Trust Deficit Audit™ framework. Its purpose is to surface likely trust friction, structural weaknesses, and directional impact before a deeper diagnostic engagement.
-      </p>
+      <div class="pillar-grid" id="pillarsContainer"></div>
 
-      <div id="pillars-container"></div>
-
-      <div id="display-scoring-basis" class="mt-8 text-[11px] text-[#7A766F] uppercase tracking-widest font-semibold">
-        This pre-audit draws from a structured four-layer evaluation model used to identify likely trust weaknesses across the buyer journey.
-      </div>
-
-      <div class="scope-container">
-        <span class="scope-header">Important Scope Note</span>
-        <p id="display-scope" class="scope-text italic">
+      <div class="scope-card">
+        <span class="scope-label">Important Scope Note</span>
+        <p class="scope-text" id="displayScope">
           This document evaluates how trust is communicated and perceived during buyer evaluation. It does not certify legal compliance, replace legal review, or serve as a regulatory opinion.
         </p>
       </div>
+    </section>
 
-      <div class="mt-12 pt-10 border-t border-[#D8D2C8] mb-12">
-        <p id="display-closing" class="text-[13px] text-[#7A766F] leading-relaxed">
-          This document surfaces where trust likely breaks. The full Trust Deficit Audit defines the deeper diagnostic path, and OAA provides the implementation layer for recovery.
-        </p>
-      </div>
+    <section class="analysis-grid">
+      <article class="panel-card">
+        <div class="eyebrow">Interpretive Reading</div>
+        <h2>How to read this diagnostic</h2>
+        <ul class="panel-list" id="interpretationList"></ul>
 
-      <div class="no-print w-full flex justify-between items-center py-10 border-t border-[#D8D2C8]">
-        <div style="flex: 1;">
-          <a href="priority.html" style="color: #7A766F; text-decoration: none; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">← Priority Fixes</a>
+        <div class="insight-block">
+          <div class="insight-label">Scoring Basis</div>
+          <p id="displayScoringBasis">
+            This pre-audit draws from a structured four-layer evaluation model used to identify likely trust weaknesses across the buyer journey.
+          </p>
         </div>
-        <div style="flex: 1; text-align: center;">
-          <a href="index.html" style="color: #1F3A2E; text-decoration: none; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; opacity: 0.6;">Main Scorecard</a>
+      </article>
+
+      <article class="panel-card">
+        <div class="eyebrow">System Position</div>
+        <h2>Where this page sits in the broader Archoric process</h2>
+        <ul class="panel-list" id="systemList"></ul>
+
+        <div class="insight-block">
+          <div class="insight-label">Closing Position</div>
+          <p id="displayClosing">
+            This document surfaces where trust likely breaks. The full Trust Deficit Audit defines the deeper diagnostic path, and OAA provides the implementation layer for recovery.
+          </p>
         </div>
-        <div style="flex: 1; text-align: right;">
-          <span style="color: #7A766F; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5;">Diagnostic Complete</span>
-        </div>
+      </article>
+    </section>
+
+    <section class="cta-card">
+      <div class="eyebrow">Next Step</div>
+      <h2>Review the diagnostic with Archoric.</h2>
+      <p class="cta-copy">
+        If these findings resonate, the next step is to discuss where trust is breaking, which layer is suppressing momentum most, and whether a deeper Trust Deficit Audit or implementation path is appropriate.
+      </p>
+      <div class="cta-actions">
+        <a class="cta-button" href="/contact/">Book a Diagnostic Review</a>
+        <a class="cta-secondary" href="/contact/">Contact Archoric</a>
       </div>
-    </div>
+    </section>
   </div>
 
-  <div id="admin-panel">
-    <div class="flex justify-between items-center mb-8">
-      <h3 class="font-bold text-xl text-[#1F3A2E] serif">Methodology Editor</h3>
-      <button onclick="toggleAdmin()" class="text-gray-400 hover:text-black text-2xl">✕</button>
+  <button class="admin-fab" id="adminFab" type="button">Method Editor</button>
+
+  <aside class="admin-panel" id="adminPanel">
+    <div class="admin-head">
+      <h4>Methodology Editor</h4>
+      <button class="admin-toggle" id="adminToggle" type="button">Minimize</button>
     </div>
 
-    <div class="space-y-6">
-      <div>
-        <label class="text-[10px] font-bold text-gray-400 uppercase">Audit Introduction</label>
-        <textarea id="in-intro" onchange="updateContent()" class="w-full border p-2 text-xs h-24 focus:outline-none focus:border-[#B88746]"></textarea>
+    <div class="editor-group">
+      <div class="editor-card">
+        <label class="field-label">Audit Introduction</label>
+        <textarea id="inIntro"></textarea>
       </div>
-
-      <div>
-        <label class="text-[10px] font-bold text-gray-400 uppercase">Scoring Basis</label>
-        <textarea id="in-scoring-basis" onchange="updateContent()" class="w-full border p-2 text-xs h-20 focus:outline-none focus:border-[#B88746]"></textarea>
+      <div class="editor-card">
+        <label class="field-label">Scoring Basis</label>
+        <textarea id="inScoringBasis"></textarea>
       </div>
-
-      <div>
-        <label class="text-[10px] font-bold text-gray-400 uppercase">Scope Note</label>
-        <textarea id="in-scope" onchange="updateContent()" class="w-full border p-2 text-xs h-20 focus:outline-none focus:border-[#B88746]"></textarea>
+      <div class="editor-card">
+        <label class="field-label">Scope Note</label>
+        <textarea id="inScope"></textarea>
       </div>
-
-      <div>
-        <label class="text-[10px] font-bold text-gray-400 uppercase">Closing Note</label>
-        <textarea id="in-closing" onchange="updateContent()" class="w-full border p-2 text-xs h-20 focus:outline-none focus:border-[#B88746]"></textarea>
+      <div class="editor-card">
+        <label class="field-label">Closing Note</label>
+        <textarea id="inClosing"></textarea>
       </div>
-
-      <div id="pillar-editors" class="space-y-4"></div>
-
-      <div class="pt-6 border-t">
-        <label class="text-[10px] font-bold text-gray-400 uppercase">✨ Archoric Strategic Advisor</label>
-        <button id="ai-btn" onclick="aiRefineMethodology()" class="w-full border-2 border-[#B88746] text-[#B88746] py-3 rounded text-xs font-bold mt-2 hover:bg-[#B88746] hover:text-white transition-all">
-          ✨ Refine Methodology Narrative
-        </button>
-      </div>
-
-      <div class="pt-6 border-t">
-        <button onclick="resetAuditAccess()" class="w-full text-[10px] uppercase tracking-widest text-gray-400 hover:text-red-600 transition-colors">
-          Reset Session Access
-        </button>
-      </div>
+      <div id="pillarEditors"></div>
     </div>
-  </div>
 
-  <div class="admin-toggle" onclick="toggleAdmin()">✨ Admin Tools</div>
+    <button class="save-button" id="saveSnapshotButton" type="button">Save Snapshot</button>
+  </aside>
 
   <script>
     const utils = window.archoricAuditUtils;
@@ -433,7 +718,7 @@ user-select: auto !important;
       ? JSON.parse(JSON.stringify(clientData.methodology.pillars))
       : [
           {
-            title: "1. Layered Trust Evaluation",
+            title: "1. 4 Layer Trust Model",
             text: "Buyer trust is formed through the accumulation of signals across multiple layers, not through isolated claims. When those layers are misaligned, buyers experience friction, hesitation, or silent disengagement before demo booking."
           },
           {
@@ -447,32 +732,16 @@ user-select: auto !important;
         ];
 
     function setUnlockedState(isUnlocked) {
-      const shell = document.getElementById("audit-shell");
-      const overlay = document.getElementById("access-overlay");
-      const input = document.getElementById("access-password");
-      const button = document.querySelector(".access-btn");
-      const subtitle = document.getElementById("access-subtitle-text");
-      const accessName = document.getElementById("access-client-name");
-
+      const overlay = document.getElementById("accessOverlay");
+      const accessName = document.getElementById("accessClientName");
       if (accessName) accessName.textContent = ACCESS.companyName;
 
       if (isUnlocked) {
-        shell.classList.remove("is-locked");
-        overlay.classList.add("hidden");
-        document.body.style.overflow = "auto";
-        return;
-      }
-
-      shell.classList.add("is-locked");
-      overlay.classList.remove("hidden");
-      document.body.style.overflow = "hidden";
-
-      if (!ACCESS.requirePresentationUnlock) {
-        subtitle.innerHTML = `This diagnostic was prepared for <strong>${ACCESS.companyName}</strong> and is being opened through a protected route.`;
-        if (input) input.classList.add("hidden");
-        if (button) button.classList.add("hidden");
+        overlay.classList.remove("active");
+        document.body.classList.remove("locked");
       } else {
-        subtitle.innerHTML = `This diagnostic was prepared for <strong>${ACCESS.companyName}</strong> and requires access credentials.`;
+        overlay.classList.add("active");
+        document.body.classList.add("locked");
       }
     }
 
@@ -487,138 +756,168 @@ user-select: auto !important;
     function unlockAudit() {
       if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
 
-      const input = document.getElementById("access-password").value;
-      const error = document.getElementById("access-error");
+      const inputEl = document.getElementById("accessInput");
+      const errorEl = document.getElementById("accessError");
+      const input = inputEl ? inputEl.value : "";
 
       if (input === ACCESS.runtimePassword) {
         sessionStorage.setItem(ACCESS.accessKey, "true");
-        if (error) error.innerText = "";
-        checkAccess();
+        if (errorEl) errorEl.innerText = "";
+        setUnlockedState(true);
       } else {
-        if (error) error.innerText = "Incorrect access credentials.";
-        document.getElementById("access-password").value = "";
+        if (errorEl) errorEl.innerText = "Incorrect access credentials.";
+        if (inputEl) inputEl.value = "";
       }
     }
 
-    function resetAuditAccess() {
-      sessionStorage.removeItem(ACCESS.accessKey);
-      location.reload();
-    }
-
-    function toggleAdmin() {
-      const panel = document.getElementById("admin-panel");
-      if (panel) panel.classList.toggle("open");
-    }
-
-    function renderReport() {
-      document.getElementById("display-intro").innerText = methodologyState.intro;
-      document.getElementById("display-scoring-basis").innerText = methodologyState.scoringBasis;
-      document.getElementById("display-scope").innerText = methodologyState.scope;
-      document.getElementById("display-closing").innerText = methodologyState.closing;
-
-      const container = document.getElementById("pillars-container");
-      container.innerHTML = pillars.map((p) => `
-        <div class="methodology-pillar">
-          <div class="serif pillar-header">${p.title}</div>
+    function renderPillars() {
+      const container = document.getElementById("pillarsContainer");
+      container.innerHTML = pillars.map((p, i) => `
+        <article class="pillar-card">
+          <div class="pillar-index">Pillar ${i + 1}</div>
+          <h3>${p.title}</h3>
           <p class="pillar-text">${p.text}</p>
-        </div>
+        </article>
       `).join("");
     }
 
+    function renderInterpretation() {
+      document.getElementById("interpretationList").innerHTML = `
+        <li><span class="bullet"></span><div><p>This page explains how the private diagnostic interprets trust signals before a deeper engagement begins.</p></div></li>
+        <li><span class="bullet"></span><div><p>The methodology translates buyer-facing trust friction into a structured reading of where confidence is likely weakening across the evaluation journey.</p></div></li>
+        <li><span class="bullet"></span><div><p>It is designed to orient decision-makers without exposing the full internal scoring system or implementation blueprint.</p></div></li>
+        <li><span class="bullet"></span><div><p>The stronger the alignment between these pillars, the easier it becomes for buyers to move from interest toward commitment.</p></div></li>
+      `;
+
+      document.getElementById("systemList").innerHTML = `
+        <li><span class="bullet"></span><div><p>This page positions the current document as a preliminary diagnostic rather than the full Trust Deficit Audit.</p></div></li>
+        <li><span class="bullet"></span><div><p>The full audit provides deeper structural scoring, trust profile confirmation, and tighter diagnosis of buyer leakage.</p></div></li>
+        <li><span class="bullet"></span><div><p>When implementation is needed, Organic Authority Architecture provides the authority-building system used to recover trust across the journey.</p></div></li>
+        <li><span class="bullet"></span><div><p>Together, these layers create a path from diagnosis to execution without blurring the role of each document.</p></div></li>
+      `;
+    }
+
+    function renderMethodology() {
+      document.getElementById("metaClient").textContent = clientData.identity.clientName || "Client";
+      document.getElementById("displayIntro").textContent = methodologyState.intro;
+      document.getElementById("displayScoringBasis").textContent = methodologyState.scoringBasis;
+      document.getElementById("displayScope").textContent = methodologyState.scope;
+      document.getElementById("displayClosing").textContent = methodologyState.closing;
+      document.getElementById("displayClosingNote").textContent = methodologyState.closing;
+      document.getElementById("displayScoringBasisShort").textContent = methodologyState.scoringBasis.length > 44
+        ? methodologyState.scoringBasis.slice(0, 44) + "…"
+        : methodologyState.scoringBasis;
+
+      renderPillars();
+      renderInterpretation();
+    }
+
     function renderEditors() {
-    const introEl = document.getElementById("in-intro");
-    const scoringEl = document.getElementById("in-scoring-basis");
-    const scopeEl = document.getElementById("in-scope");
-    const closingEl = document.getElementById("in-closing");
-    const container = document.getElementById("pillar-editors");
+      const introEl = document.getElementById("inIntro");
+      const scoringEl = document.getElementById("inScoringBasis");
+      const scopeEl = document.getElementById("inScope");
+      const closingEl = document.getElementById("inClosing");
+      const pillarEditors = document.getElementById("pillarEditors");
 
-  if (!introEl || !scoringEl || !scopeEl || !closingEl || !container) return;
+      introEl.value = methodologyState.intro;
+      scoringEl.value = methodologyState.scoringBasis;
+      scopeEl.value = methodologyState.scope;
+      closingEl.value = methodologyState.closing;
 
-    introEl.value = methodologyState.intro;
-    scoringEl.value = methodologyState.scoringBasis;
-    scopeEl.value = methodologyState.scope;
-    closingEl.value = methodologyState.closing;
+      pillarEditors.innerHTML = pillars.map((p, i) => `
+        <div class="editor-card">
+          <label class="field-label">${p.title}</label>
+          <textarea data-index="${i}" class="pillarArea">${p.text}</textarea>
+        </div>
+      `).join("");
 
-  container.innerHTML = pillars.map((p, i) => `
-    <div class="space-y-1">
-      <label class="text-[10px] font-bold text-[#1F3A2E] uppercase">${p.title}</label>
-      <textarea onchange="updatePillar(${i}, this.value)" class="w-full border p-2 text-xs h-20 focus:outline-none focus:border-[#B88746]">${p.text}</textarea>
-    </div>
-  `).join("");
-
-  const aiBtn = document.getElementById("ai-btn");
-  if (aiBtn && !ACCESS.apiKey) aiBtn.classList.add("disabled-btn");
-}
-
-    function updatePillar(i, val) {
-      pillars[i].text = val;
-      renderReport();
-    }
-
-    function updateContent() {
-      methodologyState.intro = document.getElementById("in-intro").value;
-      methodologyState.scoringBasis = document.getElementById("in-scoring-basis").value;
-      methodologyState.scope = document.getElementById("in-scope").value;
-      methodologyState.closing = document.getElementById("in-closing").value;
-      renderReport();
-    }
-
-    async function aiRefineMethodology() {
-      const btn = document.getElementById("ai-btn");
-      if (!btn || !ACCESS.apiKey) return;
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="loading-spinner"></span> Grounding Principles...';
-
-      const prompt = `Refine these methodology components for a premium Healthcare SaaS trust diagnostic. The page must position this document as a private preliminary diagnostic preview, while introducing the full Trust Deficit Audit as the deeper paid diagnostic and OAA as the implementation layer. Do not reveal scoring mechanics, formulas, or execution details. Return ONLY a JSON object with keys "intro", "scoringBasis", "scope", "closing", and "pillars". "pillars" must be an array of 3 objects with "title" and "text". Current state: ${JSON.stringify({ ...methodologyState, pillars })}`;
-
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${ACCESS.model}:generateContent?key=${ACCESS.apiKey}`;
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+      [introEl, scoringEl, scopeEl, closingEl].forEach((el, idx) => {
+        el.addEventListener("input", () => {
+          if (idx === 0) methodologyState.intro = el.value;
+          if (idx === 1) methodologyState.scoringBasis = el.value;
+          if (idx === 2) methodologyState.scope = el.value;
+          if (idx === 3) methodologyState.closing = el.value;
+          renderMethodology();
         });
+      });
 
-        const result = await response.json();
-        const text = result?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-        const cleanJson = text.replace(/```json|```/g, '').trim();
-        const refined = JSON.parse(cleanJson);
+      pillarEditors.querySelectorAll(".pillarArea").forEach(area => {
+        area.addEventListener("input", (e) => {
+          const i = parseInt(e.target.dataset.index, 10);
+          pillars[i].text = e.target.value;
+          renderMethodology();
+        });
+      });
+    }
 
-        if (refined && typeof refined === "object") {
-          methodologyState.intro = refined.intro || methodologyState.intro;
-          methodologyState.scoringBasis = refined.scoringBasis || methodologyState.scoringBasis;
-          methodologyState.scope = refined.scope || methodologyState.scope;
-          methodologyState.closing = refined.closing || methodologyState.closing;
-
-          if (Array.isArray(refined.pillars) && refined.pillars.length === 3) {
-            pillars = refined.pillars;
-          }
-
-          renderReport();
-          renderEditors();
+    function exportSnapshot() {
+      const snapshot = {
+        identity: clientData.identity,
+        methodology: {
+          intro: methodologyState.intro,
+          scoringBasis: methodologyState.scoringBasis,
+          scope: methodologyState.scope,
+          closing: methodologyState.closing,
+          pillars
         }
-      } catch (err) {
-        console.error("AI Refinement Error:", err);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = "✨ Refine Methodology Narrative";
-      }
+      };
+
+      const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${clientData.identity.clientSlug || "client"}-methodology-snapshot.json`;
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     function setupAdminVisibility() {
-      if (!ACCESS.adminMode) {
-        const toggle = document.querySelector(".admin-toggle");
-        const panel = document.getElementById("admin-panel");
-        if (toggle) toggle.remove();
-        if (panel) panel.remove();
+      const panel = document.getElementById("adminPanel");
+      const fab = document.getElementById("adminFab");
+      const toggle = document.getElementById("adminToggle");
+
+      function showPanel() {
+        panel.classList.add("visible");
+        toggle.textContent = "Minimize";
       }
+
+      function hidePanel() {
+        panel.classList.remove("visible");
+        toggle.textContent = "Open";
+      }
+
+      function togglePanel() {
+        if (panel.classList.contains("visible")) hidePanel();
+        else showPanel();
+      }
+
+      const isAdmin = !!clientData.identity.adminMode;
+
+      if (!isAdmin) {
+        document.documentElement.classList.remove("archoric-unlocked");
+        sessionStorage.removeItem(ACCESS.accessKey);
+        hidePanel();
+        fab.style.display = "none";
+        return;
+      }
+
+      document.documentElement.classList.add("archoric-unlocked");
+      hidePanel();
+
+      fab.addEventListener("click", togglePanel);
+      toggle.addEventListener("click", togglePanel);
     }
 
-checkAccess();
-renderReport();
-renderEditors();
-setupAdminVisibility();
+    document.getElementById("unlockButton").addEventListener("click", unlockAudit);
+    document.getElementById("accessInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") unlockAudit();
+    });
+    document.getElementById("saveSnapshotButton").addEventListener("click", exportSnapshot);
+
+    checkAccess();
+    renderMethodology();
+    renderEditors();
+    setupAdminVisibility();
   </script>
 </body>
 </html>
