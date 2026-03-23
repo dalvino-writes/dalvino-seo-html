@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archoric Trust Architecture Diagnostic™ — Preliminary Diagnostic</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="client-data.js"></script>
+  <script>
+    window.ARCHORIC_RUNTIME = {
+      requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
+      accessPassword: clientData.identity.accessPassword || ""
+    };
+  </script>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root {
+      --outer: #b8afa4;
+      --paper: #f5efe8;
+      --panel: #e9ddd0;
+      --panel-strong: #e3d6c8;
+      --card: #f8f2eb;
+      --line: #cbbeb1;
+      --text: #2e2a26;
+      --text-strong: #221f1c;
+      --muted: #6e655c;
+      --strong: #7f5643;
+      --accent: #b07a5d;
+      --good: #6f8258;
+      --warn: #9a7448;
+      --bad: #9a4f4f;
+      --shadow: 0 24px 50px rgba(0,0,0,0.10);
+      --radius: 6mm;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.12), transparent 32%),
+        linear-gradient(180deg, #aea497 0%, #b8afa4 48%, #c3bab0 100%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.locked { overflow: hidden; }
+
+    .screen-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(242,236,229,0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(110,101,92,0.14);
+    }
+
+    .screen-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.78);
+      color: var(--text-strong);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease;
+      cursor: pointer;
+    }
+
+    .screen-btn:hover { transform: translateY(-1px); }
+
+    .screen-btn.primary {
+      background: linear-gradient(120deg, #7f5643, #b07a5d);
+      color: white;
+      border: none;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,36,32,0.38);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 90;
+    }
+
+    .overlay.active { display: flex; }
+
+    .overlay-card {
+      width: min(480px, 100%);
+      padding: 28px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .overlay-card h3 {
+      margin: 0 0 10px;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      font-size: 34px;
+      color: var(--text-strong);
+    }
+
+    .overlay-card p {
+      margin: 0 0 16px;
+      color: rgba(46,42,38,0.78);
+      line-height: 1.6;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.9);
+      font: inherit;
+      color: var(--text-strong);
+      box-sizing: border-box;
+      min-height: 44px;
+      outline: none;
+      text-align: center;
+    }
+
+    .access-error {
+      color: #a65151;
+      font-size: 12px;
+      min-height: 18px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .page-stack {
+      width: 210mm;
+      margin: 24px auto 42px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      min-height: 297mm;
+      max-height: 297mm;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      border-radius: 7mm;
+      overflow: hidden;
+      position: relative;
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 18px;
+      border: 1px solid rgba(110,101,92,0.14);
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    .page-cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(176,122,93,0.06), transparent 22%),
+        linear-gradient(180deg, rgba(255,255,255,0.08), transparent 26%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-inner {
+      height: 100%;
+      padding: 13mm 13mm 11mm;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      border-bottom: 1px solid rgba(110,101,92,0.16);
+      padding-bottom: 5mm;
+      margin-bottom: 6mm;
+      flex: 0 0 auto;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin-top: 6px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(176,122,93,0.12);
+      border: 1px solid rgba(176,122,93,0.24);
+      color: var(--strong);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      color: var(--text-strong);
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: 44px; line-height: 0.98; }
+    h2 { font-size: 31px; line-height: 1.02; }
+    h3 { font-size: 18px; line-height: 1.08; }
+
+    p {
+      margin: 0;
+      font-size: 11.8px;
+      line-height: 1.5;
+      color: rgba(46,42,38,0.92);
+    }
+
+    .content-grow {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 6mm;
+      align-items: start;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4mm;
+      align-items: start;
+    }
+
+    .four-col {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4mm;
+      align-items: start;
+    }
+
+    .hero-panel, .score-panel, .section-panel, .journey-panel, .impact-panel, .priority-panel, .method-panel {
+      background: var(--panel);
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: var(--radius);
+      padding: 4.5mm;
+      break-inside: avoid;
+      align-self: start;
+    }
+
+    .mini-box {
+      background: var(--card);
+      border: 1px solid rgba(110,101,92,0.16);
+      border-radius: 4.5mm;
+      padding: 4mm;
+      break-inside: avoid;
+    }
+
+    .muted {
+      color: rgba(46,42,38,0.76);
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 4mm;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      border-bottom: 1px dashed rgba(110,101,92,0.24);
+      padding-bottom: 7px;
+    }
+
+    .summary-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .summary-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-align: right;
+      max-width: 58%;
+    }
+
+    .big-score {
+      margin-top: 4px;
+      font-family: 'EB Garamond', serif;
+      font-size: 58px;
+      line-height: 0.9;
+      color: var(--text-strong);
+      letter-spacing: -0.04em;
+    }
+
+    .big-score span {
+      opacity: 0.28;
+      font-size: 28px;
+      margin-left: -4px;
+    }
+
+    .classification {
+      margin-top: 6px;
+      font-family: 'EB Garamond', serif;
+      font-size: 28px;
+      color: var(--accent);
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3.5mm;
+      margin-top: 4mm;
+      align-items: start;
+    }
+
+    .context-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .context-value {
+      color: var(--text-strong);
+      font-size: 11.5px;
+      font-weight: 600;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 12px 1fr;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 4px;
+      border: 1px solid rgba(110,101,92,0.26);
+      background: rgba(255,255,255,0.42);
+    }
+
+    .layer-score {
+      font-family: 'EB Garamond', serif;
+      font-size: 24px;
+      line-height: 1;
+      color: var(--text-strong);
+      margin-top: 6px;
+    }
+
+    .chip {
+      display: inline-flex;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .good {
+      background: rgba(111,130,88,0.16);
+      color: var(--good);
+      border: 1px solid rgba(111,130,88,0.22);
+    }
+
+    .warn {
+      background: rgba(154,116,72,0.16);
+      color: var(--warn);
+      border: 1px solid rgba(154,116,72,0.22);
+    }
+
+    .bad {
+      background: rgba(154,79,79,0.14);
+      color: var(--bad);
+      border: 1px solid rgba(154,79,79,0.18);
+    }
+
+    .architect-role {
+      margin-top: 8px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .divider {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(110,101,92,0.24);
+    }
+
+    .compact-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      line-height: 1.45;
+      margin-top: 4mm;
+      background: var(--panel);
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 4mm;
+      overflow: hidden;
+    }
+
+    .compact-table th, .compact-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 6px 7px;
+      border-bottom: 1px solid rgba(110,101,92,0.12);
+    }
+
+    .compact-table th {
+      background: var(--panel-strong);
+      font-size: 8px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .compact-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compact-table td.score {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      white-space: nowrap;
+      color: var(--text-strong);
+    }
+
+    .compact-table td.signal {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .compact-table td.risk {
+      color: #a65151;
+      font-weight: 500;
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3.5mm;
+      align-items: start;
+    }
+
+    .journey-stage {
+      background: var(--panel);
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 4.5mm;
+      padding: 4mm;
+      min-height: 84mm;
+    }
+
+    .stage-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .stage-index {
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(176,122,93,0.12);
+      border: 1px solid rgba(176,122,93,0.24);
+      white-space: nowrap;
+    }
+
+    .riskbox {
+      margin-top: 8px;
+      background: var(--card);
+      border: 1px solid rgba(110,101,92,0.16);
+      border-radius: 4mm;
+      padding: 8px;
+    }
+
+    .riskbox-title {
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .riskbox-value {
+      color: #a65151;
+      font-weight: 700;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3mm;
+      align-items: start;
+    }
+
+    .metric-number {
+      font-family: 'EB Garamond', serif;
+      font-size: 30px;
+      line-height: 1;
+      color: var(--text-strong);
+      margin-top: 5px;
+    }
+
+    .waterfall {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4mm;
+      align-items: end;
+      height: 58mm;
+      margin-top: 3mm;
+    }
+
+    .bar-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 6px;
+      height: 100%;
+    }
+
+    .bar {
+      border-radius: 4mm 4mm 0 0;
+      border: 1px solid rgba(110,101,92,0.12);
+      min-height: 10mm;
+    }
+
+    .bar.good { background: rgba(111,130,88,0.84); }
+    .bar.bad { background: rgba(166,81,81,0.84); }
+    .bar.neutral { background: rgba(176,122,93,0.80); }
+
+    .bar-label {
+      text-align: center;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .bar-value {
+      text-align: center;
+      font-family: 'EB Garamond', serif;
+      font-size: 22px;
+      color: var(--text-strong);
+    }
+
+    .priority-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+      margin-top: 3mm;
+      align-items: start;
+    }
+
+    .priority-item {
+      background: var(--panel);
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 4.5mm;
+      padding: 4mm;
+      min-height: 0;
+    }
+
+    .priority-index {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .priority-layer {
+      margin-top: 5px;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3mm;
+      margin-top: 3mm;
+      align-items: start;
+    }
+
+    .footer-note {
+      margin-top: auto;
+      padding-top: 3.2mm;
+      border-top: 1px solid rgba(110,101,92,0.16);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 8.8px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      flex: 0 0 auto;
+    }
+
+    .section-gap-sm { margin-top: 3mm; }
+    .section-gap { margin-top: 4mm; }
+    .section-gap-lg { margin-top: 5mm; }
+
+    .page1-grid,
+    .priority-summary-grid {
+      align-items: start;
+    }
+
+    .priority-summary-grid .priority-panel {
+      min-height: 0;
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html, body {
+        background: white !important;
+      }
+
+      .screen-toolbar, .overlay {
+        display: none !important;
+      }
+
+      .page-stack {
+        margin: 0;
+        width: 210mm;
+      }
+
+      .page {
+        margin: 0;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+      }
+
+      a[href]::after {
+        content: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="screen-toolbar">
+    <button class="screen-btn primary" id="printButton" type="button">Save Preliminary Diagnostic PDF</button>
+    <a class="screen-btn" href="index.html">Return to Scorecard</a>
+  </div>
+
+  <div class="overlay" id="accessOverlay">
+    <div class="overlay-card">
+      <div class="eyebrow">Private Diagnostic Access</div>
+      <h3>Preliminary Diagnostic</h3>
+      <p>This export was prepared for <strong id="accessClientName">Client</strong> and requires access credentials.</p>
+      <label class="field-label" for="accessInput">Password</label>
+      <input class="input" id="accessInput" type="password" placeholder="Enter access password">
+      <button class="screen-btn primary" id="unlockButton" type="button" style="width:100%; margin-top: 12px;">Unlock Diagnostic</button>
+      <div class="access-error" id="accessError"></div>
+    </div>
+  </div>
+
+  <main class="page-stack">
+    <section class="page page-cover">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="eyebrow">Archoric Trust Architecture Diagnostic™</div>
+            <div class="badge">Preliminary Diagnostic</div>
+          </div>
+          <div class="eyebrow">Page 1 of 6</div>
+        </div>
+
+        <div class="content-grow">
+          <div class="two-col page1-grid">
+            <div class="hero-panel">
+              <h1>How buyer trust is forming before sales ever begins.</h1>
+              <p class="section-gap muted">
+                This private diagnostic is a structural preview of how trust is communicated, interpreted, and lost before a qualified buyer reaches demo readiness.
+              </p>
+
+              <div class="context-grid">
+                <div class="mini-box"><span class="context-label">Company</span><div class="context-value" id="ctxCompany">--</div></div>
+                <div class="mini-box"><span class="context-label">Website</span><div class="context-value" id="ctxWebsite">--</div></div>
+                <div class="mini-box"><span class="context-label">Prepared For</span><div class="context-value" id="ctxPreparedFor">--</div></div>
+                <div class="mini-box"><span class="context-label">Audit Date</span><div class="context-value" id="ctxAuditDate">--</div></div>
+                <div class="mini-box"><span class="context-label">Segment</span><div class="context-value" id="ctxSegment">--</div></div>
+                <div class="mini-box"><span class="context-label">Region</span><div class="context-value" id="ctxRegion">--</div></div>
+              </div>
+
+              <div class="section-gap section-panel">
+                <div class="eyebrow">How to Read This Diagnostic</div>
+                <ul class="list section-gap-sm">
+                  <li><span class="dot"></span><div><p>The total score summarizes trust strength across four layers, not just surface credibility.</p></div></li>
+                  <li><span class="dot"></span><div><p>Trust leakage estimates how much qualified buyer confidence is likely lost before sales engagement.</p></div></li>
+                  <li><span class="dot"></span><div><p>The pages that follow translate the score into buyer-friction, commercial impact, and recovery priorities.</p></div></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="score-panel">
+              <div class="eyebrow">Global Trust Score</div>
+              <div class="big-score"><span id="displayTotalScore">--</span><span>/20</span></div>
+              <div class="classification" id="displayClassification">--</div>
+              <p class="section-gap-sm muted" id="displayClassificationNote">Initializing diagnostic classification...</p>
+
+              <div class="summary-grid">
+                <div class="summary-row">
+                  <span class="summary-label">Trust Profile</span>
+                  <span class="summary-value" id="summaryProfile">--</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Estimated Leakage</span>
+                  <span class="summary-value" id="summaryLeakage">--</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Primary Bottleneck</span>
+                  <span class="summary-value" id="summaryWeakness">--</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Priority Focus</span>
+                  <span class="summary-value" id="summaryPriority">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Archoric Trust Architecture Diagnostic™</span>
+          <span>Preliminary Diagnostic</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="eyebrow">Layer Breakdown</div>
+            <h2>How trust strength translates into buyer perception and structural weakness.</h2>
+          </div>
+          <div class="eyebrow">Page 2 of 6</div>
+        </div>
+
+        <div class="content-grow">
+          <div class="four-col" id="breakdownCards"></div>
+
+          <div class="four-col section-gap" id="architectCards"></div>
+
+          <table class="compact-table" id="matrixTable">
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Score</th>
+                <th>Signal</th>
+                <th>Buyer Interpretation</th>
+                <th>Revenue Risk</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+          </table>
+        </div>
+
+        <div class="footer-note">
+          <span>Structural Trust Matrix</span>
+          <span>Buyer perception and structural implication</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="eyebrow">Trust Leakage Map™</div>
+            <h2>How the four trust layers shape buyer progression.</h2>
+          </div>
+          <div class="eyebrow">Page 3 of 6</div>
+        </div>
+
+        <div class="content-grow">
+          <div class="journey-grid" id="journeyGrid"></div>
+
+          <div class="two-col section-gap">
+            <div class="journey-panel">
+              <div class="eyebrow">Entry Territories</div>
+              <ul class="list section-gap-sm">
+                <li><span class="dot"></span><div><p>Some buyers first encounter the platform through a regulatory or compliance search.</p></div></li>
+                <li><span class="dot"></span><div><p>Others arrive through workflow, feature, or implementation searches.</p></div></li>
+                <li><span class="dot"></span><div><p>Others enter through authority and comparison territory.</p></div></li>
+                <li><span class="dot"></span><div><p>Some buyers enter through proof, reputation, or validation searches.</p></div></li>
+              </ul>
+            </div>
+
+            <div class="journey-panel">
+              <div class="eyebrow">Why This Matters</div>
+              <p>Whichever layer a buyer enters through becomes their first trust test. If that entry layer is already weak, confidence drops before the rest of the system has a chance to compensate.</p>
+              <div class="divider">
+                <div class="summary-label">Search Territory Reading</div>
+                <p>This is why search territory matters. If the doorway is underpowered, the journey starts with friction instead of momentum.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Trust Leakage Map™</span>
+          <span>Entry, evaluation, and confidence stability</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="eyebrow">Revenue Suppression Analysis</div>
+            <h2>What trust friction is costing before sales begins.</h2>
+          </div>
+          <div class="eyebrow">Page 4 of 6</div>
+        </div>
+
+        <div class="content-grow">
+          <div class="metrics-grid">
+            <div class="impact-panel">
+              <div class="eyebrow">Monthly Demos</div>
+              <div class="metric-number" id="targetDemos">0</div>
+              <div class="divider">
+                <div class="summary-label">Lost to Trust Friction</div>
+                <div class="metric-number" style="font-size:24px;color:#a65151;" id="lostDemos">0</div>
+              </div>
+            </div>
+
+            <div class="impact-panel">
+              <div class="eyebrow">Monthly Deals</div>
+              <div class="metric-number" id="targetDeals">0</div>
+              <div class="divider">
+                <div class="summary-label">Lost to Trust Friction</div>
+                <div class="metric-number" style="font-size:24px;color:#a65151;" id="lostDeals">0</div>
+              </div>
+            </div>
+
+            <div class="impact-panel">
+              <div class="eyebrow">Annualized Revenue Drag</div>
+              <div class="metric-number"><span id="currency1">$</span><span id="annualLoss">0</span></div>
+              <div class="divider">
+                <div class="summary-label">Current Leakage</div>
+                <div class="metric-number" style="font-size:24px;color:var(--accent);" id="impactLeakage">0%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="impact-panel section-gap">
+            <div class="eyebrow">Waterfall View</div>
+            <div class="waterfall">
+              <div class="bar-col">
+                <div class="bar good" id="barIdeal"></div>
+                <div class="bar-label">Ideal Opportunity</div>
+                <div class="bar-value"><span id="currency2">$</span><span id="idealRevenue">0</span></div>
+              </div>
+              <div class="bar-col">
+                <div class="bar bad" id="barLost"></div>
+                <div class="bar-label">Trust Leakage</div>
+                <div class="bar-value"><span id="currency3">$</span><span id="lostRevenue">0</span></div>
+              </div>
+              <div class="bar-col">
+                <div class="bar neutral" id="barObserved"></div>
+                <div class="bar-label">Observed Revenue</div>
+                <div class="bar-value"><span id="currency4">$</span><span id="observedRevenue">0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="two-col section-gap">
+            <div class="impact-panel">
+              <div class="eyebrow">Diagnostic Reading</div>
+              <ul class="list section-gap-sm" id="impactList"></ul>
+            </div>
+
+            <div class="impact-panel">
+              <div class="eyebrow">Commercial Translation</div>
+              <p id="impactSummary">Trust friction can suppress pipeline before marketing spend or sales capacity ever gets a chance to do its job.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Revenue Suppression Analysis</span>
+          <span>Pipeline drag before sales engagement</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="eyebrow">Trust Recovery Roadmap</div>
+            <h2>Where trust recovery should happen first.</h2>
+          </div>
+          <div class="eyebrow">Page 5 of 6</div>
+        </div>
+
+        <div class="content-grow">
+          <div class="two-col priority-summary-grid">
+            <div class="priority-panel">
+              <div class="eyebrow">Roadmap Summary</div>
+              <div class="summary-grid">
+                <div class="summary-row">
+                  <span class="summary-label">Detected Trust Profile</span>
+                  <span class="summary-value" id="priorityProfile">--</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Primary Constraint</span>
+                  <span class="summary-value" id="priorityConstraint">--</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Priority Focus</span>
+                  <span class="summary-value" id="priorityFocus">--</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="priority-panel">
+              <div class="eyebrow">Recovery Conclusion</div>
+              <p id="recoveryConclusion">Determining recovery path...</p>
+            </div>
+          </div>
+
+          <div class="priority-grid" id="priorityGrid"></div>
+        </div>
+
+        <div class="footer-note">
+          <span>Trust Recovery Roadmap</span>
+          <span>Strategic intervention sequence</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="eyebrow">Methodology</div>
+            <div class="badge">Preliminary Diagnostic</div>
+          </div>
+          <div class="eyebrow">Page 6 of 6</div>
+        </div>
+
+        <div class="content-grow">
+          <div class="method-panel">
+            <h2>How this diagnostic evaluates trust.</h2>
+            <p class="section-gap muted" id="methodIntro">This document is a preliminary diagnostic derived from the Trust Deficit Audit™ framework.</p>
+          </div>
+
+          <div class="method-grid" id="methodGrid"></div>
+
+          <div class="two-col section-gap">
+            <div class="method-panel">
+              <div class="eyebrow">Scoring Basis</div>
+              <p id="methodScoring">This diagnostic uses a structured four-layer trust evaluation model.</p>
+            </div>
+
+            <div class="method-panel">
+              <div class="eyebrow">Scope Note</div>
+              <p id="methodScope">This document evaluates how trust is communicated and perceived during buyer evaluation.</p>
+            </div>
+          </div>
+
+          <div class="method-panel section-gap">
+            <div class="eyebrow">Closing Position</div>
+            <p id="methodClosing">This document surfaces where trust likely breaks.</p>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Methodology</span>
+          <span>Preliminary Diagnostic — not the full Trust Deficit Audit</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const utils = window.archoricAuditUtils;
+    const ACCESS = utils.getAccessConfig();
+
+    const architecturalMeta = {
+      "Regulatory Credibility": {
+        role: "Foundation",
+        copy: "This layer shows buyers that your platform is safe, credible, and appropriate for a regulated environment.",
+        failure: "Buyers start with doubt instead of trust."
+      },
+      "Operational Credibility": {
+        role: "Load-bearing layer",
+        copy: "This layer shows buyers how the platform fits into real day-to-day work.",
+        failure: "Buyers cannot clearly picture using it in practice."
+      },
+      "Structural Authority": {
+        role: "Routing framework",
+        copy: "This layer helps buyers find the right proof, pages, and signals in the right order.",
+        failure: "Trust feels scattered and hard to piece together."
+      },
+      "Proof & Validation": {
+        role: "External reinforcement",
+        copy: "This layer shows buyers that others trust the platform and that its claims are backed up.",
+        failure: "Buyers hesitate because the platform still feels unproven."
+      }
+    };
+
+    const metaMapping = {
+      "Regulatory Credibility": {
+        5: { signal: "Certified Authority", interpretation: "This platform is clearly built to meet high institutional safety standards.", risk: "Minimal risk; fast progress through discovery." },
+        4: { signal: "Contextualized", interpretation: "The compliance references fit the buyer environment.", risk: "Low friction; normal due diligence." },
+        3: { signal: "Under-contextualized", interpretation: "Compliance is visible, but not fully translated into practical safety confidence.", risk: "Extended due diligence and evaluation drag." },
+        2: { signal: "Compliance Thin", interpretation: "Safety signals feel weak or secondary.", risk: "Strong hesitation at discovery." },
+        1: { signal: "Opaque", interpretation: "Core safety or security signals are hard to see.", risk: "High chance of early disqualification." },
+        0: { signal: "Non-existent", interpretation: "No visible safety credibility base.", risk: "Binary exit for risk-sensitive buyers." }
+      },
+      "Operational Credibility": {
+        5: { signal: "Workflow Native", interpretation: "The product clearly understands the daily operating reality.", risk: "High operational buy-in." },
+        4: { signal: "Operationally Aware", interpretation: "The product feels well aligned with the buyer workflow.", risk: "Healthy progression through evaluation." },
+        3: { signal: "Feature-Centric", interpretation: "Features are clear, but operational fit is not fully proven.", risk: "Hesitation during evaluation." },
+        2: { signal: "Generic Utility", interpretation: "The product feels broad rather than specifically relevant.", risk: "Drift toward specialist alternatives." },
+        1: { signal: "Operationally Detached", interpretation: "The platform does not feel grounded in real operations.", risk: "Likely rejection during consideration." },
+        0: { signal: "Operationally Irrelevant", interpretation: "The product feels disconnected from the real workflow.", risk: "Immediate commercial irrelevance." }
+      },
+      "Structural Authority": {
+        5: { signal: "Authority-Led", interpretation: "Everything needed for trust is connected into a coherent system.", risk: "Low buyer anxiety; clear decision progression." },
+        4: { signal: "Coherent", interpretation: "The site feels organized and easy to validate.", risk: "Strong navigational confidence." },
+        3: { signal: "Partially Connected", interpretation: "Trust signals exist, but do not fully connect into one authority story.", risk: "Mid-funnel friction and slower conviction." },
+        2: { signal: "Fragmented", interpretation: "Important information feels scattered or disconnected.", risk: "Trust decay through structural confusion." },
+        1: { signal: "Disjointed", interpretation: "The authority structure feels unstable or underdeveloped.", risk: "Heavy skepticism before commitment." },
+        0: { signal: "Collapsed", interpretation: "There is no stable authority structure.", risk: "Severe trust breakdown." }
+      },
+      "Proof & Validation": {
+        5: { signal: "Externally Verified", interpretation: "The platform is strongly backed by credible proof.", risk: "Low close friction." },
+        4: { signal: "Credibly Supported", interpretation: "There is enough external proof to support serious evaluation.", risk: "Low final-stage uncertainty." },
+        3: { signal: "Moderately Proven", interpretation: "Some proof is present, but not enough to fully remove hesitation.", risk: "Late-stage comparison risk." },
+        2: { signal: "Proof Thin", interpretation: "The market proof layer feels light or incomplete.", risk: "High probability of validation-stage drop-off." },
+        1: { signal: "Barely Substantiated", interpretation: "Claims exist, but proof is weak or absent.", risk: "Buyers hesitate because trust is not externally stabilized." },
+        0: { signal: "Unvalidated", interpretation: "The platform feels unproven.", risk: "Severe commercial suppression." }
+      }
+    };
+
+    const roadmapLibrary = {
+      "High-Trust Engine": [
+        { title: "Regulatory precision", layer: "Regulatory Credibility", rec: "Contextualize high-level compliance into unit-specific safety narratives.", impact: "Deepens market confidence." },
+        { title: "Workflow targeting", layer: "Operational Credibility", rec: "Refine product narrative to align with specialty workflows.", impact: "Improves qualified-fit conversion." },
+        { title: "Conversion path refinement", layer: "Structural Authority", rec: "Reduce remaining friction across authority pathways.", impact: "Improves velocity toward demo." },
+        { title: "Outcome validation", layer: "Proof & Validation", rec: "Upgrade from broad proof to higher-fidelity evidence.", impact: "Strengthens final-stage conviction." }
+      ],
+      "Validation-Constrained": [
+        { title: "Regulatory contextualization", layer: "Regulatory Credibility", rec: "Make safety signals more directly support the product narrative.", impact: "Reduces technical-risk exits." },
+        { title: "Operational utility proof", layer: "Operational Credibility", rec: "Show the real implementation path behind the promise.", impact: "Builds practical confidence." },
+        { title: "Authority-proof integration", layer: "Structural Authority", rec: "Place proof inside the authority journey, not beside it.", impact: "Improves decision-stage stability." },
+        { title: "High-fidelity validation", layer: "Proof & Validation", rec: "Replace lighter signals with stronger external evidence.", impact: "Directly improves evaluation confidence." }
+      ],
+      "Compliance-Heavy": [
+        { title: "Compliance-workflow bridge", layer: "Regulatory Credibility", rec: "Connect safety language directly to operational clarity.", impact: "Reduces onboarding concern." },
+        { title: "Operational translation", layer: "Operational Credibility", rec: "Translate safety into day-to-day workflow value.", impact: "Moves buyers from safe to usable." },
+        { title: "Authority coherence", layer: "Structural Authority", rec: "Connect isolated compliance cues into one authority architecture.", impact: "Improves mid-funnel stability." },
+        { title: "Proof reinforcement", layer: "Proof & Validation", rec: "Support security and compliance claims with external evidence.", impact: "Builds institutional conviction." }
+      ],
+      "Product-Centric Blind Spot": [
+        { title: "Regulatory framing baseline", layer: "Regulatory Credibility", rec: "Elevate trust and safety signals into the product story.", impact: "Prevents early exits." },
+        { title: "Workflow identity alignment", layer: "Operational Credibility", rec: "Inject more operational specificity into the journey.", impact: "Improves buyer fit." },
+        { title: "Trust architecture activation", layer: "Structural Authority", rec: "Shift product-first content into authority-led evaluation.", impact: "Turns interest into conviction." },
+        { title: "Social proof placement", layer: "Proof & Validation", rec: "Place stronger validation at decision points.", impact: "Reduces the too-good-to-be-true effect." }
+      ],
+      "Fragmented Authority": [
+        { title: "Regulatory baseline reset", layer: "Regulatory Credibility", rec: "Standardize compliance signaling across touchpoints.", impact: "Builds a minimum credible safety layer." },
+        { title: "Operational consistency", layer: "Operational Credibility", rec: "Keep operational messaging stable across all entry points.", impact: "Reduces search-to-evaluation drop-off." },
+        { title: "Authority unification", layer: "Structural Authority", rec: "Create one central authority structure that connects trust signals.", impact: "Recovers major pipeline leakage." },
+        { title: "Proof alignment", layer: "Proof & Validation", rec: "Tie proof directly to authority claims.", impact: "Builds cumulative conviction." }
+      ],
+      "Surface / Underdeveloped Trust System": [
+        { title: "Baseline safety disclosure", layer: "Regulatory Credibility", rec: "Make visible the essential compliance and security signals.", impact: "Reduces immediate disqualification risk." },
+        { title: "Foundational utility definition", layer: "Operational Credibility", rec: "Show how the product works in the real unit.", impact: "Improves exploratory trust." },
+        { title: "Depth activation", layer: "Structural Authority", rec: "Build authority pages that move beyond surface claims.", impact: "Allows deeper buyer investigation." },
+        { title: "Primary proof acquisition", layer: "Proof & Validation", rec: "Secure and display the first credible external proof signals.", impact: "Moves the platform toward readiness." }
+      ]
+    };
+
+    function clamp(score) {
+      const n = parseFloat(score);
+      if (Number.isNaN(n)) return 0;
+      return Math.max(0, Math.min(5, n));
+    }
+
+    function roundHalf(v) {
+      return Math.round(clamp(v) * 2) / 2;
+    }
+
+    function formatScore(v) {
+      const n = roundHalf(v);
+      return Number.isInteger(n) ? String(n) : n.toFixed(1);
+    }
+
+    function expandHalfSteps(baseMap) {
+      const expanded = {};
+      const ordered = [0,1,2,3,4,5];
+      ordered.forEach((score, idx) => {
+        expanded[score] = baseMap[score];
+        if (score < 5) {
+          const next = ordered[idx + 1];
+          expanded[score + 0.5] = {
+            signal: `${baseMap[score].signal} → ${baseMap[next].signal}`,
+            interpretation: `${baseMap[score].interpretation} ${baseMap[next].interpretation}`,
+            risk: `${baseMap[score].risk} ${baseMap[next].risk}`
+          };
+        }
+      });
+      return expanded;
+    }
+
+    const expandedMeta = Object.fromEntries(
+      Object.entries(metaMapping).map(([k, v]) => [k, expandHalfSteps(v)])
+    );
+
+    function scoreMeta(layerName, rawScore) {
+      const score = roundHalf(rawScore);
+      const layer = expandedMeta[layerName] || {};
+      return { score, meta: layer[score] || layer[Math.floor(score)] || layer[0] };
+    }
+
+    function stateClass(score) {
+      const s = roundHalf(score);
+      if (s >= 4) return ["good", "Strong"];
+      if (s >= 2.5) return ["warn", "Mixed"];
+      return ["bad", "Weak"];
+    }
+
+    function riskCategory(score) {
+      if (score >= 4.5) return "Minimal Friction Risk";
+      if (score >= 3.5) return "Low Comparison Risk";
+      if (score >= 2.5) return "Moderate Drag Risk";
+      if (score >= 1.5) return "Elevated Hesitation Risk";
+      return "Immediate Exit Risk";
+    }
+
+    function money(v) {
+      return Math.round(v).toLocaleString();
+    }
+
+    function num(v, digits=1) {
+      return Number(v).toFixed(digits).replace(/\.0$/, "");
+    }
+
+    function setUnlockedState(isUnlocked) {
+      const overlay = document.getElementById("accessOverlay");
+      const accessName = document.getElementById("accessClientName");
+      if (accessName) accessName.textContent = ACCESS.companyName;
+      if (isUnlocked) {
+        overlay.classList.remove("active");
+        document.body.classList.remove("locked");
+      } else {
+        overlay.classList.add("active");
+        document.body.classList.add("locked");
+      }
+      return isUnlocked;
+    }
+
+    function isUnlocked() {
+      if (ACCESS.adminMode) return true;
+      if (!ACCESS.requirePresentationUnlock) return true;
+      return sessionStorage.getItem(ACCESS.accessKey) === "true";
+    }
+
+    function checkAccess() {
+      return setUnlockedState(isUnlocked());
+    }
+
+    function unlockAudit() {
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
+      const inputEl = document.getElementById("accessInput");
+      const errorEl = document.getElementById("accessError");
+      const input = inputEl ? inputEl.value : "";
+      if (input === ACCESS.runtimePassword) {
+        sessionStorage.setItem(ACCESS.accessKey, "true");
+        if (errorEl) errorEl.innerText = "";
+        setUnlockedState(true);
+        maybeAutoPrint();
+      } else {
+        if (errorEl) errorEl.innerText = "Incorrect password. Please try again.";
+        if (inputEl) inputEl.value = "";
+      }
+    }
+
+    function render() {
+      const scores = utils.getScores(clientData.scores);
+      const profileName = utils.identifyProfile(scores.array);
+      const profile = utils.trustProfiles[profileName];
+      const leakage = utils.computeLeakPercent(scores.array);
+      const classification = utils.getClassification(scores.total);
+
+      // Page 1
+      document.getElementById("ctxCompany").textContent = clientData.identity.clientName || "--";
+      document.getElementById("ctxWebsite").textContent = clientData.identity.websiteUrl || "--";
+      document.getElementById("ctxPreparedFor").textContent = clientData.identity.preparedFor || "--";
+      document.getElementById("ctxAuditDate").textContent = clientData.identity.auditDate || "--";
+      document.getElementById("ctxSegment").textContent = clientData.identity.clientSegment || "--";
+      document.getElementById("ctxRegion").textContent = clientData.identity.clientRegion || "--";
+
+      document.getElementById("displayTotalScore").textContent = scores.total.toFixed(1).replace(".0","");
+      document.getElementById("displayClassification").textContent = classification.label;
+      document.getElementById("displayClassificationNote").textContent = classification.note;
+      document.getElementById("summaryProfile").textContent = profileName;
+      document.getElementById("summaryLeakage").textContent = `${leakage}%`;
+      document.getElementById("summaryWeakness").textContent = profile.weakness;
+      document.getElementById("summaryPriority").textContent = profile.priority;
+
+      // Breakdown
+      const layers = [
+        { name: "Regulatory Credibility", score: scores.regulatory },
+        { name: "Operational Credibility", score: scores.operational },
+        { name: "Structural Authority", score: scores.structural },
+        { name: "Proof & Validation", score: scores.validation }
+      ];
+
+      document.getElementById("breakdownCards").innerHTML = layers.map((row, i) => {
+        const sm = scoreMeta(row.name, row.score);
+        const st = stateClass(sm.score);
+        return `
+          <div class="section-panel">
+            <div class="eyebrow">Layer ${i + 1}</div>
+            <h3>${row.name}</h3>
+            <div class="layer-score">[${formatScore(sm.score)}/5]</div>
+            <div class="chip ${st[0]}">${st[1]}</div>
+            <p class="section-gap-sm muted">${sm.meta.signal}</p>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("architectCards").innerHTML = layers.map((row, i) => {
+        const info = architecturalMeta[row.name];
+        return `
+          <div class="section-panel">
+            <div class="eyebrow">Layer ${i + 1}</div>
+            <h3>${row.name}</h3>
+            <div class="architect-role">${info.role}</div>
+            <p class="section-gap-sm">${info.copy}</p>
+            <div class="divider">
+              <div class="summary-label">When Weak</div>
+              <p>${info.failure}</p>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("matrixBody").innerHTML = layers.map(row => {
+        const sm = scoreMeta(row.name, row.score);
+        return `
+          <tr>
+            <td>${row.name}</td>
+            <td class="score">[${formatScore(sm.score)}/5]</td>
+            <td class="signal">${sm.meta.signal}</td>
+            <td>${sm.meta.interpretation}</td>
+            <td class="risk">${sm.meta.risk}</td>
+          </tr>
+        `;
+      }).join("");
+
+      // Journey
+      const journeyRows = [
+        {
+          stage: "Search",
+          title: "Regulatory Confidence",
+          score: scores.regulatory,
+          leak: clientData.journey.leak1 || "",
+          thought: clientData.journey.thought1 || ""
+        },
+        {
+          stage: "Evaluate",
+          title: "Operational Fluency",
+          score: scores.operational,
+          leak: clientData.journey.leak2 || "",
+          thought: clientData.journey.thought2 || ""
+        },
+        {
+          stage: "Decide",
+          title: "Structural Authority",
+          score: scores.structural,
+          leak: clientData.journey.leak3 || "",
+          thought: clientData.journey.thought3 || ""
+        },
+        {
+          stage: "Validate",
+          title: "Proof & Validation",
+          score: scores.validation,
+          leak: clientData.journey.leak4 || "",
+          thought: clientData.journey.thought4 || ""
+        }
+      ];
+
+      document.getElementById("journeyGrid").innerHTML = journeyRows.map((row, i) => `
+        <div class="journey-stage">
+          <div class="stage-head">
+            <div class="stage-index">Layer ${i + 1} · ${row.stage}</div>
+            <div class="pill">[${formatScore(row.score)}/5]</div>
+          </div>
+          <h3>${row.title}</h3>
+          <p class="section-gap-sm muted">${row.leak || "No translated leakage label supplied."}</p>
+          <div class="divider">
+            <div class="summary-label">Buyer Thought</div>
+            <p>${row.thought || "No buyer-thought translation supplied."}</p>
+          </div>
+          <div class="riskbox">
+            <div class="riskbox-title">Risk Evaluation</div>
+            <div class="riskbox-value">${riskCategory(row.score)}</div>
+          </div>
+        </div>
+      `).join("");
+
+      // Impact
+      const symbol = clientData.impact.currencySymbol || "£";
+      const traffic = Number(clientData.impact.monthlyTraffic) || 0;
+      const currentConv = (Number(clientData.impact.currentConversionPercent) || 0) / 100;
+      const acv = Number(clientData.impact.annualContractValue) || 0;
+      const close = (Number(clientData.impact.demoToClosePercent) || 0) / 100;
+      const leakRatio = leakage / 100;
+      const monthlyRevenuePerCustomer = acv / 12;
+      const expectedDemos = traffic * currentConv;
+      const expectedDeals = expectedDemos * close;
+      const expectedRevenue = expectedDeals * monthlyRevenuePerCustomer;
+      const lostDemos = expectedDemos * leakRatio;
+      const lostDeals = lostDemos * close;
+      const lostRevenue = lostDeals * monthlyRevenuePerCustomer;
+      const observedRevenue = Math.max(expectedRevenue - lostRevenue, 0);
+      const annualLoss = lostRevenue * 12;
+
+      document.getElementById("currency1").textContent = symbol;
+      document.getElementById("currency2").textContent = symbol;
+      document.getElementById("currency3").textContent = symbol;
+      document.getElementById("currency4").textContent = symbol;
+      document.getElementById("targetDemos").textContent = Math.round(expectedDemos).toLocaleString();
+      document.getElementById("lostDemos").textContent = Math.round(lostDemos).toLocaleString();
+      document.getElementById("targetDeals").textContent = num(expectedDeals, 1);
+      document.getElementById("lostDeals").textContent = num(lostDeals, 1);
+      document.getElementById("annualLoss").textContent = money(annualLoss);
+      document.getElementById("impactLeakage").textContent = `${num(leakage, 1)}%`;
+      document.getElementById("idealRevenue").textContent = money(expectedRevenue);
+      document.getElementById("lostRevenue").textContent = money(lostRevenue);
+      document.getElementById("observedRevenue").textContent = money(observedRevenue);
+
+      const maxVal = Math.max(expectedRevenue, lostRevenue, observedRevenue, 1);
+      document.getElementById("barIdeal").style.height = `${Math.max(10, (expectedRevenue / maxVal) * 42)}mm`;
+      document.getElementById("barLost").style.height = `${Math.max(10, (lostRevenue / maxVal) * 42)}mm`;
+      document.getElementById("barObserved").style.height = `${Math.max(10, (observedRevenue / maxVal) * 42)}mm`;
+
+      document.getElementById("impactList").innerHTML = `
+        <li><span class="dot"></span><div><p>Trust leakage removes about ${Math.round(lostDemos)} potential demos per month before sales engagement begins.</p></div></li>
+        <li><span class="dot"></span><div><p>That demo loss translates into roughly ${num(lostDeals, 1)} lost customer opportunities per month at the current close rate.</p></div></li>
+        <li><span class="dot"></span><div><p>Annualized revenue drag is approximately ${symbol}${money(annualLoss)} under the current assumptions.</p></div></li>
+      `;
+      document.getElementById("impactSummary").textContent =
+        `${clientData.identity.clientName || "This client"} is currently losing an estimated ${num(leakage, 1)}% of otherwise qualified buyer momentum before sales engagement, which suppresses demo flow, closed deals, and accessible revenue.`;
+
+      // Priority
+      document.getElementById("priorityProfile").textContent = profileName;
+      const names = ["Regulatory", "Operational", "Structural", "Validation"];
+      document.getElementById("priorityConstraint").textContent = `${names[scores.array.indexOf(Math.min(...scores.array))]} trust weakness`;
+      const focusMap = {
+        "High-Trust Engine": "Optimization sequence",
+        "Validation-Constrained": "Proof reinforcement sequence",
+        "Compliance-Heavy": "Operational translation sequence",
+        "Product-Centric Blind Spot": "Trust framing sequence",
+        "Fragmented Authority": "Authority repair sequence",
+        "Surface / Underdeveloped Trust System": "Foundational authority sequence"
+      };
+      document.getElementById("priorityFocus").textContent = focusMap[profileName] || "Authority recovery sequence";
+
+      const conclusionMap = {
+        "High-Trust Engine": "Addressing these final optimizations strengthens an already credible system and reduces remaining conversion friction.",
+        "Validation-Constrained": "Bridging the validation deficit turns product interest into stronger institutional conviction.",
+        "Compliance-Heavy": "Translating visible safety into operational clarity removes the largest bottleneck in the current journey.",
+        "Product-Centric Blind Spot": "Activating the trust framing layer provides the authority needed to support already-clear product claims.",
+        "Fragmented Authority": "Unifying the authority architecture eliminates the structural disconnects currently suppressing growth.",
+        "Surface / Underdeveloped Trust System": "Building the missing foundation moves the platform from surface credibility to decision-stage readiness."
+      };
+      document.getElementById("recoveryConclusion").textContent = conclusionMap[profileName] || "Addressing these priorities creates the structural conditions required for a stronger and more resilient trust profile.";
+
+      const roadmap = roadmapLibrary[profileName] || roadmapLibrary["Surface / Underdeveloped Trust System"];
+      document.getElementById("priorityGrid").innerHTML = roadmap.map((item, i) => `
+        <div class="priority-item">
+          <div class="priority-index">Priority ${i + 1}</div>
+          <h3>${item.title}</h3>
+          <div class="priority-layer">${item.layer}</div>
+          <p class="section-gap-sm">${item.rec}</p>
+          <div class="divider">
+            <div class="summary-label">Expected Impact</div>
+            <p>${item.impact}</p>
+          </div>
+        </div>
+      `).join("");
+
+      // Methodology
+      document.getElementById("methodIntro").textContent =
+        clientData.methodology?.intro ||
+        "This document is a preliminary diagnostic derived from the Trust Deficit Audit™ framework.";
+
+      document.getElementById("methodScoring").textContent =
+        clientData.methodology?.scoringBasis ||
+        "This diagnostic uses a structured four-layer trust evaluation model.";
+
+      document.getElementById("methodScope").textContent =
+        clientData.methodology?.scope ||
+        "This document evaluates how trust is communicated and perceived during buyer evaluation.";
+
+      document.getElementById("methodClosing").textContent =
+        clientData.methodology?.closing ||
+        "This document surfaces where trust likely breaks. The full Trust Deficit Audit goes deeper, and OAA is the implementation layer.";
+
+      const pillars = Array.isArray(clientData.methodology?.pillars) && clientData.methodology.pillars.length
+        ? clientData.methodology.pillars
+        : [
+            { title: "1. Four-Layer Trust Model", text: "Buyer trust is formed through the accumulation of signals across multiple layers, not isolated claims." },
+            { title: "2. Full Trust Deficit Audit", text: "The full Trust Deficit Audit extends beyond this preliminary diagnostic through deeper scoring, structural diagnosis, and tighter mapping of buyer leakage." },
+            { title: "3. Organic Authority Architecture (OAA)", text: "Where implementation is required, trust recovery is executed through Organic Authority Architecture (OAA)." }
+          ];
+
+      document.getElementById("methodGrid").innerHTML = pillars.map(p => `
+        <div class="method-panel">
+          <h3>${p.title}</h3>
+          <p class="section-gap-sm">${p.text}</p>
+        </div>
+      `).join("");
+    }
+
+    function maybeAutoPrint() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("print") === "1" && isUnlocked()) {
+        window.setTimeout(() => window.print(), 450);
+      }
+    }
+
+    document.getElementById("printButton").addEventListener("click", () => window.print());
+    document.getElementById("unlockButton").addEventListener("click", unlockAudit);
+    document.getElementById("accessInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") unlockAudit();
+    });
+
+    render();
+    checkAccess();
+    maybeAutoPrint();
+  </script>
+</body>
+</html>
