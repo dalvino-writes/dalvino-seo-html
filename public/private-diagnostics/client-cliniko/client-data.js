@@ -7,7 +7,7 @@ const clientData = {
     auditDate: "March 2026",
     clientSegment: "Allied health practice management software",
     clientRegion: "UK GDPR",
-    adminMode: false,
+    adminMode: true,
     accessPassword: "Audit2026",
     presentationLockEnabled: true,
     geminiApiKey: "",

@@ -1,14 +1,14 @@
 const clientData = {
   identity: {
-    clientName: "Cliniko",
-    clientSlug: "client-cliniko",
-    websiteUrl: "https://www.cliniko.com",
+    clientName: "MedBridge Pro",
+    clientSlug: "client-medbridgepro",
+    websiteUrl: "https://www.medbridgepro.com",
     preparedFor: "Client baseline audit",
     auditDate: "March 2026",
     clientSegment: "Allied health practice management software",
     clientRegion: "UK GDPR",
     adminMode: false,
-    accessPassword: "Audit2026",
+    accessPassword: "Medbridge2026",
     presentationLockEnabled: true,
     geminiApiKey: "",
     geminiModel: "gemini-2.5-flash-preview-09-2025"
