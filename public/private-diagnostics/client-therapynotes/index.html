@@ -1,728 +1,913 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Archoric Trust Architecture Diagnostic™</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="client-data.js"></script>
   <script>
-  window.ARCHORIC_RUNTIME = {
-    requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
-    accessPassword: clientData.identity.accessPassword || ""
-  };
-</script>
-
-<script>
-  (function () {
-    try {
-      const key = `archoric_audit_unlocked_${clientData.identity.clientSlug}`;
-      const runtime = window.ARCHORIC_RUNTIME || {};
-
-      if (
-        clientData.identity.adminMode ||
-        !runtime.requirePresentationUnlock ||
-        sessionStorage.getItem(key) === "true"
-      ) {
-        document.documentElement.classList.add("archoric-unlocked");
-      }
-    } catch (e) {}
-  })();
-</script>
-
-  <meta name="robots" content="noindex, nofollow" />
-
+    window.ARCHORIC_RUNTIME = {
+      requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
+      accessPassword: clientData.identity.accessPassword || ""
+    };
+  </script>
+  <meta name="robots" content="noindex, nofollow">
   <style>
-
-    html.archoric-unlocked #access-overlay {
-  display: none !important;
-}
-
-html.archoric-unlocked #audit-shell.is-locked {
-  filter: none !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  user-select: auto !important;
-}
     :root {
-      --bg-cream: #F7F4EE;
-      --primary-green: #1F3A2E;
-      --body-charcoal: #2F2F2F;
-      --muted-grey: #7A766F;
-      --accent-amber: #B88746;
-      --divider-line: #D8D2C8;
-      --danger-red: #B00020;
-      --safe-green: #1F7A5A;
+      --bg: #f3efe8;
+      --card: rgba(255,255,255,0.34);
+      --text: #2e2a26;
+      --text-strong: #221f1c;
+      --muted: #6e655c;
+      --line: #cfc4b4;
+      --strong: #8a5a44;
+      --accent: #b77b57;
+      --danger: #a65151;
+      --good: #6f8258;
+      --warn: #9a7448;
+      --bad: #9a4f4f;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 20px;
     }
 
-    body {
-      background-color: var(--bg-cream);
-      color: var(--body-charcoal);
+    html, body {
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
       margin: 0;
-      overflow-x: hidden;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .hidden { display: none !important; }
-    .serif { font-family: 'EB Garamond', serif; }
+    body.locked { overflow: hidden; }
 
-    #audit-shell {
-      transition: filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease;
-    }
-
-    #audit-shell.is-locked {
-      filter: blur(4px);
-      opacity: 0.9;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    #access-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(31, 58, 46, 0.02);
-      padding: 20px;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-
-    #access-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .access-card {
-      background: rgba(255, 255, 255, 0.92);
-      padding: 60px 40px;
-      width: 100%;
-      max-width: 460px;
-      border: 1px solid var(--divider-line);
-      box-shadow: 0 40px 80px rgba(31, 58, 46, 0.15);
-      text-align: center;
-    }
-
-    .access-title {
-      font-family: 'EB Garamond', serif;
-      font-size: 28px;
-      color: var(--primary-green);
-      margin-bottom: 12px;
-    }
-
-    .access-subtitle {
-      font-size: 14px;
-      color: var(--body-charcoal);
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
-
-    .access-subtitle strong {
-      color: var(--primary-green);
-      font-weight: 700;
-    }
-
-    .access-input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid var(--divider-line);
-      background: white;
-      font-size: 14px;
-      margin-bottom: 16px;
-      text-align: center;
-      outline: none;
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-    }
-
-    .access-input:focus {
-      border-color: var(--accent-amber);
-    }
-
-    .access-btn {
-      background: var(--primary-green);
-      color: white;
-      width: 100%;
-      padding: 14px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-    }
-
-    .access-btn:hover {
-      background: #152920;
-      transform: translateY(-1px);
-    }
-
-    #access-error {
-      color: var(--danger-red);
-      font-size: 11px;
-      margin-top: 12px;
-      font-weight: 600;
-      min-height: 16px;
-    }
-
-    .report-container {
-      max-width: 860px;
+    .page-shell {
+      max-width: 1280px;
       margin: 0 auto;
-      min-height: 100vh;
-      padding: 80px 60px 100px;
+      padding: 28px 24px 72px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text-strong);
+    }
+
+    h1 { font-size: clamp(42px, 7vw, 78px); line-height: 0.94; }
+    h2 { font-size: clamp(28px, 4.5vw, 48px); line-height: 1.02; }
+    h3 { font-size: 28px; line-height: 1.08; }
+    h4 { font-size: 22px; line-height: 1.14; }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(46,42,38,0.92);
+    }
+
+    .hero-grid, .analysis-grid, .context-grid, .orientation-grid, .layer-grid {
+      display: grid;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+      margin-bottom: 28px;
+    }
+
+    .analysis-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      margin-top: 26px;
+    }
+
+    .context-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 26px 0 30px;
+    }
+
+    .orientation-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .layer-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .hero-card, .summary-card, .context-card, .orientation-card, .layer-card, .profile-card, .panel-card, .cta-card, .overlay-card {
+      background: rgba(255,255,255,0.34);
+      border: 1px solid rgba(110,101,92,0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card, .summary-card, .panel-card, .profile-card, .cta-card {
+      padding: 28px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 340px;
       display: flex;
       flex-direction: column;
-      position: relative;
-      box-sizing: border-box;
+      justify-content: space-between;
     }
 
-    .brand-anchor {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      color: var(--muted-grey);
-      text-transform: uppercase;
-      margin-bottom: 60px;
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -30px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(183,123,87,0.18), transparent 72%);
+      pointer-events: none;
     }
 
-    .header-section { margin-bottom: 48px; }
-
-    .main-title {
-      font-size: 32px;
-      line-height: 1.1;
-      color: var(--primary-green);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      margin: 0 0 12px;
+    .hero-sub {
+      margin-top: 18px;
+      max-width: 740px;
+      font-size: 17px;
+      color: rgba(46,42,38,0.82);
     }
 
-    .subtitle {
-      font-size: 18px;
-      color: var(--primary-green);
-      opacity: 0.85;
-      margin: 0 0 16px;
-      font-weight: 500;
-    }
-
-    .purpose-line {
-      font-size: 15px;
-      color: var(--muted-grey);
-      max-width: 520px;
-      margin: 0 0 24px;
-      line-height: 1.5;
-    }
-
-    .strategic-line {
-      font-size: 14px;
-      color: var(--primary-green);
-      border-left: 2px solid var(--accent-amber);
-      padding-left: 20px;
-      max-width: 600px;
+    .hero-note {
+      margin-top: 22px;
+      padding-left: 18px;
+      border-left: 2px solid rgba(183,123,87,0.72);
+      max-width: 760px;
+      color: rgba(46,42,38,0.8);
       font-style: italic;
-      margin-bottom: 32px;
     }
 
-    #audit-context {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px 40px;
-      padding: 40px 0;
-      margin-bottom: 40px;
-      border-bottom: 1px solid var(--divider-line);
-    }
-
-    .context-row {
-      display: grid;
-      grid-template-columns: 140px 1fr;
-      align-items: baseline;
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
+      margin-top: 24px;
     }
 
-    .context-label {
-      font-size: 10px;
+    .meta-pill {
+      border: 1px solid rgba(110,101,92,0.2);
+      background: rgba(255,255,255,0.48);
+      color: var(--muted);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted-grey);
-      font-weight: 600;
     }
 
-    .context-value {
-      font-size: 14px;
-      color: var(--primary-green);
-      font-weight: 500;
-      word-break: break-word;
-    }
-
-    .context-value a {
-      text-decoration: none;
-      color: var(--primary-green);
-      transition: opacity 0.2s;
-    }
-
-    .context-value a:hover {
-      opacity: 0.7;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
-    .score-centerpiece {
+    .summary-card {
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       text-align: center;
-      margin: 20px 0 40px;
-      transition: transform 0.4s ease;
-      cursor: default;
     }
-
-    .score-centerpiece:hover { transform: scale(1.02); }
 
     .score-label {
       font-size: 11px;
-      letter-spacing: 0.35em;
-      color: var(--muted-grey);
+      letter-spacing: 0.24em;
       text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
       display: block;
-      margin-bottom: 20px;
     }
 
     .big-score {
       font-family: 'EB Garamond', serif;
-      font-size: 130px;
-      line-height: 0.85;
-      color: var(--primary-green);
-      margin: 0;
-      display: inline-block;
-      position: relative;
+      font-size: clamp(92px, 12vw, 132px);
+      line-height: 0.9;
+      color: var(--text-strong);
+      letter-spacing: -0.04em;
     }
 
     .score-total {
+      opacity: 0.26;
       font-size: 44px;
-      opacity: 0.25;
-      margin-left: -10px;
+      margin-left: -6px;
     }
 
     .classification {
       font-family: 'EB Garamond', serif;
-      font-size: 36px;
-      line-height: 1.1;
-      color: var(--accent-amber);
-      margin-top: 18px;
-      margin-bottom: 8px;
+      font-size: clamp(34px, 4vw, 42px);
+      color: var(--accent);
+      margin-top: 14px;
     }
 
     .classification-note {
-      font-size: 13px;
-      color: var(--muted-grey);
-      max-width: 400px;
-      margin: 0 auto;
-      line-height: 1.5;
+      margin-top: 8px;
+      color: rgba(46,42,38,0.74);
+      font-size: 14px;
+      line-height: 1.55;
     }
 
-    #profile-diagnostic {
-      border: 1px solid var(--accent-amber);
-      background: white;
-      padding: 60px 40px;
-      text-align: center;
-      margin: 40px 0 80px;
-      animation: fadeIn 0.8s ease-out;
-      position: relative;
+    .summary-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+      text-align: left;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed rgba(110,101,92,0.28);
+      padding-bottom: 10px;
+      gap: 14px;
     }
 
-    .label-tiny {
-      font-size: 11px;
+    .summary-label {
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent-amber);
-      font-weight: 500;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .summary-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-align: right;
+      max-width: 60%;
+    }
+
+    .context-card, .orientation-card, .layer-card {
+      padding: 18px;
+      background: rgba(255,255,255,0.46);
+    }
+
+    .context-label, .orientation-index, .layer-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 10px;
       display: block;
-      margin-bottom: 12px;
+    }
+
+    .context-value {
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--text-strong);
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .context-value a {
+      color: var(--text-strong);
+      text-decoration: none;
+    }
+
+    .context-value a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 36px 0 20px;
+    }
+
+    .section-head p {
+      max-width: 640px;
+      color: rgba(46,42,38,0.76);
+    }
+
+    .orientation-text {
+      color: rgba(46,42,38,0.88);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .orientation-card.highlight {
+      border-color: rgba(183,123,87,0.34);
+      background: rgba(255,255,255,0.62);
+    }
+
+    .profile-card {
+      margin-top: 8px;
+      background: rgba(255,255,255,0.44);
+      text-align: center;
     }
 
     .profile-title {
-      font-size: 44px;
-      color: var(--primary-green);
-      margin: 0 0 20px;
-      letter-spacing: -0.01em;
-      font-family: 'EB Garamond', serif;
+      font-size: clamp(36px, 4vw, 48px);
+      margin-top: 8px;
     }
 
     .profile-desc {
-      font-size: 15px;
-      color: var(--muted-grey);
-      max-width: 580px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
+      margin-top: 14px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      color: rgba(46,42,38,0.76);
       font-style: italic;
     }
 
-    .diag-grid {
+    .profile-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 18px 36px;
+      margin-top: 26px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(110,101,92,0.18);
       text-align: left;
-      max-width: 520px;
-      margin: 40px auto 0;
-      padding-top: 40px;
-      border-top: 1px solid var(--divider-line);
     }
 
     .diag-item-label {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--body-charcoal);
-      font-weight: 600;
+      color: var(--muted);
+      font-weight: 700;
       margin-bottom: 8px;
       display: block;
     }
 
     .diag-item-value {
-      font-size: 13px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-strong);
       font-weight: 600;
-      line-height: 1.4;
-      color: var(--primary-green);
     }
 
-    .diag-item-value.amber { color: var(--accent-amber); }
+    .diag-item-value.amber { color: var(--accent); }
 
-    .section-block {
-      max-width: 600px;
-      margin-bottom: 72px;
+    .layer-card {
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--muted-grey);
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--divider-line);
-      padding-bottom: 10px;
-      display: block;
-      width: 100%;
-      margin-bottom: 24px;
+    .layer-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 16px 16px auto;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(183,123,87,0.12), transparent 70%);
+      pointer-events: none;
     }
-
-    .insight-copy p {
-      font-size: 16px;
-      margin: 0 0 20px;
-      color: var(--body-charcoal);
-      line-height: 1.7;
-    }
-
-    .layer-grid { max-width: 450px; }
-
-    .layer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--divider-line);
-      font-size: 14px;
-      transition: background 0.2s ease;
-    }
-
-    .layer-row:hover { background: rgba(31, 58, 46, 0.02); }
 
     .layer-score {
-      color: var(--primary-green);
-      font-weight: 600;
+      margin-top: 8px;
+      font-size: 34px;
+      line-height: 1;
+      color: var(--text-strong);
+      font-family: 'EB Garamond', serif;
+    }
+
+    .layer-state {
+      margin-top: 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      width: fit-content;
+      padding: 7px 11px;
+      border-radius: 999px;
+    }
+
+    .state-good {
+      background: rgba(111,130,88,0.16);
+      color: var(--good);
+      border: 1px solid rgba(111,130,88,0.22);
+    }
+
+    .state-warn {
+      background: rgba(154,116,72,0.16);
+      color: var(--warn);
+      border: 1px solid rgba(154,116,72,0.22);
+    }
+
+    .state-bad {
+      background: rgba(154,79,79,0.14);
+      color: var(--bad);
+      border: 1px solid rgba(154,79,79,0.18);
+    }
+
+    .layer-copy {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(46,42,38,0.82);
+      max-width: 92%;
+    }
+
+    .panel-card {
+      padding: 24px;
+      position: relative;
+    }
+
+    .panel-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .bullet {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(110,101,92,0.26);
+      background: rgba(255,255,255,0.42);
+      margin-top: 4px;
+    }
+
+    .insight-block {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.28);
+      border: 1px solid rgba(110,101,92,0.18);
+    }
+
+    .insight-label {
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .cta-card {
+      margin-top: 36px;
+      text-align: center;
+      background: rgba(255,255,255,0.44);
+    }
+
+    .cta-copy {
+      max-width: 760px;
+      margin: 14px auto 0;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .cta-actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-button, .cta-secondary, .next-btn, .access-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, background 0.18s ease;
+      cursor: pointer;
+    }
+
+    .cta-button:hover, .cta-secondary:hover, .next-btn:hover, .access-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .cta-button, .next-btn, .access-btn {
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      border: none;
+      min-width: 220px;
+    }
+
+    .cta-secondary {
+      background: rgba(255,255,255,0.72);
+      color: var(--text-strong);
+      border: 1px solid rgba(110,101,92,0.22);
+      min-width: 180px;
     }
 
     .transition-block {
-      margin-top: auto;
-      padding-top: 60px;
-      border-top: 1px solid var(--divider-line);
-    }
-
-    .transition-text {
-      font-size: 14px;
-      color: var(--body-charcoal);
-      margin-bottom: 32px;
-      max-width: 550px;
-    }
-
-    .page-nav { display: flex; justify-content: flex-end; }
-
-    .next-btn {
-      background: var(--primary-green);
-      color: white;
-      text-decoration: none;
-      padding: 14px 28px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      display: inline-flex;
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(110,101,92,0.22);
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      border: none;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
-    .next-btn:hover {
-      opacity: 0.95;
-      padding-right: 34px;
-      box-shadow: 0 4px 12px rgba(31, 58, 46, 0.1);
+    .transition-copy {
+      max-width: 720px;
+      color: rgba(46,42,38,0.78);
+      font-size: 14px;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,36,32,0.38);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 90;
+    }
+
+    .overlay.active { display: flex; }
+
+    .overlay-card {
+      width: min(480px, 100%);
+      padding: 28px;
+      background: rgba(255,255,255,0.94);
+    }
+
+    .overlay-card h3 { margin-bottom: 10px; }
+    .overlay-card p { color: rgba(46,42,38,0.76); margin-bottom: 18px; }
+
+    .input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.9);
+      font: inherit;
+      color: var(--text-strong);
+      box-sizing: border-box;
+      min-height: 44px;
+      outline: none;
+      text-align: center;
+    }
+
+    .access-error {
+      color: var(--danger);
+      font-size: 12px;
+      min-height: 18px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid, .analysis-grid, .context-grid, .orientation-grid, .layer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell { padding: 20px 16px 48px; }
+      .hero-grid, .analysis-grid, .context-grid, .orientation-grid, .layer-grid, .profile-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head, .transition-block { flex-direction: column; align-items: start; }
+      .layer-copy { max-width: 100%; }
     }
 
     @media print {
-      #access-overlay, .page-nav { display: none !important; }
+      .overlay, .cta-card, .transition-block { display: none !important; }
       body { background: white; }
-      #audit-shell.is-locked { filter: none; opacity: 1; pointer-events: auto; user-select: auto; }
-      .report-container { padding: 40px; }
-    }
-
-    @media (max-width: 900px) {
-      .report-container { padding: 56px 24px 80px; }
-      #audit-context, .diag-grid { grid-template-columns: 1fr; gap: 18px; }
-      .context-row { grid-template-columns: 110px 1fr; }
-      .big-score { font-size: 92px; }
-      .classification { font-size: 28px; }
-      .profile-title { font-size: 34px; }
-      #profile-diagnostic { padding: 40px 24px; }
-      .access-card { padding: 40px 24px; }
     }
   </style>
 </head>
 <body>
-  <div id="access-overlay">
-    <div class="access-card">
-      <h2 class="access-title">Private Diagnostic Access</h2>
-      <p id="access-subtitle-text" class="access-subtitle">
-        This diagnostic was prepared for <strong id="access-client-name">Client</strong> and requires access credentials.
-      </p>
-      <input
-        type="password"
-        id="access-password"
-        class="access-input"
-        placeholder="Enter Password"
-        onkeypress="if(event.key==='Enter') unlockAudit()"
-      >
-      <button onclick="unlockAudit()" class="access-btn">Unlock Diagnostic</button>
-      <div id="access-error"></div>
-      <p class="text-[9px] text-gray-400 uppercase tracking-widest mt-8">Access restricted to intended recipient</p>
+  <div class="overlay" id="accessOverlay">
+    <div class="overlay-card">
+      <div class="eyebrow">Private Diagnostic Access</div>
+      <h3>Archoric Trust Architecture Diagnostic™</h3>
+      <p>This diagnostic was prepared for <strong id="accessClientName">Client</strong> and requires access credentials.</p>
+      <label class="eyebrow" for="accessInput" style="margin-bottom:8px;">Password</label>
+      <input class="input" id="accessInput" type="password" placeholder="Enter access password">
+      <button class="access-btn" id="unlockButton" type="button">Unlock Diagnostic</button>
+      <div class="access-error" id="accessError"></div>
     </div>
   </div>
 
-  <div id="audit-shell" class="is-locked">
-    <main class="report-container">
-      <div class="brand-anchor">ARCHORIC CONSULTING</div>
-
-      <header class="header-section">
-        <h1 class="serif main-title">ARCHORIC TRUST ARCHITECTURE DIAGNOSTIC™</h1>
-        <h2 class="subtitle">Private Pre-Demo Trust Diagnostic for Healthcare SaaS</h2>
-        <p class="purpose-line">
-          A structural preview of how buyer trust is formed, interpreted, and lost before sales engagement.
-        </p>
-        <div class="strategic-line">
-          Weak trust signals do not just reduce credibility — they slow pipeline movement, delay evaluation, and prevent qualified buyers from reaching demo readiness.
+  <div class="page-shell" id="auditShell">
+    <section class="hero-grid">
+      <article class="hero-card">
+        <div>
+          <div class="eyebrow">Archoric Trust Architecture Diagnostic™</div>
+          <h1>How buyer trust is forming before sales ever begins.</h1>
+          <p class="hero-sub">
+            This private diagnostic is a structural preview of how trust is communicated, interpreted, and lost before a qualified buyer reaches demo readiness.
+          </p>
+          <p class="hero-note">
+            Weak trust signals do not just reduce credibility. They slow pipeline movement, delay evaluation, and prevent qualified buyers from reaching sales with confidence.
+          </p>
         </div>
-      </header>
+        <div class="hero-meta">
+          <span class="meta-pill" id="metaClient">Client</span>
+          <span class="meta-pill" id="metaSegment">Segment</span>
+          <span class="meta-pill" id="metaRegion">Region</span>
+        </div>
+      </article>
 
-      <section id="audit-context">
-        <div class="context-row">
+      <aside class="summary-card">
+        <div>
+          <span class="score-label">Global Trust Score</span>
+          <div class="big-score"><span id="displayTotalScore">--</span><span class="score-total">/20</span></div>
+          <div class="classification" id="displayClassification">--</div>
+          <div class="classification-note" id="displayClassificationNote">Initializing diagnostic classification...</div>
+        </div>
+
+        <div class="summary-stack">
+          <div class="summary-row">
+            <span class="summary-label">Trust Profile</span>
+            <span class="summary-value" id="summaryProfile">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Estimated Leakage</span>
+            <span class="summary-value" id="summaryLeakage">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Primary Bottleneck</span>
+            <span class="summary-value" id="summaryWeakness">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Priority Focus</span>
+            <span class="summary-value" id="summaryPriority">--</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <div class="context-grid">
+        <div class="context-card">
           <span class="context-label">Company</span>
-          <span class="context-value" id="ctx-company">--</span>
+          <div class="context-value" id="ctxCompany">--</div>
         </div>
-
-        <div class="context-row">
+        <div class="context-card">
           <span class="context-label">Website</span>
-          <span class="context-value">
-            <a id="ctx-website" href="#" target="_blank" rel="noopener noreferrer">--</a>
-          </span>
+          <div class="context-value"><a id="ctxWebsite" href="#" target="_blank" rel="noopener noreferrer">--</a></div>
         </div>
-
-        <div class="context-row">
+        <div class="context-card">
           <span class="context-label">Prepared For</span>
-          <span class="context-value" id="ctx-prepared-for">--</span>
+          <div class="context-value" id="ctxPreparedFor">--</div>
         </div>
-
-        <div class="context-row">
+        <div class="context-card">
           <span class="context-label">Audit Date</span>
-          <span class="context-value" id="ctx-audit-date">--</span>
+          <div class="context-value" id="ctxAuditDate">--</div>
         </div>
-
-        <div class="context-row">
+        <div class="context-card">
           <span class="context-label">Segment</span>
-          <span class="context-value" id="ctx-segment">--</span>
+          <div class="context-value" id="ctxSegment">--</div>
         </div>
-
-        <div class="context-row">
+        <div class="context-card">
           <span class="context-label">Region</span>
-          <span class="context-value" id="ctx-region">--</span>
+          <div class="context-value" id="ctxRegion">--</div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="score-centerpiece">
-        <span class="score-label">Global Trust Score</span>
-        <div class="big-score">
-          <span id="display-total-score">--</span><span class="score-total">/20</span>
+    <section>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">How to Read This Diagnostic</div>
+          <h2>What this report is showing you</h2>
         </div>
-        <div class="classification-wrap">
-          <div class="classification" id="display-classification">--</div>
-          <div class="classification-note" id="display-classification-note">
-            Analysis initializing based on diagnostic layers...
-          </div>
-        </div>
-      </section>
-
-      <section id="profile-diagnostic" class="hidden">
-        <span class="label-tiny">Detected Trust Identity</span>
-        <h2 id="profile-name" class="profile-title">Analyzing...</h2>
-        <p id="profile-desc" class="profile-desc"></p>
-
-        <div class="diag-grid">
-          <div>
-            <span class="diag-item-label">Primary Bottleneck</span>
-            <p id="profile-weakness" class="diag-item-value"></p>
-          </div>
-          <div>
-            <span class="diag-item-label">Transformation Priority</span>
-            <p id="profile-priority" class="diag-item-value amber"></p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-block">
-        <span class="section-label">Core Insight</span>
-        <div class="insight-copy" id="display-insight">
-          <p>Analyzing profile patterns to generate baseline diagnostic insight...</p>
-        </div>
-      </section>
-
-      <section class="section-block">
-        <span class="section-label">Layer Overview</span>
-        <p class="text-[13px] text-[#7A766F] mb-6 italic">
-          Trust is evaluated across four distinct layers. The relationship between these layers defines the categorical profile.
+        <p>
+          This orientation block explains what the score means, how the pages connect, and how to interpret trust leakage before you move deeper into the diagnostic.
         </p>
+      </div>
 
-        <div class="layer-grid">
-          <div class="layer-row">
-            <span>Regulatory Credibility</span>
-            <span class="layer-score" id="display-layer-0">[--/5]</span>
-          </div>
-          <div class="layer-row">
-            <span>Operational Credibility</span>
-            <span class="layer-score" id="display-layer-1">[--/5]</span>
-          </div>
-          <div class="layer-row">
-            <span>Structural Authority</span>
-            <span class="layer-score" id="display-layer-2">[--/5]</span>
-          </div>
-          <div class="layer-row">
-            <span>Proof & Validation</span>
-            <span class="layer-score" id="display-layer-3">[--/5]</span>
-          </div>
-        </div>
-      </section>
+      <div class="orientation-grid">
+        <article class="orientation-card highlight">
+          <div class="orientation-index">1 · What the score means</div>
+          <p class="orientation-text">The total score summarizes trust strength across four layers. Lower scores do not mean “bad product”; they signal where trust is under-communicated or under-validated before sales engagement.</p>
+        </article>
+        <article class="orientation-card">
+          <div class="orientation-index">2 · What trust leakage means</div>
+          <p class="orientation-text">Trust leakage is the estimated share of qualified buyer confidence that drops out before entering sales because proof, structure, or validation signals do not fully stabilize evaluation.</p>
+        </article>
+        <article class="orientation-card">
+          <div class="orientation-index">3 · What the next pages do</div>
+          <p class="orientation-text">The next pages translate the score into buyer-friction stages, commercial impact, and strategic recovery priorities so the trust deficit becomes operationally visible.</p>
+        </article>
+        <article class="orientation-card">
+          <div class="orientation-index">4 · What this is not</div>
+          <p class="orientation-text">This is a strategic trust diagnostic. It is not a legal certification, regulatory opinion, or substitute for implementation planning. It is designed to clarify where buyer confidence is currently weakening.</p>
+        </article>
+      </div>
+    </section>
 
-      <footer class="transition-block">
-        <div class="transition-text">
-          The following sections break down how each trust layer shapes buyer perception, and where structural gaps begin to impact commercial outcomes.
+    <section class="profile-card">
+      <div class="eyebrow">Detected Trust Identity</div>
+      <h2 class="profile-title" id="profileName">Analyzing...</h2>
+      <p class="profile-desc" id="profileDesc">Determining current trust profile...</p>
+
+      <div class="profile-grid">
+        <div>
+          <span class="diag-item-label">Primary Bottleneck</span>
+          <p class="diag-item-value" id="profileWeakness">--</p>
         </div>
-        <div class="page-nav">
-          <a href="breakdown.html" class="next-btn">
-            Continue to Layer Breakdown <span>→</span>
-          </a>
+        <div>
+          <span class="diag-item-label">Transformation Priority</span>
+          <p class="diag-item-value amber" id="profilePriority">--</p>
         </div>
-      </footer>
-    </main>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Layer Overview</div>
+          <h2>How trust is distributed across the system</h2>
+        </div>
+        <p>
+          Trust is evaluated across four distinct layers. The relationship between these layers determines the current profile and where buyer hesitation is most likely to emerge.
+        </p>
+      </div>
+
+      <div class="layer-grid" id="layerGrid"></div>
+    </section>
+
+    <section class="analysis-grid">
+      <article class="panel-card">
+        <div class="eyebrow">Core Insight</div>
+        <h2>What the current pattern suggests</h2>
+        <ul class="panel-list" id="insightList"></ul>
+
+        <div class="insight-block">
+          <div class="insight-label">Strategic Reading</div>
+          <p id="strategicReading">Generating strategic reading...</p>
+        </div>
+      </article>
+
+      <article class="panel-card">
+        <div class="eyebrow">Navigation Logic</div>
+        <h2>How to use the rest of the report</h2>
+        <ul class="panel-list">
+          <li><span class="bullet"></span><div><p><strong>Layer Breakdown</strong> shows where each trust layer is currently underpowered or stable.</p></div></li>
+          <li><span class="bullet"></span><div><p><strong>Journey</strong> translates those layers into the buyer experience across search, evaluation, decision, and validation.</p></div></li>
+          <li><span class="bullet"></span><div><p><strong>Impact</strong> converts trust drag into suppressed demo flow, pipeline, and revenue opportunity.</p></div></li>
+          <li><span class="bullet"></span><div><p><strong>Priority</strong> shows which recovery interventions should happen first to restore buyer confidence.</p></div></li>
+        </ul>
+
+        <div class="insight-block">
+          <div class="insight-label">Diagnostic Position</div>
+          <p>
+            This first page is the orientation layer: it defines the current trust shape before the following pages explain the consequences and recovery path.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="cta-card">
+      <div class="eyebrow">Next Step</div>
+      <h2>Review the diagnostic with Archoric.</h2>
+      <p class="cta-copy">
+        If the findings reflect what your buyers are experiencing, the next step is to review where trust is weakening, which layer is suppressing momentum most, and what the recovery path should look like.
+      </p>
+      <div class="cta-actions">
+        <a class="cta-button" href="/contact/">Book a Diagnostic Review</a>
+        <a class="cta-secondary" href="/contact/">Contact Archoric</a>
+      </div>
+    </section>
+
+    <footer class="transition-block">
+      <div class="transition-copy">
+        The next page breaks the trust system into its four underlying layers and shows where the structure is currently stable, exposed, or incomplete.
+      </div>
+      <a href="breakdown.html" class="next-btn">Continue to Layer Breakdown <span>→</span></a>
+    </footer>
   </div>
 
   <script>
     const utils = window.archoricAuditUtils;
     const ACCESS = utils.getAccessConfig();
 
-    const auditContext = {
-      company: clientData.identity.clientName,
-      website: clientData.identity.websiteUrl,
-      preparedFor: clientData.identity.preparedFor,
-      auditDate: clientData.identity.auditDate,
-      segment: clientData.identity.clientSegment,
-      region: clientData.identity.clientRegion
-    };
-
-    function populateContext() {
-      document.title = `Archoric Trust Architecture Diagnostic™ — ${auditContext.company}`;
-      document.getElementById("access-client-name").textContent = auditContext.company;
-      document.getElementById("ctx-company").textContent = auditContext.company;
-      document.getElementById("ctx-prepared-for").textContent = auditContext.preparedFor;
-      document.getElementById("ctx-audit-date").textContent = auditContext.auditDate;
-      document.getElementById("ctx-segment").textContent = auditContext.segment;
-      document.getElementById("ctx-region").textContent = auditContext.region;
-
-      const websiteEl = document.getElementById("ctx-website");
-      websiteEl.textContent = auditContext.website;
-      websiteEl.href = auditContext.website;
-    }
+    const layerMeta = [
+      {
+        title: "Regulatory Credibility",
+        copy: "Whether the platform visibly signals safety, compliance, and legitimacy in a way that reduces immediate disqualification risk."
+      },
+      {
+        title: "Operational Credibility",
+        copy: "Whether buyers can clearly picture how the platform works inside their day-to-day workflow and implementation reality."
+      },
+      {
+        title: "Structural Authority",
+        copy: "Whether the site routes authority, proof, and decision support in a coherent way that sustains trust during evaluation."
+      },
+      {
+        title: "Proof & Validation",
+        copy: "Whether external evidence, attribution, and market validation fully stabilize confidence before commitment."
+      }
+    ];
 
     function setUnlockedState(isUnlocked) {
-      const shell = document.getElementById("audit-shell");
-      const overlay = document.getElementById("access-overlay");
-      const input = document.getElementById("access-password");
-      const button = document.querySelector(".access-btn");
-      const subtitle = document.getElementById("access-subtitle-text");
+      const overlay = document.getElementById("accessOverlay");
+      const name = document.getElementById("accessClientName");
+      if (name) name.textContent = ACCESS.companyName;
 
       if (isUnlocked) {
-        shell.classList.remove("is-locked");
-        overlay.classList.add("hidden");
-        document.body.style.overflow = "auto";
-        return;
-      }
-
-      shell.classList.add("is-locked");
-      overlay.classList.remove("hidden");
-      document.body.style.overflow = "hidden";
-
-      if (!ACCESS.requirePresentationUnlock) {
-        subtitle.innerHTML = `This diagnostic was prepared for <strong>${ACCESS.companyName}</strong> and is being opened through a protected route.`;
-        if (input) input.classList.add("hidden");
-        if (button) button.classList.add("hidden");
+        overlay.classList.remove("active");
+        document.body.classList.remove("locked");
+      } else {
+        overlay.classList.add("active");
+        document.body.classList.add("locked");
       }
     }
 
     function checkAccess() {
-      if (ACCESS.adminMode) {
-        setUnlockedState(true);
-        return;
-      }
-
-      if (!ACCESS.requirePresentationUnlock) {
-        setUnlockedState(true);
-        return;
-      }
+      if (ACCESS.adminMode) return setUnlockedState(true);
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
 
       const unlocked = sessionStorage.getItem(ACCESS.accessKey) === "true";
       setUnlockedState(unlocked);
     }
 
     function unlockAudit() {
-      if (!ACCESS.requirePresentationUnlock) {
-        setUnlockedState(true);
-        return;
-      }
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
 
-      const input = document.getElementById("access-password").value;
-      const error = document.getElementById("access-error");
+      const inputEl = document.getElementById("accessInput");
+      const errorEl = document.getElementById("accessError");
+      const input = inputEl ? inputEl.value : "";
 
       if (input === ACCESS.runtimePassword) {
         sessionStorage.setItem(ACCESS.accessKey, "true");
-        error.innerText = "";
+        if (errorEl) errorEl.innerText = "";
         setUnlockedState(true);
       } else {
-        error.innerText = "Incorrect password. Please try again.";
-        document.getElementById("access-password").value = "";
+        if (errorEl) errorEl.innerText = "Incorrect password. Please try again.";
+        if (inputEl) inputEl.value = "";
       }
+    }
+
+    function layerStateClass(score) {
+      const s = utils.clampScore(score);
+      if (s >= 4) return ["state-good", "Strong"];
+      if (s >= 2.5) return ["state-warn", "Mixed"];
+      return ["state-bad", "Weak"];
+    }
+
+    function populateContext() {
+      document.title = `Archoric Trust Architecture Diagnostic™ — ${clientData.identity.clientName || "Client"}`;
+      document.getElementById("metaClient").textContent = clientData.identity.clientName || "Client";
+      document.getElementById("metaSegment").textContent = clientData.identity.clientSegment || "Segment";
+      document.getElementById("metaRegion").textContent = clientData.identity.clientRegion || "Region";
+
+      document.getElementById("ctxCompany").textContent = clientData.identity.clientName || "--";
+      const websiteEl = document.getElementById("ctxWebsite");
+      websiteEl.textContent = clientData.identity.websiteUrl || "--";
+      websiteEl.href = clientData.identity.websiteUrl || "#";
+      document.getElementById("ctxPreparedFor").textContent = clientData.identity.preparedFor || "--";
+      document.getElementById("ctxAuditDate").textContent = clientData.identity.auditDate || "--";
+      document.getElementById("ctxSegment").textContent = clientData.identity.clientSegment || "--";
+      document.getElementById("ctxRegion").textContent = clientData.identity.clientRegion || "--";
+    }
+
+    function renderLayers(scores) {
+      const grid = document.getElementById("layerGrid");
+      grid.innerHTML = layerMeta.map((layer, i) => {
+        const score = scores.array[i];
+        const res = layerStateClass(score);
+        const cls = res[0];
+        const label = res[1];
+        return `
+          <article class="layer-card">
+            <span class="layer-label">Layer ${i + 1}</span>
+            <h3>${layer.title}</h3>
+            <div class="layer-score">[${score.toFixed(1).replace(".0","")}/5]</div>
+            <div class="layer-state ${cls}">${label}</div>
+            <p class="layer-copy">${layer.copy}</p>
+          </article>
+        `;
+      }).join("");
     }
 
     function updateReport() {
@@ -732,25 +917,37 @@ html.archoric-unlocked #audit-shell.is-locked {
       const leakage = utils.computeLeakPercent(scores.array);
       const classification = utils.getClassification(scores.total);
 
-      scores.array.forEach((score, index) => {
-        document.getElementById(`display-layer-${index}`).textContent = `[${score}/5]`;
-      });
+      document.getElementById("displayTotalScore").textContent = scores.total.toFixed(1).replace(".0","");
+      document.getElementById("displayClassification").textContent = classification.label;
+      document.getElementById("displayClassificationNote").textContent = classification.note;
 
-      document.getElementById("display-total-score").textContent = scores.total;
-      document.getElementById("display-classification").textContent = classification.label;
-      document.getElementById("display-classification-note").textContent = classification.note;
+      document.getElementById("summaryProfile").textContent = profileName;
+      document.getElementById("summaryLeakage").textContent = `${leakage}%`;
+      document.getElementById("summaryWeakness").textContent = profile.weakness;
+      document.getElementById("summaryPriority").textContent = profile.priority;
 
-      document.getElementById("profile-diagnostic").classList.remove("hidden");
-      document.getElementById("profile-name").textContent = profileName;
-      document.getElementById("profile-desc").textContent = profile.desc;
-      document.getElementById("profile-weakness").textContent = profile.weakness;
-      document.getElementById("profile-priority").textContent = profile.priority;
+      document.getElementById("profileName").textContent = profileName;
+      document.getElementById("profileDesc").textContent = profile.desc;
+      document.getElementById("profileWeakness").textContent = profile.weakness;
+      document.getElementById("profilePriority").textContent = profile.priority;
 
-      document.getElementById("display-insight").innerHTML = `
-        <p>Your platform presents the <strong>${profileName}</strong> pattern. This configuration suggests that ${profile.weakness.toLowerCase()} is likely creating friction in the pre-demo evaluation path.</p>
-        <p>Current analysis estimates a <strong>${leakage}% trust leakage</strong> coefficient, where qualified intent disengages before sales involvement.</p>
+      renderLayers(scores);
+
+      document.getElementById("insightList").innerHTML = `
+        <li><span class="bullet"></span><div><p>Your current score pattern indicates the <strong>${profileName}</strong> profile, which means ${profile.weakness.toLowerCase()} is likely shaping buyer hesitation before demo engagement.</p></div></li>
+        <li><span class="bullet"></span><div><p>The current system carries an estimated <strong>${leakage}% trust leakage</strong> coefficient, where qualified intent is lost before sales involvement.</p></div></li>
+        <li><span class="bullet"></span><div><p>The strongest recovery opportunity is currently in <strong>${profile.priority.toLowerCase()}</strong>, because that is where the existing trust structure can regain the most leverage.</p></div></li>
+        <li><span class="bullet"></span><div><p>The following pages convert this abstract pattern into concrete buyer-friction, impact, and recovery logic.</p></div></li>
       `;
+
+      document.getElementById("strategicReading").textContent =
+        `${clientData.identity.clientName || "This platform"} is not just being evaluated on product merit. It is being judged on whether the full trust system feels stable enough to justify deeper buyer commitment before sales engagement begins.`;
     }
+
+    document.getElementById("unlockButton").addEventListener("click", unlockAudit);
+    document.getElementById("accessInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") unlockAudit();
+    });
 
     populateContext();
     checkAccess();
