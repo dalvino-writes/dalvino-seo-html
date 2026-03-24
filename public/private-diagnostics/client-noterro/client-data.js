@@ -2,38 +2,38 @@ const clientData = {
   identity: {
     clientName: "MedBridge Pro",
     clientSlug: "client-medbridgepro",
-    websiteUrl: "https://www.medbridgepro.com",
+    websiteUrl: "https://medbridgepro.com",
     preparedFor: "Client baseline audit",
     auditDate: "March 2026",
     clientSegment: "Allied health practice management software",
-    clientRegion: "UK GDPR",
+    clientRegion: "Canada + US",
     adminMode: false,
-    accessPassword: "Medbridge2026",
+    accessPassword: "Med2026",
     presentationLockEnabled: true,
     geminiApiKey: "",
     geminiModel: "gemini-2.5-flash-preview-09-2025"
   },
 
   scores: {
-    regulatory: 3,
-    operational: 3.5,
+    regulatory: 2.0,
+    operational: 5.0,
     structural: 4.5,
-    validation: 1
+    validation: 1.0
   },
 
   journey: {
-    leak1: "Clause-Level Proof Deficit",
-    thought1: "I see compliance language, but not enough clause-level proof.",
-    leak2: "Implementation Certainty Gap",
-    thought2: "This seems usable for clinics, but I still need to know implementation realities.",
+    leak1: "Compliance Evidence Gap",
+    thought1: "I see compliance words, but I still don’t see enough hard evidence that this protects my license.",
+    leak2: "Low Workflow Friction",
+    thought2: "This clearly understands clinic workflows.",
     leak3: "Low Structural Friction",
-    thought3: "The site is easy to navigate; that part builds confidence.",
+    thought3: "The site is easy enough to navigate and feels structurally organized.",
     leak4: "Validation Deficit",
-    thought4: "Who verifies this in the market, and where is the search or authority proof?"
+    thought4: "Who is standing behind these claims, and where is the independent proof?"
   },
 
   impact: {
-    currencySymbol: "£",
+    currencySymbol: "C$",
     monthlyTraffic: 1000,
     currentConversionPercent: 2.0,
     annualContractValue: 1500,
@@ -43,17 +43,17 @@ const clientData = {
 
   methodology: {
     intro:
-      "This document is a preliminary diagnostic derived from the Trust Deficit Audit™ framework. It translates the current trust system into likely buyer friction, with particular focus on how regulated UK GDPR buyers may experience uncertainty before sales engagement.",
+      "This document is a preliminary diagnostic derived from the Trust Deficit Audit™ framework. It translates the current trust system into likely buyer friction, with particular focus on how regulated healthcare buyers in Canada and the US may experience uncertainty before sales engagement.",
     scoringBasis:
       "This diagnostic uses a four-layer trust evaluation model covering regulatory trust, operational trust, structural trust, and validation trust across the buyer journey.",
     scope:
       "This document evaluates how trust is communicated and perceived during buyer evaluation. It does not certify legal compliance, replace legal review, or serve as a regulatory opinion. This version is based on supplied pages and crawl evidence, without GSC validation inputs.",
     closing:
-      "This document surfaces where trust likely breaks for Cliniko. The most material suppression appears in validation and proof packaging rather than basic usability or workflow clarity.",
+      "This document surfaces where trust likely breaks for Noterro. The most material suppression appears in validation and proof packaging rather than basic usability, workflow clarity, or site structure.",
     pillars: [
       {
         title: "1. Layered Trust Evaluation",
-        text: "Buyer trust is formed through the accumulation of signals across multiple layers, not isolated claims. In Cliniko’s case, structural clarity is strong, but proof density remains uneven at the decision stage."
+        text: "Buyer trust is formed through the accumulation of signals across multiple layers, not isolated claims. In Noterro’s case, operational credibility and structural clarity are strong, but proof density remains uneven at the decision stage."
       },
       {
         title: "2. Full Trust Deficit Audit",
@@ -192,7 +192,7 @@ window.archoricAuditUtils = (() => {
     return {
       label: "High Risk",
       note: "Trust breakdown is severe enough to create meaningful commercial friction before buyer engagement."
-    };
+      };
   }
 
   function getAccessConfig() {
