@@ -13,46 +13,20 @@ export default function Contact() {
   const [calendlyFailed, setCalendlyFailed] = useState(false);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-
-    const existingScript = document.querySelector(
-      "script[src='https://assets.calendly.com/assets/external/widget.js']"
-    ) as HTMLScriptElement | null;
-
-    const startFailureTimer = () => {
-      timer = setTimeout(() => {
-        setCalendlyFailed(true);
-      }, 5000);
-    };
-
-    const handleScriptReady = () => {
-      setCalendlyFailed(false);
-      startFailureTimer();
-    };
-
-    if (existingScript) {
-      if (existingScript.dataset.loaded === "true") {
-        handleScriptReady();
-      } else {
-        existingScript.addEventListener("load", handleScriptReady, { once: true });
-      }
-    } else {
+    if (
+      !document.querySelector(
+        "script[src='https://assets.calendly.com/assets/external/widget.js']"
+      )
+    ) {
       const script = document.createElement("script");
       script.src = "https://assets.calendly.com/assets/external/widget.js";
       script.async = true;
-      script.dataset.loaded = "false";
-
-      script.onload = () => {
-        script.dataset.loaded = "true";
-        handleScriptReady();
-      };
-
-      script.onerror = () => {
-        setCalendlyFailed(true);
-      };
-
       document.body.appendChild(script);
     }
+
+    const timer = setTimeout(() => {
+      setCalendlyFailed(true);
+    }, 5000);
 
     const handleMessage = (e: MessageEvent) => {
       if (e.data?.event === "calendly.event_type_viewed") {
@@ -66,14 +40,13 @@ export default function Contact() {
     return () => {
       window.removeEventListener("message", handleMessage);
       clearTimeout(timer);
-
-      if (existingScript && existingScript.dataset.loaded !== "true") {
-        existingScript.removeEventListener("load", handleScriptReady);
-      }
     };
   }, []);
 
-  const calendlyUrl = "https://calendly.com/dalvino-archoric/30min";
+  const calendlyUrl =
+    locale === "fr"
+      ? "https://calendly.com/" // todo: replace with fr calendly link
+      : "https://calendly.com/dalvino-archoric/30min";
 
   const copy =
     locale === "fr"
