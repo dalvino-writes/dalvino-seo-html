@@ -49,11 +49,11 @@ const clientData = {
     scope:
       "This document evaluates how trust is communicated and perceived during buyer evaluation. It does not certify legal compliance, replace legal review, or serve as a regulatory opinion. This version is based on supplied pages and crawl evidence, without GSC validation inputs.",
     closing:
-      "This document surfaces where trust likely breaks for Noterro. The most material suppression appears in validation and proof packaging rather than basic usability, workflow clarity, or site structure.",
+      "This document surfaces where trust likely breaks for Medbridge Pro. The most material suppression appears in validation and proof packaging rather than basic usability, workflow clarity, or site structure.",
     pillars: [
       {
         title: "1. Layered Trust Evaluation",
-        text: "Buyer trust is formed through the accumulation of signals across multiple layers, not isolated claims. In Noterro’s case, operational credibility and structural clarity are strong, but proof density remains uneven at the decision stage."
+        text: "Buyer trust is formed through the accumulation of signals across multiple layers, not isolated claims. In Medbridge Pro’s case, operational credibility and structural clarity are strong, but proof density remains uneven at the decision stage."
       },
       {
         title: "2. Full Trust Deficit Audit",
