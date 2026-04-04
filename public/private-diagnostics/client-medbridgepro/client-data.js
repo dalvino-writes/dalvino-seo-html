@@ -8,8 +8,8 @@ const clientData = {
     clientSegment: "Allied health practice management software",
     clientRegion: "Canada + US",
     adminMode: false,
-    accessPassword: "Med2026",
-    presentationLockEnabled: true,
+    accessPassword: "",
+    presentationLockEnabled: false,
     geminiApiKey: "",
     geminiModel: "gemini-2.5-flash-preview-09-2025"
   },
