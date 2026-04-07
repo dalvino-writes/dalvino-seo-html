@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContent } from "@/hooks/useContent";
 import { useLocale } from "@/context/LocaleContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
@@ -12,6 +12,10 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const { site } = useContent();
   const { locale, setLocale } = useLocale();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const navLinks =
     locale === "fr"
@@ -38,46 +42,54 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-[#f6f4ef]/78 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] supports-[backdrop-filter]:bg-[#f6f4ef]/62">
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-[#f6f4ef]/78 shadow-[0_8px_30px_rgba(0,0,0,0.04)] backdrop-blur-xl supports-[backdrop-filter]:bg-[#f6f4ef]/62">
       <div className="container flex items-center justify-between py-5">
-        <Link href="/" className="font-heading text-lg font-bold tracking-tight text-primary">
+        <Link
+          href="/"
+          className="font-heading text-lg font-bold tracking-tight text-[#163629]"
+        >
           {site.brand.name}
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               href={link.to}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActiveLink(link.to) ? "text-primary" : "text-muted-foreground"
+              className={`text-sm font-medium transition-colors hover:text-[#163629] ${
+                isActiveLink(link.to) ? "text-[#163629]" : "text-[#5c6a63]"
               }`}
             >
               {link.label}
             </Link>
           ))}
+
           <button
+            type="button"
             onClick={() => setLocale(locale === "fr" ? "en" : "fr")}
-            className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wide"
+            className="text-sm font-semibold uppercase tracking-wide text-[#5c6a63] transition-colors hover:text-[#163629]"
             aria-label="Switch language"
           >
             {locale === "fr" ? "EN" : "FR"}
           </button>
         </nav>
 
-        {/* Mobile toggle */}
+        {/* Mobile controls */}
         <div className="flex items-center gap-4 md:hidden">
           <button
+            type="button"
             onClick={() => setLocale(locale === "fr" ? "en" : "fr")}
-            className="text-sm font-semibold text-muted-foreground uppercase tracking-wide"
+            className="text-sm font-semibold uppercase tracking-wide text-[#5c6a63]"
             aria-label="Switch language"
           >
             {locale === "fr" ? "EN" : "FR"}
           </button>
+
           <button
-            onClick={() => setOpen(!open)}
-            className="text-primary"
+            type="button"
+            onClick={() => setOpen((prev) => !prev)}
+            className="text-[#163629]"
             aria-label="Menu"
           >
             {open ? <X size={24} /> : <Menu size={24} />}
@@ -87,14 +99,13 @@ const Header = () => {
 
       {/* Mobile nav */}
       {open && (
-        <nav className="md:hidden border-t border-border px-6 pb-6 pt-4 flex flex-col gap-4">
+        <nav className="flex flex-col gap-4 border-t border-black/8 px-6 pb-6 pt-4 md:hidden">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               href={link.to}
-              onClick={() => setOpen(false)}
               className={`text-sm font-medium ${
-                isActiveLink(link.to) ? "text-primary" : "text-muted-foreground"
+                isActiveLink(link.to) ? "text-[#163629]" : "text-[#5c6a63]"
               }`}
             >
               {link.label}

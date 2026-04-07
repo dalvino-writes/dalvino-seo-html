@@ -15,7 +15,7 @@ const Footer = () => {
           { href: "/oaa", label: "OAA" },
           { href: "/demonstration-analyses", label: "Analyses de démonstration" },
           { href: "/tda", label: "TDA" },
-          { href: "/engagement", label: "Engagement" },
+          { href: "/engagements", label: "Engagements" },
           { href: "/faq", label: "FAQ" },
           { href: "/contact", label: "Contact" },
         ]
@@ -24,13 +24,13 @@ const Footer = () => {
           { href: "/oaa", label: "OAA" },
           { href: "/demonstration-analyses", label: "Demonstration Analyses" },
           { href: "/tda", label: "TDA" },
-          { href: "/engagement", label: "Engagement" },
+          { href: "/engagements", label: "Engagements" },
           { href: "/faq", label: "FAQ" },
           { href: "/contact", label: "Contact" },
         ];
 
   return (
-    <footer className="border-t border-black/8 bg-white/20 py-12 backdrop-blur-xl">
+    <footer className="relative z-10 border-t border-black/8 bg-white/20 py-12 backdrop-blur-xl">
       <div className="container flex flex-col gap-8">
         <div className="flex flex-col gap-4 md:max-w-2xl">
           <Link
@@ -57,9 +57,7 @@ const Footer = () => {
           ))}
         </div>
 
-        <p className="text-xs text-[#5c6a63]">
-          {site.footer.copyright}
-        </p>
+        <p className="text-xs text-[#5c6a63]">{site.footer.copyright}</p>
       </div>
     </footer>
   );
