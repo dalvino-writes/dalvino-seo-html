@@ -2,11 +2,10 @@ import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import TrustDeficit from "@/components/sections/TrustDeficit";
 import WhyItHappens from "@/components/sections/WhyItHappens";
-import ServicesPreview from "@/components/sections/ServicesPreview";
 import Transformation from "@/components/sections/Transformation";
 import WhyArchoric from "@/components/sections/WhyArchoric";
 import CaseStudiesPreview from "@/components/sections/CaseStudiesPreview";
-import NewsletterSection from "@/components/sections/NewsletterSection";
+import ServicesPreview from "@/components/sections/ServicesPreview";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -22,16 +21,17 @@ export default function Home() {
       </div>
 
       <Header />
+
       <main className="relative z-10 flex-1">
         <Hero />
         <TrustDeficit />
         <WhyItHappens />
-        <ServicesPreview />
         <Transformation />
         <WhyArchoric />
         <CaseStudiesPreview />
-        <NewsletterSection />
+        <ServicesPreview />
       </main>
+
       <Footer />
     </div>
   );

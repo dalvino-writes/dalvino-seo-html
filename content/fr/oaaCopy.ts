@@ -1,131 +1,127 @@
 export const oaaCopy = {
-  tagline: "Le Cadre · Organic Authority Architecture",
+  tagline: "Le cadre · Organic Authority Architecture",
   title:
-    "Un cadre conçu spécifiquement pour résoudre les déficits de crédibilité dans le Healthcare SaaS.",
+    "Faites en sorte qu’un acheteur vous fasse confiance avant même de réserver l’appel.",
   subtitle:
-    "Les cadres SEO traditionnels n'ont pas été conçus pour les secteurs réglementés. OAA a été développé spécifiquement pour l'environnement de contenu dans lequel les entreprises Healthcare SaaS opèrent réellement.",
+    "Publier plus ne suffit pas à rassurer un acheteur Healthcare. OAA corrige les signaux structurels qui décident s’il avance avec confiance ou s’il repart avec du doute.",
 
   whyItExists: {
-    tagline: "L'origine · Pourquoi OAA existe",
+    tagline: "Le problème qu'il résout",
     title:
-      "Google applique un standard différent aux contenus de la catégorie santé. La plupart des entreprises Healthcare SaaS ne sont pas construites pour ce standard.",
+      "Votre acheteur ne vous juge pas comme il jugerait une entreprise SaaS ordinaire.",
     body: [
-      "Le Healthcare SaaS appartient à la catégorie YMYL — Your Money or Your Life. Cette classification signifie que Google applique ses critères de qualité les plus stricts à chaque contenu publié par une entreprise Healthcare SaaS.",
-      "L'approche standard — recherche de mots-clés, volume de contenu, construction de backlinks — n'a pas été conçue pour cet environnement. Elle ne prend pas en compte la crédibilité au niveau du site. Elle ne traite pas la conformité réglementaire comme un input structurel. Elle ne cartographie pas le contenu selon le véritable parcours décisionnel d'un acheteur dans le secteur de la santé.",
-      "OAA a été conçu pour répondre à ces trois exigences. Il traite la conformité et l'expertise démontrée comme des fondations structurelles, et non comme de simples considérations éditoriales.",
+      "Il vous juge dans un environnement sensible au risque. Avant d’aller plus loin, il doit croire trois choses : que vous comprenez ses obligations réglementaires, que votre produit ne va pas créer des complications d’implémentation, et que votre entreprise sera encore là quand quelque chose casse.",
+      "Vous pouvez publier régulièrement et échouer quand même à ce test. Pas parce que vous manquez d’expertise. Parce que cette expertise n’est pas structurée assez clairement pour qu’un acheteur la reconnaisse, lui fasse confiance, et s’en souvienne au moment de comparer les fournisseurs.",
+      "OAA corrige ce problème de clarté structurelle.",
     ],
   },
 
   definition: {
-    tagline: "Une définition",
-    title:
-      "Dans ce contexte, l'autorité signifie que les moteurs de recherche et les équipes procurement reconnaissent clairement votre entreprise comme une source crédible sur un sujet. Non pas parce que vous l'affirmez, mais parce que la structure de votre site, la profondeur de votre contenu et votre compréhension réglementaire le démontrent.",
+    tagline: "Ce que le cadre fait vraiment",
+    title: "Transformez une crédibilité dispersée en système lisible.",
     body: [
-      "Chaque composant de OAA est conçu pour construire cette reconnaissance de manière intentionnelle.",
+      "Quand un acheteur arrive sur votre site, il doit pouvoir suivre une ligne claire entre son problème, votre compréhension de ce problème, votre maîtrise réglementaire, puis votre produit.",
+      "Cette ligne n’est pas créée par un seul contenu. Elle est créée par la façon dont l’ensemble fonctionne : ce qui est visible, ce qui relie quoi, où la preuve apparaît, et si tout le site renforce la même conclusion.",
     ],
   },
 
   pillars: {
-    tagline: "L'architecture · Deux piliers structurels",
+    tagline: "Deux couches structurelles",
     title:
-      "La crédibilité se construit au niveau du site avant de se construire au niveau de l'article.",
-
+      "La confiance ne vient pas d’une bonne page isolée. Elle vient du système autour.",
     pillar1: {
-      label: "Pilier 1 — Infrastructure de crédibilité au niveau du site",
-      name: "Infrastructure de crédibilité au niveau du site",
+      label: "Couche 1",
+      name: "Structure de crédibilité au niveau du site",
       body: [
-        "L'évaluation de qualité de Google pour les contenus de la catégorie santé n'est pas simplement un standard rédactionnel. C'est un standard de site. Un seul article bien rédigé ne suffit pas à modifier le signal. La structure complète du site, la crédibilité des auteurs et l'architecture des liens internes sont les éléments réellement analysés.",
-        "OAA intègre la crédibilité directement dans l'architecture du site. Chaque décision de contenu est prise en tenant compte de la preuve d'expertise au niveau du site, et non uniquement de l'optimisation au niveau de l'article.",
+        "Organisez votre hiérarchie, les rôles du contenu et les chemins internes pour que votre expertise soit plus facile à reconnaître et plus facile à valider sur l’ensemble du site.",
+        "Un seul bon article ne suffira pas à rassurer un acheteur Healthcare. Un environnement de site qui renforce la même conclusion, encore et encore, oui.",
       ],
     },
-
     pillar2: {
-      label: "Pilier 2 — Couche de démonstration réglementaire",
-      name: "Couche de démonstration réglementaire",
+      label: "Couche 2",
+      name: "Contexte réglementaire tissé dans l’environnement de contenu",
       body: [
-        "Chaque entreprise Healthcare SaaS affirme sa conformité : HIPAA, PIPEDA, GDPR, UK GDPR. Mais ces affirmations sont généralement identiques chez tous les concurrents et rarement démontrées.",
-        "La couche de démonstration réglementaire change cela. Elle intègre des citations réglementaires réelles — HIPAA §164.308, PIPEDA Annexe 1, GDPR Article 9 — directement dans le contenu au niveau de l'article. Cela transforme un site SaaS générique en une source crédible sur son marché.",
-        "Cette couche nécessite une bibliothèque de référence réglementaire propriétaire. Elle ne peut pas être reproduite par une agence généraliste. C'est l'un des deux actifs fondamentaux qui rendent OAA opérationnel.",
+        "Dire HIPAA, PIPEDA ou RGPD ne revient pas à donner confiance.",
+        "Cette couche place le bon niveau de contexte réglementaire là où l’évaluation se joue réellement, au lieu de le laisser isolé sur quelques pages de conformité.",
       ],
     },
   },
 
   intentFramework: {
-    tagline: "Le parcours acheteur · Trois étapes d'évaluation",
-    title:
-      "Les acheteurs dans le secteur de la santé ne progressent pas de manière linéaire. L'architecture de contenu doit refléter cette réalité.",
-
+    tagline: "Comment les acheteurs avancent réellement",
+    title: "Pas en ligne droite.",
     intro:
-      "La plupart des programmes de contenu Healthcare SaaS ne couvrent qu'une seule étape du parcours acheteur — généralement la phase de sensibilisation. OAA cartographie le contenu sur trois étapes afin que votre site reste crédible quel que soit le moment où un acheteur entre dans le processus de décision.",
-
+      "Votre contenu doit rester crédible à chaque étape de l’évaluation, pas seulement au moment où quelqu’un vous découvre.",
     tiers: [
       {
-        label: "Étape 1 — Identifier le problème",
-        name: "Identifier le problème",
+        label: "Étape 1",
+        name: "Recherche motivée par l’urgence",
         description:
-          "Recherches motivées par un besoin urgent. Des prospects confrontés à un problème de conformité ou à une défaillance opérationnelle. Le contenu à cette étape doit démontrer une compréhension réglementaire solide et fournir des orientations crédibles.",
+          "Un acheteur cherche à comprendre un problème de conformité, un risque opérationnel ou un blocage de workflow. Votre contenu doit lui montrer que vous comprenez son monde, pas lui servir de l’éducation générique.",
       },
       {
-        label: "Étape 2 — Évaluer les fournisseurs",
-        name: "Évaluer les fournisseurs",
+        label: "Étape 2",
+        name: "Comparaison active",
         description:
-          "Comparaison active des solutions. Les prospects analysent les workflows, les fonctionnalités et construisent une shortlist. Le contenu à cette étape doit positionner clairement la plateforme face aux alternatives.",
+          "Il construit une shortlist et teste les fournisseurs. Votre contenu doit clarifier vite les différences et renforcer votre crédibilité au moment où le doute monte.",
       },
       {
-        label: "Étape 3 — Valider la décision en interne",
-        name: "Valider la décision en interne",
+        label: "Étape 3",
+        name: "Justification interne",
         description:
-          "Phase de validation interne et de procurement. Les acheteurs recherchent des preuves de ROI et des signaux de confiance qui facilitent la justification de la décision auprès de leur organisation.",
+          "Il lui faut assez de preuves structurelles pour défendre la décision en interne. Votre contenu doit réduire la friction autour de l’approbation, du sign-off et du risque perçu.",
       },
     ],
   },
 
   deliverables: {
-    tagline: "Le résultat · Ce que produit un engagement OAA",
-    title: "Cinq livrables. Un blueprint que votre équipe exécute.",
+    tagline: "Cinq livrables concrets",
+    title:
+      "Vous ne repartez pas avec des idées. Vous repartez avec un système que votre équipe peut construire.",
     items: [
       {
-        name: "Actif pilier central",
+        name: "Actif d'autorité central",
         description:
-          "Le hub de crédibilité auquel chaque contenu de soutien est relié. L'actif de contenu le plus important du site.",
+          "Un actif d’autorité central qui ancre votre environnement de contenu autour d’un territoire stratégique défendable.",
       },
       {
-        name: "Système de contenu connexe",
+        name: "Système de contenu par phase acheteur",
         description:
-          "Un plan éditorial structuré, organisé par étape d'évaluation acheteur. Chaque contenu possède un rôle, une audience et une destination clairs.",
+          "Un système de contenu cartographié sur chaque phase d’évaluation. Chaque pièce a un rôle défini, une audience précise et une destination stratégique.",
       },
       {
-        name: "Couche de validation réglementaire",
+        name: "Méthode d’intégration réglementaire",
         description:
-          "Le cadre de citation et de conformité intégré dans chaque contenu pertinent. Démonstration, pas déclaration.",
+          "Une méthode structurée pour placer le contexte réglementaire là où il renforce vraiment la confiance.",
       },
       {
-        name: "Architecture des liens internes",
+        name: "Structure d’Authority Routing",
         description:
-          "Une structure de liens conçue pour concentrer la crédibilité du site plutôt que la disperser. Chaque lien interne devient une décision stratégique.",
+          "Une architecture de liens internes conçue pour accumuler la crédibilité au lieu de la disperser sur des pages déconnectées.",
       },
       {
-        name: "Blueprint en 90 jours",
+        name: "Plan d’exécution sur 90 jours",
         description:
-          "La séquence d'exécution complète, écrite pour votre équipe. Ce qu'il faut construire, dans quel ordre, et pourquoi.",
+          "Une séquence claire : quoi construire, dans quel ordre, et pourquoi.",
       },
     ],
   },
 
   compounding: {
-    tagline: "La logique · Pourquoi cela se capitalise",
-    title: "Vous ne produisez pas simplement du contenu. Vous construisez une infrastructure.",
+    tagline: "Pourquoi cela s’accumule",
+    title:
+      "Le volume de contenu sans structure ne se transforme pas en confiance durable.",
     body: [
-      "Le trafic payant s'arrête dès que le budget s'arrête. Le volume de contenu sans architecture produit souvent des pics de trafic sans effet durable.",
-      "Une infrastructure de crédibilité fonctionne différemment. Chaque article indexé renforce le pilier. Chaque pilier renforce le cluster. Chaque cluster renforce l'expertise reconnue du site dans sa catégorie.",
-      "Avec le temps, l'empreinte de crédibilité du site s'élargit sans nécessiter d'augmentation proportionnelle du volume de contenu.",
+      "Le trafic payant s’arrête quand le budget s’arrête. Le contenu sans structure crée des pics isolés qui ne deviennent pas une vraie confiance acheteur.",
+      "Une infrastructure de crédibilité fonctionne autrement. Chaque actif bien positionné renforce le système qui l’entoure.",
+      "Avec le temps, votre entreprise devient plus facile à croire, plus facile à évaluer, et plus difficile à ignorer.",
     ],
   },
 
   cta: {
-    tagline: "Commencer par le diagnostic",
+    tagline: "Commencez ici",
     title:
-      "Le Trust Deficit Audit révèle précisément où se situe votre écart de crédibilité et comment le combler.",
-    cta: "Commencer avec l'Audit",
+      "L’Audit du Déficit de Confiance montre où votre système s’affaiblit.",
+    cta: "Commencer par l’Audit",
   },
 };

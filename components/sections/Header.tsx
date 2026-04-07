@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContent } from "@/hooks/useContent";
@@ -12,16 +13,29 @@ const Header = () => {
   const { site } = useContent();
   const { locale, setLocale } = useLocale();
 
-  const navLinks = [
-  { to: "/", label: site.nav.home },
-  { to: "/services", label: site.nav.services },
-  { to: "/oaa", label: site.nav.oaa },
-  { to: "/method", label: site.nav.method },
-  { to: "/etudes-de-cas", label: site.nav.caseStudies },
-  { to: "/a-propos", label: site.nav.about },
-  { to: "/blog", label: site.nav.blog },
-  { to: "/contact", label: site.nav.contact },
-];
+  const navLinks =
+    locale === "fr"
+      ? [
+          { to: "/authority-architecture", label: "Architecture d’autorité" },
+          { to: "/oaa", label: "OAA" },
+          { to: "/demonstration-analyses", label: "Analyses de démonstration" },
+          { to: "/tda", label: "TDA" },
+          { to: "/about", label: "À propos" },
+        ]
+      : [
+          { to: "/authority-architecture", label: "Authority Architecture" },
+          { to: "/oaa", label: "OAA" },
+          { to: "/demonstration-analyses", label: "Demonstration Analyses" },
+          { to: "/tda", label: "TDA" },
+          { to: "/about", label: "About" },
+        ];
+
+  const isActiveLink = (to: string) => {
+    if (to === "/demonstration-analyses") {
+      return pathname === to || pathname.startsWith("/demonstration-analyses/");
+    }
+    return pathname === to;
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-[#f6f4ef]/78 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] supports-[backdrop-filter]:bg-[#f6f4ef]/62">
@@ -37,9 +51,7 @@ const Header = () => {
               key={link.to}
               href={link.to}
               className={`text-sm font-medium transition-colors hover:text-primary ${
-                pathname === link.to
-                  ? "text-primary"
-                  : "text-muted-foreground"
+                isActiveLink(link.to) ? "text-primary" : "text-muted-foreground"
               }`}
             >
               {link.label}
@@ -82,9 +94,7 @@ const Header = () => {
               href={link.to}
               onClick={() => setOpen(false)}
               className={`text-sm font-medium ${
-                pathname === link.to
-                  ? "text-primary"
-                  : "text-muted-foreground"
+                isActiveLink(link.to) ? "text-primary" : "text-muted-foreground"
               }`}
             >
               {link.label}

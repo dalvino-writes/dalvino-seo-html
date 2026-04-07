@@ -7,14 +7,14 @@ export const siteCopy = {
 
   nav: {
     home: "Home",
-    services: "Services",
+    authorityArchitecture: "Authority Architecture",
     oaa: "OAA",
-    caseStudies: "Case Studies",
-    method: "Our Approach",
+    demonstrationAnalyses: "Demonstration Analyses",
+    tda: "TDA",
     about: "About",
-    blog: "Blog",
+    insights: "Insights",
+    engagement: "Engagement",
     contact: "Contact",
-    newsletter: "Newsletter",
     faq: "FAQ",
   },
 
@@ -36,11 +36,11 @@ export const siteCopy = {
   },
 
   caseStudiesPreview: {
-    tagline: "Case Studies · Proof of Results",
-    title: "What credibility architecture actually changes.",
+    tagline: "Demonstration Analyses · Proof of Structure",
+    title: "What authority architecture actually changes.",
     subtitle:
-      "Compounding organic visibility. Stronger category positioning. A site that is easier for buyers to trust and easier for discovery systems to recognize as credible. Each case study shows the structural difference of a correctly deployed OAA engagement.",
-    cta: "View case studies",
+      "Stronger category positioning. Clearer proof pathways. A site that is easier for buyers to trust and easier for discovery systems to interpret as credible. Each demonstration analysis shows the structural difference between surface-level messaging and a real authority system.",
+    cta: "View demonstration analyses",
   },
 
   newsletterSection: {
@@ -125,8 +125,7 @@ export const siteCopy = {
 
   trustDeficit: {
     tagline: "The Problem · The Trust Deficit",
-    title:
-      "Your competitors are not outwriting you. They are outstructuring you.",
+    title: "Your competitors are not outwriting you. They are outstructuring you.",
 
     body: [
       "Flat organic traffic despite consistent publishing. Competitors ranking above you on topics you should own. Compliance pages that say the right things but fail to strengthen trust with buyers or discovery systems.",
@@ -217,8 +216,7 @@ export const siteCopy = {
       {
         dimension: "Entry point",
         generic: "Free proposals and discovery calls",
-        Archoric:
-          "Paid diagnostic first. The Audit is a product, not a pitch.",
+        Archoric: "Paid diagnostic first. The Audit is a product, not a pitch.",
       },
 
       {
