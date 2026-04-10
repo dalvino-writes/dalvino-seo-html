@@ -14,11 +14,11 @@ export default function TDA() {
       ? {
           heroTagline: "L’offre · Trust Deficit Audit",
           heroTitle:
-            "Voyez exactement où votre site perd la confiance avant que cela ne casse la vente.",
+            "Voyez exactement où votre site perd la confiance avant que cela ne casse l’évaluation.",
           heroSubtitle:
             "Le TDA n’est pas un appel découverte déguisé. C’est un diagnostic stratégique payant conçu pour montrer où votre structure affaiblit la crédibilité, ralentit l’évaluation acheteur et empêche votre contenu de se capitaliser.",
 
-          heroPrimaryCta: "Commencer par l’Audit",
+          heroPrimaryCta: "Nous Contacter Pour l’Audit",
           heroSecondaryCta: "Voir OAA",
 
           problemTagline: "Pourquoi commencer ici",
@@ -27,7 +27,7 @@ export default function TDA() {
           problemCards: [
             "Vous publiez, mais la confiance ne s’accumule pas.",
             "Votre conformité est mentionnée, mais pas démontrée là où l’acheteur doute vraiment.",
-            "Votre site donne des informations, mais ne donne pas assez de conviction pour passer à l’étape suivante.",
+            "Votre site donne des informations, mais pas assez de conviction pour faire avancer l’évaluation.",
           ],
 
           whatItIsTagline: "Ce que vous achetez",
@@ -40,40 +40,77 @@ export default function TDA() {
 
           panelTagline: "Derrière l’Audit",
           panelPoints: [
-            "TDA = l’audit présenté au client.",
-            "TAD = Le cadre diagnostique de l'audit",
+            "TDA = l’audit présenté au client",
+            "TAD = le cadre diagnostique derrière l’audit",
             "Vous voyez les faiblesses structurelles avant qu’elles ne coûtent plus cher",
           ],
 
-          auditTagline: "Ce que l’Audit regarde",
+          reviewTagline: "Ce que nous examinons",
+          reviewTitle:
+            "Le premier passage de l’audit lit à la fois la surface visible du site et la structure sous-jacente.",
+          reviewIntro:
+            "Le diagnostic ne se limite pas à lire quelques pages. Il lit aussi la manière dont ces pages se relient, se renforcent ou se contredisent.",
+
+          surfaceLabel: "Couche 1 · Surface visible",
+          surfaceTitle: "Les pages où l’acheteur évalue votre sérieux",
+          surfaceItems: [
+            "Homepage",
+            "Features / product pages",
+            "Security / privacy / compliance",
+            "Integrations / API",
+            "About / team / author pages",
+            "Case studies / testimonials",
+            "Key blog / resource pages",
+            "Contact / demo / onboarding pages",
+          ],
+
+          structureLabel: "Couche 2 · Structure sous-jacente",
+          structureTitle: "Le système qui soutient ou fragmente la confiance",
+          structureItems: [
+            "Internal linking",
+            "All inlinks",
+            "Orphan pages",
+            "Sitemap XML",
+            "Content inventory",
+            "Page titles",
+            "H1 structure",
+            "Issues overview",
+            "Structured data errors",
+            "Indexability",
+            "Canonicals",
+            "Redirects",
+            "Crawl depth",
+          ],
+
+          auditTagline: "Ce que l’audit cherche à révéler",
           auditTitle:
-            "Le diagnostic évalue les couches qui conditionnent la confiance avant la conversion.",
+            "Le diagnostic ne cherche pas seulement des signaux SEO. Il cherche les points où la confiance casse.",
           auditItems: [
             {
-              title: "Crédibilité réglementaire",
+              title: "Confiance réglementaire",
               description:
                 "Votre site montre-t-il une vraie compréhension du terrain réglementaire ou seulement un langage de réassurance ?",
             },
             {
-              title: "Architecture d’autorité",
+              title: "Crédibilité opérationnelle",
               description:
-                "Vos pages renforcent-elles une même conclusion ou laissent-elles l’acheteur assembler lui-même la preuve ?",
+                "Votre structure rend-elle visible une compréhension réaliste de l’environnement Healthcare SaaS ?",
             },
             {
-              title: "Territoire thématique",
+              title: "Validation et preuve",
               description:
-                "Votre contenu construit-il une position crédible dans votre territoire ou disperse-t-il votre autorité ?",
+                "La preuve est-elle placée là où le doute apparaît, ou reste-t-elle isolée et décorative ?",
             },
             {
-              title: "Positionnement concurrentiel",
+              title: "Autorité structurelle",
               description:
-                "Votre structure vous aide-t-elle à paraître plus sérieux que les alternatives ou vous rend-elle interchangeable ?",
+                "Vos pages renforcent-elles une même conclusion ou laissent-elles l’acheteur assembler seul le sens ?",
             },
           ],
 
           deliverableTagline: "Ce que vous recevez",
           deliverableTitle:
-            "L’Audit vous laisse avec un livrable exploitable, pas avec une impression générale.",
+            "L’audit vous laisse avec un livrable exploitable, pas avec une impression générale.",
           deliverables: [
             "Un scorecard diagnostique rédigé",
             "Une carte priorisée des écarts",
@@ -82,13 +119,23 @@ export default function TDA() {
             "Une base solide pour décider si un engagement OAA est nécessaire",
           ],
 
+          decisionTagline: "Ce que cela vous aide à décider",
+          decisionTitle:
+            "Le but n’est pas seulement de nommer le problème. Le but est de décider plus clairement.",
+          decisionItems: [
+            "si le vrai problème vient du message, de la structure ou de la preuve",
+            "quelles pages ou couches fragilisent réellement l’évaluation",
+            "ce qu’il faut corriger en premier",
+            "si un engagement plus profond comme OAA est justifié",
+          ],
+
           pricingTagline: "Prix et logique d’entrée",
           pricingTitle:
             "Le TDA est un produit. Pas un prétexte pour vous vendre quelque chose à l’aveugle.",
           pricingBody: [
-            "Prix : 3 000 €.",
-            "Si vous poursuivez avec un engagement OAA dans les 30 jours, ce montant est crédité en intégralité.",
-            "Vous commencez donc par la clarté, pas par une proposition floue.",
+            "Prix : 3 000 €",
+            "Si vous poursuivez avec un engagement OAA dans les 30 jours, ce montant est crédité en intégralité",
+            "Vous commencez donc par la clarté, pas par une proposition floue",
           ],
 
           routeTagline: "Où aller ensuite",
@@ -123,17 +170,17 @@ export default function TDA() {
           finalTagline: "Commencez ici",
           finalTitle:
             "Avant de demander plus de contenu, vérifiez d’abord si votre structure mérite d’être renforcée.",
-          finalPrimaryCta: "Nous contacter",
+          finalPrimaryCta: "Nous Contacter Pour l'Audit",
           finalSecondaryCta: "Voir OAA",
         }
       : {
           heroTagline: "The Offer · Trust Deficit Audit",
           heroTitle:
-            "See exactly where your site is losing trust before it breaks the sale.",
+            "See exactly where your site is losing trust before it breaks evaluation.",
           heroSubtitle:
             "The TDA is not a disguised discovery call. It is a paid strategic diagnostic built to show where your structure weakens credibility, slows buyer evaluation, and prevents your content from compounding.",
 
-          heroPrimaryCta: "Start with the Audit",
+          heroPrimaryCta: " Contact Us For Your Audit",
           heroSecondaryCta: "See OAA",
 
           problemTagline: "Why Start Here",
@@ -142,7 +189,7 @@ export default function TDA() {
           problemCards: [
             "You publish, but trust does not accumulate.",
             "Your compliance is mentioned, but not demonstrated where the buyer is actually doubting.",
-            "Your site provides information, but not enough conviction to move the buyer forward.",
+            "Your site provides information, but not enough conviction to move evaluation forward.",
           ],
 
           whatItIsTagline: "What You’re Buying",
@@ -155,40 +202,77 @@ export default function TDA() {
 
           panelTagline: "Behind The Audit",
           panelPoints: [
-            "TDA = Client facing Audit",
+            "TDA = the client-facing audit",
             "TAD = the diagnostic engine behind the audit",
             "You see structural weaknesses before they become more expensive",
           ],
 
-          auditTagline: "What The Audit Looks At",
+          reviewTagline: "What We Review",
+          reviewTitle:
+            "The first pass of the audit reads both the visible trust surface and the underlying site structure.",
+          reviewIntro:
+            "The diagnostic does not only read a few pages. It also reads the way those pages connect, reinforce each other, or fragment the buyer’s confidence.",
+
+          surfaceLabel: "Layer 1 · Visible surface",
+          surfaceTitle: "The pages where the buyer evaluates your seriousness",
+          surfaceItems: [
+            "Homepage",
+            "Features / product pages",
+            "Security / privacy / compliance",
+            "Integrations / API",
+            "About / team / author pages",
+            "Case studies / testimonials",
+            "Key blog / resource pages",
+            "Contact / demo / onboarding pages",
+          ],
+
+          structureLabel: "Layer 2 · Underlying structure",
+          structureTitle: "The system that supports or fragments trust",
+          structureItems: [
+            "Internal linking",
+            "All inlinks",
+            "Orphan pages",
+            "Sitemap XML",
+            "Content inventory",
+            "Page titles",
+            "H1 structure",
+            "Issues overview",
+            "Structured data errors",
+            "Indexability",
+            "Canonicals",
+            "Redirects",
+            "Crawl depth",
+          ],
+
+          auditTagline: "What The Audit Is Trying To Reveal",
           auditTitle:
-            "The diagnostic evaluates the layers that condition trust before conversion.",
+            "The diagnostic is not just looking for SEO signals. It is looking for the points where trust breaks.",
           auditItems: [
             {
-              title: "Regulatory credibility",
+              title: "Regulatory trust",
               description:
                 "Does your site show real regulatory fluency, or does it only use reassurance language?",
             },
             {
-              title: "Authority architecture",
+              title: "Operational credibility",
               description:
-                "Do your pages reinforce the same conclusion, or do they force the buyer to assemble the proof alone?",
+                "Does your structure make a realistic understanding of the Healthcare SaaS environment visible?",
             },
             {
-              title: "Topic territory",
+              title: "Validation and proof",
               description:
-                "Is your content building a credible territory, or is it dispersing your authority?",
+                "Is proof placed where doubt appears, or does it remain isolated and decorative?",
             },
             {
-              title: "Competitive position",
+              title: "Structural authority",
               description:
-                "Does your structure make you look more serious than the alternatives, or more interchangeable?",
+                "Do your pages reinforce the same conclusion, or do they force the buyer to assemble the meaning alone?",
             },
           ],
 
           deliverableTagline: "What You Receive",
           deliverableTitle:
-            "The Audit leaves you with something usable, not a general impression.",
+            "The audit leaves you with something usable, not a general impression.",
           deliverables: [
             "A written diagnostic scorecard",
             "A prioritized gap map",
@@ -197,13 +281,23 @@ export default function TDA() {
             "A solid base for deciding whether an OAA engagement is necessary",
           ],
 
+          decisionTagline: "What This Helps You Decide",
+          decisionTitle:
+            "The point is not only to name the problem better. The point is to decide more clearly.",
+          decisionItems: [
+            "whether the real issue is messaging, structure, or proof",
+            "which pages or layers are actually weakening evaluation",
+            "what to fix first",
+            "whether deeper work like OAA is justified",
+          ],
+
           pricingTagline: "Pricing And Entry Logic",
           pricingTitle:
             "The TDA is a product. Not a pretext to sell you something blind.",
           pricingBody: [
-            "Price: €3,000.",
-            "If you move forward with an OAA engagement within 30 days, that amount is credited in full.",
-            "So you start with clarity, not with a vague proposal.",
+            "Price: €3,000",
+            "If you move forward with an OAA engagement within 30 days, that amount is credited in full",
+            "So you start with clarity, not with a vague proposal",
           ],
 
           routeTagline: "Where To Go Next",
@@ -238,7 +332,7 @@ export default function TDA() {
           finalTagline: "Start Here",
           finalTitle:
             "Before asking for more content, check whether your structure is worth strengthening first.",
-          finalPrimaryCta: "Contact us",
+          finalPrimaryCta: "Contact Us for Your Audit",
           finalSecondaryCta: "See OAA",
         };
 
@@ -364,6 +458,65 @@ export default function TDA() {
           </div>
         </section>
 
+        {/* Review layers */}
+        <section className="py-20 md:py-28">
+          <div className="container max-w-5xl">
+            <div className="rounded-[30px] border border-black/8 bg-white/34 px-8 py-10 shadow-[0_12px_28px_rgba(0,0,0,0.05)] backdrop-blur-xl md:px-12 md:py-14">
+              <div className="mb-12 max-w-3xl">
+                <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-accent">
+                  {copy.reviewTagline}
+                </p>
+                <h2 className="mb-4 text-3xl font-black leading-tight tracking-tight text-[#163629] md:text-4xl">
+                  {copy.reviewTitle}
+                </h2>
+                <p className="max-w-2xl text-base leading-relaxed text-[#2f3e36] md:text-lg">
+                  {copy.reviewIntro}
+                </p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="rounded-[24px] border border-black/8 bg-white/40 px-6 py-6 shadow-[0_10px_22px_rgba(0,0,0,0.04)] backdrop-blur-xl">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+                    {copy.surfaceLabel}
+                  </p>
+                  <h3 className="mb-5 text-2xl font-black tracking-tight text-[#163629]">
+                    {copy.surfaceTitle}
+                  </h3>
+                  <div className="flex flex-col gap-3">
+                    {copy.surfaceItems.map((item, index) => (
+                      <p
+                        key={index}
+                        className="text-sm leading-relaxed text-[#2f3e36] md:text-[15px]"
+                      >
+                        {item}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[24px] border border-black/8 bg-white/40 px-6 py-6 shadow-[0_10px_22px_rgba(0,0,0,0.04)] backdrop-blur-xl">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+                    {copy.structureLabel}
+                  </p>
+                  <h3 className="mb-5 text-2xl font-black tracking-tight text-[#163629]">
+                    {copy.structureTitle}
+                  </h3>
+                  <div className="flex flex-col gap-3">
+                    {copy.structureItems.map((item, index) => (
+                      <p
+                        key={index}
+                        className="text-sm leading-relaxed text-[#2f3e36] md:text-[15px]"
+                      >
+                        {item}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Audit layers */}
         <section className="py-20 md:py-28">
           <div className="container max-w-5xl">
@@ -416,6 +569,33 @@ export default function TDA() {
                     className="rounded-[20px] border border-black/8 bg-white/38 px-5 py-5 shadow-[0_10px_22px_rgba(0,0,0,0.04)] backdrop-blur-xl"
                   >
                     <p className="text-sm font-semibold leading-relaxed text-[#163629] md:text-[15px]">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Decision support */}
+        <section className="py-20 md:py-24">
+          <div className="container max-w-5xl">
+            <div className="max-w-4xl rounded-[28px] border border-black/8 bg-white/34 px-8 py-10 shadow-[0_12px_28px_rgba(0,0,0,0.05)] backdrop-blur-xl md:px-12 md:py-14">
+              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-accent">
+                {copy.decisionTagline}
+              </p>
+              <h2 className="mb-8 max-w-3xl text-3xl font-black leading-tight tracking-tight text-[#163629] md:text-4xl">
+                {copy.decisionTitle}
+              </h2>
+
+              <div className="grid gap-5 md:grid-cols-2">
+                {copy.decisionItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="rounded-[20px] border border-black/8 bg-white/38 px-5 py-5 shadow-[0_10px_22px_rgba(0,0,0,0.04)] backdrop-blur-xl"
+                  >
+                    <p className="text-sm leading-relaxed text-[#2f3e36] md:text-[15px]">
                       {item}
                     </p>
                   </div>
@@ -530,4 +710,4 @@ export default function TDA() {
       <Footer />
     </div>
   );
-}
+} 

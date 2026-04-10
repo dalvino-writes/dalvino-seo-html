@@ -1,15 +1,15 @@
 const clientData = {
   identity: {
-    clientName: "TherapyNotes",
-    clientSlug: "client-therapynotes",
-    websiteUrl: "https://www.therapynotes.com",
+    clientName: "theracare",
+    clientSlug: "client-theracare",
+    websiteUrl: "https://www.theracare.com",
     preparedFor: "Leadership Team",
     auditDate: "March 2026",
     clientSegment: "Healthcare SaaS",
     clientRegion: "United States",
     adminMode: false,
-    accessPassword: "Audit2026",
-    presentationLockEnabled: true,
+    accessPassword: "",
+    presentationLockEnabled: false,
     geminiApiKey: "",
     geminiModel: "gemini-2.5-flash-preview-09-2025"
   },

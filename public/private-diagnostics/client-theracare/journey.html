@@ -749,7 +749,48 @@
       border: none;
     }
 
-    @media (max-width: 1100px) {
+    
+    .transition-block {
+      margin-top: 26px;
+      padding: 22px 24px;
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.42);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .transition-copy {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(46,42,38,0.78);
+      max-width: 760px;
+    }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+      transition: transform 0.18s ease;
+    }
+
+    .next-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1100px) {
       .hero-grid,
       .analysis-grid,
       .flow-grid,
@@ -988,6 +1029,13 @@
       </div>
     </div>
   </div>
+
+  <footer class="transition-block">
+    <div class="transition-copy">
+      The next page quantifies how the current trust leakage likely suppresses qualified demand, demo momentum, and annual revenue opportunity.
+    </div>
+    <a href="impact.html" class="next-btn">Continue to Impact <span>→</span></a>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -1350,6 +1398,12 @@
       const panel = document.getElementById("adminPanel");
       const fab = document.getElementById("adminFab");
       const toggle = document.getElementById("adminToggle");
+
+      if (!clientData.identity.adminMode) {
+        fab.remove();
+        panel.remove();
+        return;
+      }
 
       function showPanel() {
         panel.classList.add("visible");

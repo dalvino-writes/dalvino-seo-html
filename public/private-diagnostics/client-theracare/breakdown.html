@@ -1228,7 +1228,6 @@
       const isAdmin = !!clientData.identity.adminMode;
       if (!isAdmin) {
         document.documentElement.classList.remove("archoric-unlocked");
-        sessionStorage.removeItem(ACCESS.accessKey);
         hidePanel();
         fab.style.display = "none";
         return;

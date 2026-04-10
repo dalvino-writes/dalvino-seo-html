@@ -676,7 +676,48 @@
       line-height: 1.7;
     }
 
-    @media (max-width: 1100px) {
+    
+    .transition-block {
+      margin-top: 26px;
+      padding: 22px 24px;
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.42);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .transition-copy {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(46,42,38,0.78);
+      max-width: 760px;
+    }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+      transition: transform 0.18s ease;
+    }
+
+    .next-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1100px) {
       .hero-grid, .analysis-grid, .assumptions-grid, .metric-grid, .scale-grid {
         grid-template-columns: 1fr 1fr;
       }
@@ -689,7 +730,7 @@
       .hero-grid, .analysis-grid, .assumptions-grid, .metric-grid, .scale-grid {
         grid-template-columns: 1fr;
       }
-      .section-head { flex-direction: column; align-items: start; }
+      .section-head, .transition-block { flex-direction: column; align-items: start; }
     }
 
     @media print {
@@ -1008,6 +1049,13 @@
 
     <footer class="bottom-note">
       This page is designed to move from commercial impact into action. The next section should focus on the highest-leverage structural fixes required to reduce trust leakage and recover this suppressed commercial potential.
+    </footer>
+
+    <footer class="transition-block">
+      <div class="transition-copy">
+        The next page translates the current trust weakness into a prioritized recovery roadmap, showing where intervention should begin first.
+      </div>
+      <a href="priority.html" class="next-btn">Continue to Priority <span>→</span></a>
     </footer>
   </div>
 
@@ -1389,7 +1437,6 @@
 
       if (!isAdmin) {
         document.documentElement.classList.remove("archoric-unlocked");
-        sessionStorage.removeItem(ACCESS.accessKey);
         hidePanel();
         fab.style.display = "none";
         return;
