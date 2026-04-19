@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archoric Diagnostic - Revenue Suppression Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="client-data.js"></script>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root {
+      --bg: #f3efe8;
+      --card: rgba(255,255,255,0.34);
+      --text: #2e2a26;
+      --text-strong: #221f1c;
+      --muted: #6e655c;
+      --line: #cfc4b4;
+      --strong: #8a5a44;
+      --accent: #b77b57;
+      --good: #6f8258;
+      --warn: #9a7448;
+      --bad: #9a4f4f;
+      --red-accent: #a65151;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 20px;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px 72px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text-strong);
+    }
+
+    h1 { font-size: clamp(40px, 7vw, 74px); line-height: 0.95; }
+    h2 { font-size: clamp(28px, 4.5vw, 48px); line-height: 1.02; }
+    h3 { font-size: 28px; line-height: 1.08; }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(46,42,38,0.92);
+    }
+
+    .top-nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .top-nav-left, .top-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-nav-right { justify-content: flex-end; }
+
+    .nav-button, .home-button, .admin-fab, .admin-toggle, .save-button, .access-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.55);
+      color: var(--text-strong);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, background 0.18s ease;
+      cursor: pointer;
+    }
+
+    .nav-button:hover, .home-button:hover, .admin-fab:hover, .admin-toggle:hover, .save-button:hover, .access-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .home-button {
+      min-width: 180px;
+      background: linear-gradient(120deg, rgba(255,255,255,0.88), rgba(233,225,212,0.82));
+    }
+
+    .hero-grid, .analysis-grid, .scale-grid {
+      display: grid;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+      margin-bottom: 28px;
+    }
+
+    .analysis-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      margin-top: 26px;
+    }
+
+    .scale-grid {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 18px;
+    }
+
+    .hero-card, .summary-card, .panel-card, .metric-card, .annual-card, .scale-card, .assumption-box, .tooltip-bubble, .overlay-card, .editor-card {
+      background: rgba(255,255,255,0.34);
+      border: 1px solid rgba(110,101,92,0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card, .summary-card, .panel-card, .annual-card {
+      padding: 28px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -30px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(183,123,87,0.18), transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-sub {
+      margin-top: 18px;
+      max-width: 720px;
+      font-size: 17px;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-pill {
+      border: 1px solid rgba(110,101,92,0.2);
+      background: rgba(255,255,255,0.48);
+      color: var(--muted);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .summary-card {
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .summary-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed rgba(110,101,92,0.28);
+      padding-bottom: 10px;
+      gap: 16px;
+    }
+
+    .summary-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-align: right;
+      max-width: 60%;
+    }
+
+    .summary-note {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(110,101,92,0.16);
+      color: rgba(46,42,38,0.78);
+      font-size: 14px;
+    }
+
+    .assumptions-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 26px 0 30px;
+    }
+
+    .assumption-box {
+      padding: 16px;
+      background: rgba(255,255,255,0.56);
+    }
+
+    .assumption-box.highlight {
+      border-color: rgba(183,123,87,0.42);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .label-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .label-tiny {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .value-sm {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-strong);
+    }
+
+    .value-sm.emphasis {
+      color: var(--accent);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 26px 0;
+    }
+
+    .metric-card {
+      padding: 22px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.46);
+    }
+
+    .metric-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .metric-target {
+      font-size: 13px;
+      color: rgba(46,42,38,0.76);
+      margin-bottom: 8px;
+    }
+
+    .metric-number {
+      font-size: 36px;
+      line-height: 1;
+      color: var(--text-strong);
+      font-family: 'EB Garamond', serif;
+    }
+
+    .metric-loss {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(110,101,92,0.3);
+    }
+
+    .metric-loss-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .metric-loss-number {
+      font-size: 22px;
+      line-height: 1.15;
+      color: var(--red-accent);
+      font-family: 'EB Garamond', serif;
+    }
+
+    .metric-note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 36px 0 20px;
+    }
+
+    .section-head p {
+      max-width: 640px;
+      color: rgba(46,42,38,0.76);
+    }
+
+    .panel-card {
+      position: relative;
+    }
+
+    .panel-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .bullet {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(110,101,92,0.26);
+      background: rgba(255,255,255,0.42);
+      margin-top: 4px;
+    }
+
+    .insight-block {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.28);
+      border: 1px solid rgba(110,101,92,0.18);
+    }
+
+    .insight-label {
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .chart-wrap {
+      margin-top: 18px;
+      height: 340px;
+      position: relative;
+    }
+
+    .chart-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .logic-trigger {
+      margin-top: 18px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .logic-trigger:hover { color: var(--text-strong); }
+
+    .logic-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: rgba(255,255,255,0.22);
+      font-size: 12px;
+      margin-top: 10px;
+      border-radius: 18px;
+    }
+
+    .logic-content.open {
+      max-height: 600px;
+      padding: 20px;
+      border: 1px dashed rgba(110,101,92,0.26);
+    }
+
+    .logic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+      color: rgba(46,42,38,0.84);
+    }
+
+    .annual-card {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .annual-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .annual-number {
+      font-size: clamp(54px, 8vw, 86px);
+      line-height: 1;
+      color: var(--text-strong);
+      font-family: 'EB Garamond', serif;
+    }
+
+    .annual-sub {
+      margin-top: 10px;
+      font-size: 14px;
+      color: rgba(46,42,38,0.76);
+    }
+
+    .scale-card {
+      padding: 22px;
+      background: rgba(255,255,255,0.52);
+    }
+
+    .scale-value {
+      margin-top: 8px;
+      font-size: 28px;
+      color: var(--text-strong);
+      font-family: 'EB Garamond', serif;
+      line-height: 1.1;
+    }
+
+    .scale-value.emphasis { color: var(--accent); }
+
+    .tooltip-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .tooltip-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(183,123,87,0.12);
+      color: var(--strong);
+      border: 1px solid rgba(183,123,87,0.22);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: help;
+      user-select: none;
+    }
+
+    .tooltip-bubble {
+      position: absolute;
+      left: 0;
+      bottom: calc(100% + 12px);
+      width: 260px;
+      padding: 12px 14px;
+      color: rgba(46,42,38,0.9);
+      font-size: 13px;
+      line-height: 1.55;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      z-index: 30;
+    }
+
+    .tooltip-wrap:hover .tooltip-bubble,
+    .tooltip-wrap:focus-within .tooltip-bubble {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .admin-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 82;
+      display: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      border: none;
+    }
+
+    .archoric-unlocked .admin-fab {
+      display: inline-flex;
+    }
+
+    .admin-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 78px;
+      width: min(420px, calc(100vw - 32px));
+      max-height: 78vh;
+      overflow: auto;
+      padding: 22px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(110,101,92,0.22);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 80;
+    }
+
+    .archoric-unlocked .admin-panel.visible { display: block; }
+
+    .admin-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-panel h4 {
+      margin: 0;
+      font-size: 22px;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      color: var(--text-strong);
+    }
+
+    .editor-group {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .editor-card { padding: 14px; background: rgba(255,255,255,0.62); }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .input, .admin-panel input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.9);
+      font: inherit;
+      color: var(--text-strong);
+      box-sizing: border-box;
+      min-height: 42px;
+      outline: none;
+    }
+
+    .save-button {
+      width: 100%;
+      border: none;
+      margin-top: 16px;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,36,32,0.38);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 90;
+    }
+
+    .overlay.active { display: flex; }
+
+    .overlay-card {
+      width: min(480px, 100%);
+      padding: 28px;
+      background: rgba(255,255,255,0.94);
+    }
+
+    .overlay-card h3 { margin-bottom: 10px; }
+    .overlay-card p { color: rgba(46,42,38,0.76); margin-bottom: 18px; }
+
+    .access-btn {
+      width: 100%;
+      border: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .access-error {
+      color: var(--red-accent);
+      font-size: 12px;
+      min-height: 18px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .bottom-note {
+      margin-top: 44px;
+      padding-top: 34px;
+      border-top: 1px solid rgba(110,101,92,0.24);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    
+    .transition-block {
+      margin-top: 26px;
+      padding: 22px 24px;
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.42);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .transition-copy {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(46,42,38,0.78);
+      max-width: 760px;
+    }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+      transition: transform 0.18s ease;
+    }
+
+    .next-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1100px) {
+      .hero-grid, .analysis-grid, .assumptions-grid, .metric-grid, .scale-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .top-nav { grid-template-columns: 1fr; }
+      .top-nav-left, .top-nav-right { justify-content: center; }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell { padding: 20px 16px 48px; }
+      .hero-grid, .analysis-grid, .assumptions-grid, .metric-grid, .scale-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head, .transition-block { flex-direction: column; align-items: start; }
+    }
+
+    @media print {
+      .overlay, .admin-fab, .admin-panel, .top-nav { display: none !important; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="accessOverlay">
+    <div class="overlay-card">
+      <div class="eyebrow">Private Diagnostic Access</div>
+      <h3 id="accessTitle">Revenue Suppression Analysis</h3>
+      <p id="accessSubtitle">
+        This diagnostic was prepared for <strong id="accessClientName">Client</strong> and requires access credentials.
+      </p>
+      <label class="field-label" for="accessInput">Password</label>
+      <input class="input" id="accessInput" type="password" placeholder="Enter access password">
+      <button class="access-btn" id="unlockButton" type="button">Unlock Diagnostic</button>
+      <div class="access-error" id="accessError"></div>
+    </div>
+  </div>
+
+  <div class="page-shell" id="auditShell">
+    <nav class="top-nav">
+      <div class="top-nav-left">
+        <a class="nav-button" href="journey.html">← Previous</a>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <a class="home-button" href="index.html">Main Scorecard</a>
+      </div>
+      <div class="top-nav-right">
+        <a class="nav-button" href="priority.html">Next →</a>
+      </div>
+    </nav>
+
+    <section class="hero-grid">
+      <article class="hero-card">
+        <div>
+          <div class="eyebrow">Revenue Suppression Analysis</div>
+          <h1 id="heroTitle">What trust friction is costing before sales even begins.</h1>
+          <p class="hero-sub" id="heroSub">
+            This page converts the trust deficit into pipeline and revenue impact, using the current score profile and commercial assumptions to estimate how much value is lost before a buyer enters sales.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span class="meta-pill" id="metaClient">Client</span>
+          <span class="meta-pill" id="metaProfile">Profile</span>
+          <span class="meta-pill" id="metaLeakage">Leakage</span>
+        </div>
+      </article>
+
+      <aside class="summary-card">
+        <div>
+          <div class="eyebrow">Impact Summary</div>
+          <div class="summary-stack">
+            <div class="summary-row">
+              <span class="summary-label">Trust Classification</span>
+              <span class="summary-value" id="summaryClassification">Moderate Trust</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Trust Profile</span>
+              <span class="summary-value" id="summaryProfile">Surface / Underdeveloped Trust System</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">
+                Trust Leakage
+                <span class="tooltip-wrap">
+                  <span class="tooltip-dot" tabindex="0">?</span>
+                  <span class="tooltip-bubble">Trust leakage is the estimated percentage of buyer confidence lost before sales engagement because proof, structure, or validation signals remain incomplete.</span>
+                </span>
+              </span>
+              <span class="summary-value" id="summaryLeak">0%</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Annualized Revenue Drag</span>
+              <span class="summary-value" id="summaryAnnual">$0</span>
+            </div>
+          </div>
+        </div>
+        <p class="summary-note" id="summaryNote">
+          The strongest commercial suppression usually appears where trust leakage reduces qualified demo volume before sales ever has a chance to convert it.
+        </p>
+      </aside>
+    </section>
+
+    <section>
+      <div class="assumptions-grid">
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">Monthly Traffic</span>
+            <span class="tooltip-wrap">
+              <span class="tooltip-dot" tabindex="0">?</span>
+              <span class="tooltip-bubble">Estimated number of relevant visitors evaluating the platform monthly.</span>
+            </span>
+          </div>
+          <span class="value-sm" id="dispTraffic">0</span>
+        </div>
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">Current Conversion</span>
+            <span class="tooltip-wrap">
+              <span class="tooltip-dot" tabindex="0">?</span>
+              <span class="tooltip-bubble">Percentage of visitors expected to convert into demo opportunities under the current trust conditions.</span>
+            </span>
+          </div>
+          <span class="value-sm" id="dispConv">0%</span>
+        </div>
+        <div class="assumption-box highlight">
+          <div class="label-wrap">
+            <span class="label-tiny">Trust Leakage</span>
+            <span class="tooltip-wrap">
+              <span class="tooltip-dot" tabindex="0">?</span>
+              <span class="tooltip-bubble">Calculated percentage of qualified buyer intent lost due to the current trust profile and its structural weakness pattern.</span>
+            </span>
+          </div>
+          <span class="value-sm emphasis" id="dispLeak">0%</span>
+        </div>
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">ACV</span>
+            <span class="tooltip-wrap">
+              <span class="tooltip-dot" tabindex="0">?</span>
+              <span class="tooltip-bubble">Estimated annual contract value generated per customer account.</span>
+            </span>
+          </div>
+          <span class="value-sm"><span class="currency-label">£</span><span id="dispAcv">0</span></span>
+        </div>
+        <div class="assumption-box">
+          <div class="label-wrap">
+            <span class="label-tiny">Demo-to-Close</span>
+            <span class="tooltip-wrap">
+              <span class="tooltip-dot" tabindex="0">?</span>
+              <span class="tooltip-bubble">Percentage of demos expected to convert into paying customers.</span>
+            </span>
+          </div>
+          <span class="value-sm" id="dispClose">0%</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Impact Translation</div>
+          <h2>How trust drag compounds into lost pipeline</h2>
+        </div>
+        <p id="guidanceText">
+          These figures contrast expected target performance against the measurable drag created by trust drop-off in the current buyer journey.
+        </p>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric-card">
+          <div>
+            <div class="metric-title">Monthly Demos</div>
+            <div class="metric-target">Target Performance</div>
+            <div class="metric-number" id="targetDemos">0</div>
+          </div>
+          <div class="metric-loss">
+            <div class="metric-loss-label">Lost to Trust Friction</div>
+            <div class="metric-loss-number" id="lostDemos">0</div>
+            <p class="metric-note">Potential demo requests lost before sales engagement due to unresolved trust signals.</p>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div>
+            <div class="metric-title">Monthly Deals</div>
+            <div class="metric-target">Target Performance</div>
+            <div class="metric-number" id="targetDeals">0</div>
+          </div>
+          <div class="metric-loss">
+            <div class="metric-loss-label">Lost to Trust Friction</div>
+            <div class="metric-loss-number" id="lostDeals">0</div>
+            <p class="metric-note">Accounts not acquired because trust leakage reduced demo volume upstream.</p>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div>
+            <div class="metric-title">Monthly Revenue Opportunity</div>
+            <div class="metric-target">Target Performance</div>
+            <div class="metric-number"><span class="currency-label">£</span><span id="targetRevenue">0</span></div>
+          </div>
+          <div class="metric-loss">
+            <div class="metric-loss-label">Lost to Trust Friction</div>
+            <div class="metric-loss-number"><span class="currency-label">£</span><span id="lostRevenue">0</span></div>
+            <p class="metric-note">Revenue leakage caused by trust gaps before qualified buyers move into sales.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="analysis-grid">
+        <article class="panel-card">
+          <div class="eyebrow">Waterfall View</div>
+          <h2>How the loss accumulates</h2>
+          <p>
+            This chart shows the progression from ideal monthly opportunity down to observed revenue after trust leakage removes part of the available demand.
+          </p>
+          <div class="chart-wrap">
+            <canvas id="waterfallChart"></canvas>
+          </div>
+
+          <div class="logic-trigger" id="logicTrigger"><span id="logicIcon">⊕</span> View Calculation Logic</div>
+          <div class="logic-content" id="logicBlock">
+            <div class="logic-grid">
+              <div>Monthly Demos = Traffic × Conversion Rate</div>
+              <div>Estimated Demos Lost = Monthly Demos × Trust Leakage %</div>
+              <div>Monthly Deals = Monthly Demos × Demo-to-Close</div>
+              <div>Estimated Deals Lost = Estimated Demos Lost × Demo-to-Close</div>
+              <div>Revenue Leakage = Estimated Deals Lost × (ACV ÷ 12)</div>
+              <div>
+                <strong>Trust Leakage Logic:</strong><br>
+                Derived from the Trust Weakness Index and weighted against the currently detected trust profile.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel-card">
+          <div class="eyebrow">Diagnostic Reading</div>
+          <h2>What this means commercially</h2>
+          <ul class="panel-list" id="diagnosisList"></ul>
+
+          <div class="insight-block">
+            <div class="insight-label">Interpretive Summary</div>
+            <p id="interpretiveSummary">
+              Trust friction can suppress pipeline before marketing spend or sales capacity ever gets a chance to do its job.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="annual-card">
+        <span class="annual-label">Directional Annualized Revenue Leakage</span>
+        <div class="annual-number"><span class="currency-label">£</span><span id="annualTotal">0</span></div>
+        <p class="annual-sub">
+          This reflects the observable annual opportunity currently lost because trust structure is suppressing buyer progression before sales engagement.
+        </p>
+      </div>
+    </section>
+
+    <section class="analysis-grid">
+      <article class="panel-card">
+        <div class="eyebrow">Relative Performance Impact</div>
+        <h2>What stronger trust could unlock</h2>
+        <p id="relativeContext">
+          Based on the current trust structure, the platform is operating below its full conversion potential.
+        </p>
+        <div class="metric-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 0;">
+          <div class="metric-card" style="min-height:auto;">
+            <div class="metric-title">Current Conversion</div>
+            <div class="metric-number" id="currentConversion">0%</div>
+          </div>
+          <div class="metric-card" style="min-height:auto;">
+            <div class="metric-title">Potential Conversion</div>
+            <div class="metric-number" id="potentialConversion">0%</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel-card">
+        <div class="eyebrow">Pipeline Expansion Potential</div>
+        <h2>What the same traffic could produce</h2>
+        <p id="pipelineContext">
+          If trust leakage is reduced, the same traffic volume could generate significantly more qualified demos and downstream revenue.
+        </p>
+        <ul class="panel-list" id="pipelineList"></ul>
+      </article>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Growth Scale</div>
+          <h2>How the drag grows with demand</h2>
+        </div>
+        <p>
+          At <span id="scaleTargetInline">10,000</span> monthly visitors, the same trust profile creates materially larger commercial suppression.
+        </p>
+      </div>
+
+      <div class="scale-grid">
+        <article class="scale-card">
+          <div class="label-tiny">Scaled Monthly Deal Loss</div>
+          <div class="scale-value" id="scaleDeals">0</div>
+        </article>
+        <article class="scale-card">
+          <div class="label-tiny">Scaled Monthly Revenue Leakage</div>
+          <div class="scale-value emphasis"><span class="currency-label">£</span><span id="scaleRevenue">0</span></div>
+        </article>
+        <article class="scale-card">
+          <div class="label-tiny">Scaled Annual Opportunity Loss</div>
+          <div class="scale-value emphasis"><span class="currency-label">£</span><span id="scaleAnnual">0</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="panel-card" style="margin-top: 34px; padding: 30px 32px; background: rgba(255,255,255,0.5);">
+        <div class="eyebrow">Next Step</div>
+        <h2 style="max-width: 760px;">Review the findings and map the highest-leverage recovery path.</h2>
+        <p style="margin-top: 12px; max-width: 760px;">
+          If these estimates reflect a meaningful commercial gap, the next step is to review the diagnostic together, confirm the biggest trust constraints, and identify which fixes are most likely to recover lost demand fastest.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;">
+          <a class="home-button" id="ctaPrimary" href="/contact/">Book a Diagnostic Review</a>
+          <a class="nav-button" id="ctaSecondary" href="/contact/">Contact Archoric</a>
+        </div>
+      </div>
+    </section>
+
+
+    <footer class="bottom-note">
+      This page is designed to move from commercial impact into action. The next section should focus on the highest-leverage structural fixes required to reduce trust leakage and recover this suppressed commercial potential.
+    </footer>
+
+    <footer class="transition-block">
+      <div class="transition-copy">
+        The next page translates the current trust weakness into a prioritized recovery roadmap, showing where intervention should begin first.
+      </div>
+      <a href="priority.html" class="next-btn">Continue to Priority <span>→</span></a>
+    </footer>
+  </div>
+
+  <button class="admin-fab" id="adminFab" type="button">Adjust Assumptions</button>
+
+  <aside class="admin-panel" id="adminPanel">
+    <div class="admin-head">
+      <h4>Impact Editor</h4>
+      <button class="admin-toggle" id="adminToggle" type="button">Minimize</button>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0;">
+      Update commercial assumptions to explore how trust leakage changes pipeline and revenue impact.
+    </p>
+
+    <div class="editor-group" style="margin-top:18px;">
+      <div class="editor-card">
+        <label class="field-label">Detected Trust Profile</label>
+        <div id="adminDetectedProfile" style="font-size:14px;font-weight:600;color:var(--text-strong);">Analyzing...</div>
+      </div>
+
+      <div class="editor-card">
+        <label class="field-label">Currency Symbol</label>
+        <input id="inCurrency" class="input" type="text">
+      </div>
+
+      <div class="editor-card">
+        <label class="field-label">Monthly Traffic</label>
+        <input id="inTraffic" class="input" type="number">
+      </div>
+
+      <div class="editor-card">
+        <label class="field-label">Current Conversion (%)</label>
+        <input id="inConv" class="input" type="number" step="0.1">
+      </div>
+
+      <div class="editor-card">
+        <label class="field-label">Annual Contract Value (ACV)</label>
+        <input id="inAcv" class="input" type="number">
+      </div>
+
+      <div class="editor-card">
+        <label class="field-label">Demo-to-Close (%)</label>
+        <input id="inClose" class="input" type="number" step="0.1">
+      </div>
+
+      <div class="editor-card">
+        <label class="field-label">Growth Scale Target (Traffic)</label>
+        <input id="inScaleTarget" class="input" type="number">
+      </div>
+    </div>
+
+    <button class="save-button" id="saveButton" type="button">Save Snapshot</button>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const utils = window.archoricAuditUtils;
+    const ACCESS = utils.getAccessConfig();
+    let waterfallChart;
+
+    function money(value) {
+      return Math.round(value).toLocaleString();
+    }
+
+    function num(value, digits = 1) {
+      return Number(value).toFixed(digits).replace(/\.0$/, "");
+    }
+
+    function setUnlockedState(isUnlocked) {
+      const overlay = document.getElementById("accessOverlay");
+      if (isUnlocked) {
+        overlay.classList.remove("active");
+        document.body.classList.remove("locked");
+      } else {
+        overlay.classList.add("active");
+        document.body.classList.add("locked");
+      }
+    }
+
+    function checkAccess() {
+      const accessName = document.getElementById("accessClientName");
+      if (accessName) accessName.textContent = ACCESS.companyName;
+
+      if (ACCESS.adminMode) return setUnlockedState(true);
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
+
+      const unlocked = sessionStorage.getItem(ACCESS.accessKey) === "true";
+      setUnlockedState(unlocked);
+    }
+
+    function unlockAudit() {
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
+
+      const inputEl = document.getElementById("accessInput");
+      const errorEl = document.getElementById("accessError");
+      const input = inputEl ? inputEl.value : "";
+
+      if (input === ACCESS.runtimePassword) {
+        sessionStorage.setItem(ACCESS.accessKey, "true");
+        if (errorEl) errorEl.innerText = "";
+        setUnlockedState(true);
+      } else {
+        if (errorEl) errorEl.innerText = "Incorrect password. Please try again.";
+        if (inputEl) inputEl.value = "";
+      }
+    }
+
+    function getGuidanceText(profileName, leakage) {
+      const guidance = {
+        "High-Trust Engine": `With this profile, expected targets are already close to attainable reality. The remaining ${leakage}% leakage behaves more like conversion drag than structural failure.`,
+        "Validation-Constrained": `This profile generates interest but fails to fully stabilize trust. The result is visible demand loss before the buyer commits to a sales conversation.`,
+        "Compliance-Heavy": `This profile signals safety more than usability. Commercial drag comes from buyers who do not fully translate compliance signals into operational confidence.`,
+        "Product-Centric Blind Spot": `This profile explains the product clearly, but trust does not keep pace. The resulting suppression appears most strongly in demo conversion.`,
+        "Fragmented Authority": `This profile produces a severe structural disconnect. The buyer journey sheds qualified demand because trust signals fail to connect into one stable authority system.`,
+        "Surface / Underdeveloped Trust System": `This profile creates credible first impressions but not enough deep certainty. These figures translate that surface-level trust deficit into lost commercial outcomes.`
+      };
+      return guidance[profileName] || guidance["Surface / Underdeveloped Trust System"];
+    }
+
+    function getSuppressionNarrative(profileName) {
+      const narratives = {
+        "High-Trust Engine": {
+          relative: "The system is already operating near its trust ceiling. Remaining upside comes from refinement rather than structural rebuild.",
+          pipeline: "The same traffic base could generate modest but still meaningful conversion improvements if final friction points are removed.",
+          arr: "This revenue is closer to optimization upside than foundational recovery."
+        },
+        "Fragmented Authority": {
+          relative: "The current trust structure is suppressing demand materially. Buyers are likely disqualifying themselves because the trust system does not feel coherent.",
+          pipeline: "A stronger authority system would allow the current traffic base to produce meaningfully more qualified demos without additional acquisition spend.",
+          arr: "This is structurally hidden revenue: demand exists, but trust architecture is preventing it from converting."
+        },
+        "Product-Centric Blind Spot": {
+          relative: "Product clarity is outpacing trust formation. Buyers understand the offer, but they do not gain enough confidence to commit.",
+          pipeline: "Adding stronger trust framing would convert more interested traffic into engaged pipeline without changing top-of-funnel volume.",
+          arr: "This revenue is being lost to late-stage hesitation rather than lack of interest."
+        }
+      };
+
+      return narratives[profileName] || {
+        relative: "Based on the current trust structure, the platform is operating below its full conversion potential. A portion of qualified traffic exits before entering sales because confidence does not fully stabilize.",
+        pipeline: "Reducing trust leakage would allow the same traffic volume to generate more qualified demos and stronger downstream revenue.",
+        arr: "This reflects revenue currently inaccessible because trust friction interrupts buyer progression inside the existing journey."
+      };
+    }
+
+    function hydrateInputsFromClientData() {
+      document.getElementById("inCurrency").value = clientData.impact.currencySymbol || "£";
+      document.getElementById("inTraffic").value = Number(clientData.impact.monthlyTraffic) || 0;
+      document.getElementById("inConv").value = Number(clientData.impact.currentConversionPercent) || 0;
+      document.getElementById("inAcv").value = Number(clientData.impact.annualContractValue) || 0;
+      document.getElementById("inClose").value = Number(clientData.impact.demoToClosePercent) || 0;
+      document.getElementById("inScaleTarget").value = Number(clientData.impact.growthScaleTarget) || 10000;
+    }
+
+    function getWaterfallData(expectedRevenue, lostRevenue) {
+      const realizedRevenue = Math.max(expectedRevenue - lostRevenue, 0);
+      return {
+        labels: ["Ideal Opportunity", "Trust Leakage", "Observed Revenue"],
+        offset: [0, realizedRevenue, 0],
+        bars: [expectedRevenue, lostRevenue, realizedRevenue]
+      };
+    }
+
+    function renderWaterfall(expectedRevenue, lostRevenue, symbol) {
+      const ctx = document.getElementById("waterfallChart");
+      const wf = getWaterfallData(expectedRevenue, lostRevenue);
+
+      if (waterfallChart) waterfallChart.destroy();
+
+      waterfallChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: wf.labels,
+          datasets: [
+            {
+              label: "Offset",
+              data: wf.offset,
+              backgroundColor: "rgba(0,0,0,0)",
+              borderWidth: 0,
+              stack: "combined"
+            },
+            {
+              label: "Revenue",
+              data: wf.bars,
+              backgroundColor: [
+                "rgba(111,130,88,0.65)",
+                "rgba(166,81,81,0.68)",
+                "rgba(183,123,87,0.62)"
+              ],
+              borderColor: [
+                "rgba(111,130,88,1)",
+                "rgba(166,81,81,1)",
+                "rgba(183,123,87,1)"
+              ],
+              borderWidth: 1.5,
+              stack: "combined"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${symbol}${money(ctx.parsed.y)}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: "rgba(46,42,38,0.72)" }
+            },
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: "rgba(46,42,38,0.72)",
+                callback: (value) => `${symbol}${Number(value).toLocaleString()}`
+              },
+              grid: { color: "rgba(110,101,92,0.14)" }
+            }
+          }
+        }
+      });
+    }
+
+    function renderDiagnosisList(expectedDemos, lostDemos, lostDeals, annualLoss) {
+      const list = document.getElementById("diagnosisList");
+      list.innerHTML = "";
+
+      const symbol = document.querySelector(".currency-label").innerText;
+      const items = [
+        `At current assumptions, trust leakage removes about ${Math.round(lostDemos)} potential demos each month before sales engagement even begins.`,
+        `That demo loss translates into roughly ${num(lostDeals, 1)} lost customer opportunities per month at the current close rate.`,
+        `Annualized revenue drag is approximately ${symbol}${money(annualLoss)}, based on the current ACV and conversion assumptions.`,
+        `This means revenue recovery can come from trust improvement alone, without requiring additional traffic acquisition to produce the same gain.`
+      ];
+
+      items.forEach(text => {
+        const item = document.createElement("li");
+        item.innerHTML = `<span class="bullet"></span><div><p>${text}</p></div>`;
+        list.appendChild(item);
+      });
+    }
+
+    function calculate() {
+      const scores = utils.getScores(clientData.scores);
+      const classification = utils.getClassification(scores.total);
+      const profileName = utils.identifyProfile(scores.array);
+      const leakPercent = utils.computeLeakPercent(scores.array);
+      const leakage = leakPercent / 100;
+
+      const symbol = document.getElementById("inCurrency").value || "£";
+      document.querySelectorAll(".currency-label").forEach(el => { el.innerText = symbol; });
+
+      const traffic = parseFloat(document.getElementById("inTraffic").value) || 0;
+      const currentConv = (parseFloat(document.getElementById("inConv").value) || 0) / 100;
+      const acv = parseFloat(document.getElementById("inAcv").value) || 0;
+      const close = (parseFloat(document.getElementById("inClose").value) || 0) / 100;
+      const scaleTarget = parseFloat(document.getElementById("inScaleTarget").value) || 10000;
+
+      const monthlyRevenuePerCustomer = acv / 12;
+      const expectedDemos = traffic * currentConv;
+      const expectedDeals = expectedDemos * close;
+      const expectedRevenue = expectedDeals * monthlyRevenuePerCustomer;
+
+      const lostDemos = expectedDemos * leakage;
+      const lostDeals = lostDemos * close;
+      const lostRevenue = lostDeals * monthlyRevenuePerCustomer;
+      const annualLoss = lostRevenue * 12;
+
+      const potentialConv = (1 - leakage) > 0 ? currentConv / (1 - leakage) : currentConv;
+      const upliftPercent = currentConv > 0 ? ((potentialConv - currentConv) / currentConv) * 100 : 0;
+
+      const narrative = getSuppressionNarrative(profileName);
+
+      document.getElementById("metaClient").textContent = clientData.identity.clientName || "Client";
+      document.getElementById("metaProfile").textContent = profileName;
+      document.getElementById("metaLeakage").textContent = `${num(leakPercent, 1)}% Leakage Estimate`;
+
+      document.getElementById("summaryClassification").textContent = classification.label;
+      document.getElementById("summaryProfile").textContent = profileName;
+      document.getElementById("summaryLeak").textContent = `${num(leakPercent, 1)}%`;
+      document.getElementById("summaryAnnual").textContent = `${symbol}${money(annualLoss)}`;
+      document.getElementById("summaryNote").textContent = classification.note;
+
+      document.getElementById("dispTraffic").textContent = traffic.toLocaleString();
+      document.getElementById("dispConv").textContent = `${num(currentConv * 100, 1)}%`;
+      document.getElementById("dispLeak").textContent = `${num(leakPercent, 1)}%`;
+      document.getElementById("dispAcv").textContent = money(acv);
+      document.getElementById("dispClose").textContent = `${num(close * 100, 1)}%`;
+
+      document.getElementById("guidanceText").textContent = getGuidanceText(profileName, num(leakPercent, 1));
+
+      document.getElementById("targetDemos").textContent = Math.round(expectedDemos).toLocaleString();
+      document.getElementById("targetDeals").textContent = num(expectedDeals, 1);
+      document.getElementById("targetRevenue").textContent = money(expectedRevenue);
+
+      document.getElementById("lostDemos").textContent = Math.round(lostDemos).toLocaleString();
+      document.getElementById("lostDeals").textContent = num(lostDeals, 1);
+      document.getElementById("lostRevenue").textContent = money(lostRevenue);
+
+      document.getElementById("annualTotal").textContent = money(annualLoss);
+
+      document.getElementById("relativeContext").textContent = narrative.relative;
+      document.getElementById("pipelineContext").textContent = narrative.pipeline;
+
+      document.getElementById("currentConversion").textContent = `${num(currentConv * 100, 1)}%`;
+      document.getElementById("potentialConversion").textContent = `${num(potentialConv * 100, 1)}%`;
+
+      const pipelineList = document.getElementById("pipelineList");
+      pipelineList.innerHTML = `
+        <li><span class="bullet"></span><div><p>Projected demo increase if leakage is reduced: <strong>+${num(upliftPercent, 0)}%</strong>.</p></div></li>
+        <li><span class="bullet"></span><div><p>Projected deal increase from the same traffic base: <strong>+${num(upliftPercent, 0)}%</strong>.</p></div></li>
+        <li><span class="bullet"></span><div><p>${narrative.arr}</p></div></li>
+      `;
+
+      document.getElementById("scaleTargetInline").textContent = scaleTarget.toLocaleString();
+      const factor = traffic > 0 ? scaleTarget / traffic : 0;
+      document.getElementById("scaleDeals").textContent = num(lostDeals * factor, 1);
+      document.getElementById("scaleRevenue").textContent = money(lostRevenue * factor);
+      document.getElementById("scaleAnnual").textContent = money(annualLoss * factor);
+
+      document.getElementById("adminDetectedProfile").textContent = profileName;
+      document.getElementById("interpretiveSummary").textContent =
+        `${clientData.identity.clientName || "This client"} is currently losing an estimated ${num(leakPercent, 1)}% of otherwise qualified buyer momentum before sales engagement, which converts directly into suppressed demo volume, fewer closed deals, and lower accessible revenue.`;
+
+      renderDiagnosisList(expectedDemos, lostDemos, lostDeals, annualLoss);
+      renderWaterfall(expectedRevenue, lostRevenue, symbol);
+    }
+
+    function exportSnapshot() {
+      const snapshot = {
+        identity: clientData.identity,
+        scores: clientData.scores,
+        impact: {
+          currencySymbol: document.getElementById("inCurrency").value || "£",
+          monthlyTraffic: parseFloat(document.getElementById("inTraffic").value) || 0,
+          currentConversionPercent: parseFloat(document.getElementById("inConv").value) || 0,
+          annualContractValue: parseFloat(document.getElementById("inAcv").value) || 0,
+          demoToClosePercent: parseFloat(document.getElementById("inClose").value) || 0,
+          growthScaleTarget: parseFloat(document.getElementById("inScaleTarget").value) || 10000
+        }
+      };
+
+      const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${clientData.identity.clientSlug || "client"}-impact-snapshot.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function setupAdminVisibility() {
+      const panel = document.getElementById("adminPanel");
+      const fab = document.getElementById("adminFab");
+      const toggle = document.getElementById("adminToggle");
+
+      function showPanel() {
+        panel.classList.add("visible");
+        toggle.textContent = "Minimize";
+      }
+
+      function hidePanel() {
+        panel.classList.remove("visible");
+        toggle.textContent = "Open";
+      }
+
+      function togglePanel() {
+        if (panel.classList.contains("visible")) hidePanel();
+        else showPanel();
+      }
+
+      const isAdmin = !!clientData.identity.adminMode;
+
+      if (!isAdmin) {
+        document.documentElement.classList.remove("archoric-unlocked");
+        hidePanel();
+        fab.style.display = "none";
+        return;
+      }
+
+      document.documentElement.classList.add("archoric-unlocked");
+      hidePanel();
+
+      fab.addEventListener("click", togglePanel);
+      toggle.addEventListener("click", togglePanel);
+    }
+
+    function setupEvents() {
+      document.getElementById("unlockButton").addEventListener("click", unlockAudit);
+      document.getElementById("accessInput").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") unlockAudit();
+      });
+
+      document.getElementById("logicTrigger").addEventListener("click", () => {
+        const block = document.getElementById("logicBlock");
+        const icon = document.getElementById("logicIcon");
+        block.classList.toggle("open");
+        icon.textContent = block.classList.contains("open") ? "⊖" : "⊕";
+      });
+
+      ["inCurrency", "inTraffic", "inConv", "inAcv", "inClose", "inScaleTarget"].forEach(id => {
+        document.getElementById(id).addEventListener("input", calculate);
+      });
+
+      document.getElementById("saveButton").addEventListener("click", exportSnapshot);
+    }
+
+    checkAccess();
+    hydrateInputsFromClientData();
+    setupAdminVisibility();
+    setupEvents();
+    calculate();
+  </script>
+</body>
+</html>

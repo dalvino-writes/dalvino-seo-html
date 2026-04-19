@@ -12,7 +12,6 @@ export const siteCopy = {
     caseStudies: "Études de cas",
     method: "Notre Approche",
     about: "À propos",
-    blog: "Blog",
     contact: "Contact",
     newsletter: "Newsletter",
     faq: "FAQ",

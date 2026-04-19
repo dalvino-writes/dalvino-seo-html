@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archoric Diagnostic - Trust Recovery Roadmap</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="client-data.js"></script>
+  <script>
+    window.ARCHORIC_RUNTIME = {
+      requirePresentationUnlock: !!clientData.identity.presentationLockEnabled,
+      accessPassword: clientData.identity.accessPassword || ""
+    };
+  </script>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root {
+      --bg: #f3efe8;
+      --card: rgba(255,255,255,0.34);
+      --text: #2e2a26;
+      --text-strong: #221f1c;
+      --muted: #6e655c;
+      --line: #cfc4b4;
+      --strong: #8a5a44;
+      --accent: #b77b57;
+      --good: #6f8258;
+      --warn: #9a7448;
+      --bad: #9a4f4f;
+      --red-accent: #a65151;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 20px;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.locked { overflow: hidden; }
+
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px 72px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text-strong);
+    }
+
+    h1 { font-size: clamp(40px, 7vw, 74px); line-height: 0.95; }
+    h2 { font-size: clamp(28px, 4.5vw, 48px); line-height: 1.02; }
+    h3 { font-size: 28px; line-height: 1.08; }
+    h4 { font-size: 22px; line-height: 1.15; }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(46,42,38,0.92);
+    }
+
+    .top-nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .top-nav-left, .top-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-nav-right { justify-content: flex-end; }
+
+    .nav-button, .home-button, .cta-button, .cta-secondary, .admin-fab, .admin-toggle, .save-button, .access-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.55);
+      color: var(--text-strong);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, background 0.18s ease;
+      cursor: pointer;
+    }
+
+    .nav-button:hover, .home-button:hover, .cta-button:hover, .cta-secondary:hover, .admin-fab:hover, .admin-toggle:hover, .save-button:hover, .access-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .home-button {
+      min-width: 180px;
+      background: linear-gradient(120deg, rgba(255,255,255,0.88), rgba(233,225,212,0.82));
+    }
+
+    .hero-grid, .analysis-grid, .projection-grid {
+      display: grid;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+      margin-bottom: 28px;
+    }
+
+    .analysis-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      margin-top: 26px;
+    }
+
+    .projection-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .hero-card, .summary-card, .roadmap-card, .panel-card, .projection-card, .cta-card, .overlay-card, .editor-card {
+      background: rgba(255,255,255,0.34);
+      border: 1px solid rgba(110,101,92,0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card, .summary-card, .panel-card, .cta-card {
+      padding: 28px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -30px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(183,123,87,0.18), transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-sub {
+      margin-top: 18px;
+      max-width: 720px;
+      font-size: 17px;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-pill {
+      border: 1px solid rgba(110,101,92,0.2);
+      background: rgba(255,255,255,0.48);
+      color: var(--muted);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .summary-card {
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .summary-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed rgba(110,101,92,0.28);
+      padding-bottom: 10px;
+      gap: 16px;
+    }
+
+    .summary-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-align: right;
+      max-width: 60%;
+    }
+
+    .summary-note {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(110,101,92,0.16);
+      color: rgba(46,42,38,0.78);
+      font-size: 14px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 36px 0 20px;
+    }
+
+    .section-head p {
+      max-width: 640px;
+      color: rgba(46,42,38,0.76);
+    }
+
+    .roadmap-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .roadmap-card {
+      padding: 22px 22px 24px;
+      background: rgba(255,255,255,0.42);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .roadmap-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 18px 18px auto;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(183,123,87,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .roadmap-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .priority-index {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .lift-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(183,123,87,0.12);
+      border: 1px solid rgba(183,123,87,0.22);
+      border-radius: 999px;
+      padding: 7px 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .target-layer {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    .recommendation-text {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      font-weight: 500;
+      max-width: 92%;
+    }
+
+    .rationale-text {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(46,42,38,0.74);
+      font-style: italic;
+      max-width: 92%;
+    }
+
+    .impact-block {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(110,101,92,0.3);
+    }
+
+    .impact-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .impact-main {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .panel-card {
+      padding: 24px;
+      position: relative;
+    }
+
+    .panel-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .bullet {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(110,101,92,0.26);
+      background: rgba(255,255,255,0.42);
+      margin-top: 4px;
+    }
+
+    .insight-block {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.28);
+      border: 1px solid rgba(110,101,92,0.18);
+    }
+
+    .insight-label {
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .projection-card {
+      padding: 22px;
+      background: rgba(255,255,255,0.46);
+      text-align: center;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .projection-layer {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 16px;
+      min-height: 24px;
+    }
+
+    .projection-path {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .path-from {
+      color: rgba(110,101,92,0.78);
+      font-weight: 600;
+    }
+
+    .path-arrow {
+      color: var(--accent);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .path-to {
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+
+    .cta-card {
+      margin-top: 36px;
+      text-align: center;
+      background: rgba(255,255,255,0.44);
+    }
+
+    .cta-copy {
+      max-width: 700px;
+      margin: 14px auto 0;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .cta-actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      border: none;
+      min-width: 220px;
+    }
+
+    .cta-secondary {
+      background: rgba(255,255,255,0.72);
+      min-width: 180px;
+    }
+
+    .admin-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 82;
+      display: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      border: none;
+    }
+
+    .archoric-unlocked .admin-fab { display: inline-flex; }
+
+    .admin-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 78px;
+      width: min(420px, calc(100vw - 32px));
+      max-height: 78vh;
+      overflow: auto;
+      padding: 22px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(110,101,92,0.22);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 80;
+    }
+
+    .archoric-unlocked .admin-panel.visible { display: block; }
+
+    .admin-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-panel h4 {
+      margin: 0;
+      font-size: 22px;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      color: var(--text-strong);
+    }
+
+    .editor-group {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .editor-card {
+      padding: 14px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 16px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .save-button {
+      width: 100%;
+      border: none;
+      margin-top: 16px;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,36,32,0.38);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 90;
+    }
+
+    .overlay.active { display: flex; }
+
+    .overlay-card {
+      width: min(480px, 100%);
+      padding: 28px;
+      background: rgba(255,255,255,0.94);
+    }
+
+    .overlay-card h3 { margin-bottom: 10px; }
+    .overlay-card p { color: rgba(46,42,38,0.76); margin-bottom: 18px; }
+
+    .input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.9);
+      font: inherit;
+      color: var(--text-strong);
+      box-sizing: border-box;
+      min-height: 44px;
+      outline: none;
+      text-align: center;
+    }
+
+    .access-btn {
+      width: 100%;
+      border: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .access-error {
+      color: var(--red-accent);
+      font-size: 12px;
+      min-height: 18px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    
+    .transition-block {
+      margin-top: 26px;
+      padding: 22px 24px;
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.42);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .transition-copy {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(46,42,38,0.78);
+      max-width: 760px;
+    }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+      transition: transform 0.18s ease;
+    }
+
+    .next-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1100px) {
+      .hero-grid, .analysis-grid, .projection-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .top-nav { grid-template-columns: 1fr; }
+      .top-nav-left, .top-nav-right { justify-content: center; }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell { padding: 20px 16px 48px; }
+      .hero-grid, .analysis-grid, .projection-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head, .transition-block { flex-direction: column; align-items: start; }
+      .recommendation-text, .rationale-text { max-width: 100%; }
+    }
+
+    @media print {
+      .overlay, .admin-fab, .admin-panel, .top-nav { display: none !important; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="accessOverlay">
+    <div class="overlay-card">
+      <div class="eyebrow">Private Diagnostic Access</div>
+      <h3>Trust Recovery Roadmap</h3>
+      <p>This diagnostic was prepared for <strong id="accessClientName">Client</strong> and requires access credentials.</p>
+      <label class="field-label" for="accessInput">Password</label>
+      <input class="input" id="accessInput" type="password" placeholder="Enter access password">
+      <button class="access-btn" id="unlockButton" type="button">Unlock Diagnostic</button>
+      <div class="access-error" id="accessError"></div>
+    </div>
+  </div>
+
+  <div class="page-shell" id="auditShell">
+    <nav class="top-nav">
+      <div class="top-nav-left">
+        <a class="nav-button" href="impact.html">← Previous</a>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <a class="home-button" href="index.html">Main Scorecard</a>
+      </div>
+      <div class="top-nav-right">
+        <a class="nav-button" href="methodology.html">Next →</a>
+      </div>
+    </nav>
+
+    <section class="hero-grid">
+      <article class="hero-card">
+        <div>
+          <div class="eyebrow">Trust Recovery Roadmap</div>
+          <h1>Where trust recovery should happen first.</h1>
+          <p class="hero-sub">
+            These priorities convert the current trust profile into a clear sequence of interventions, so the highest-leverage structural fixes are visible before execution begins.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span class="meta-pill" id="metaClient">Client</span>
+          <span class="meta-pill" id="metaProfile">Profile</span>
+          <span class="meta-pill" id="metaScores">Scores</span>
+        </div>
+      </article>
+
+      <aside class="summary-card">
+        <div>
+          <div class="eyebrow">Roadmap Summary</div>
+          <div class="summary-stack">
+            <div class="summary-row">
+              <span class="summary-label">Detected Trust Profile</span>
+              <span class="summary-value" id="summaryProfile">Surface / Underdeveloped Trust System</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Total Score</span>
+              <span class="summary-value" id="summaryTotal">0 / 20</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Primary Constraint</span>
+              <span class="summary-value" id="summaryConstraint">Structural trust weakness</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Priority Focus</span>
+              <span class="summary-value" id="summaryFocus">Authority recovery sequence</span>
+            </div>
+          </div>
+        </div>
+        <p class="summary-note" id="summaryNote">
+          The roadmap below is selected from the detected trust profile and ordered to recover confidence where the current system is losing the most leverage.
+        </p>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Priority Sequence</div>
+          <h2>Strategic interventions by trust layer</h2>
+        </div>
+        <p>
+          Each recommendation is intentionally mapped to one of the four trust layers so recovery happens in the order most likely to reduce buyer hesitation.
+        </p>
+      </div>
+
+      <div class="roadmap-stack" id="priorityContainer"></div>
+    </section>
+
+    <section class="analysis-grid">
+      <article class="panel-card">
+        <div class="eyebrow">Projected Recovery Path</div>
+        <h2>How the trust layers could strengthen</h2>
+        <div class="projection-grid">
+          <div class="projection-card">
+            <div class="projection-layer">Regulatory</div>
+            <div class="projection-path">
+              <span class="path-from" id="rFrom">--</span>
+              <span class="path-arrow">→</span>
+              <span class="path-to" id="rTo">--</span>
+            </div>
+          </div>
+          <div class="projection-card">
+            <div class="projection-layer">Operational</div>
+            <div class="projection-path">
+              <span class="path-from" id="oFrom">--</span>
+              <span class="path-arrow">→</span>
+              <span class="path-to" id="oTo">--</span>
+            </div>
+          </div>
+          <div class="projection-card">
+            <div class="projection-layer">Structural</div>
+            <div class="projection-path">
+              <span class="path-from" id="sFrom">--</span>
+              <span class="path-arrow">→</span>
+              <span class="path-to" id="sTo">--</span>
+            </div>
+          </div>
+          <div class="projection-card">
+            <div class="projection-layer">Validation</div>
+            <div class="projection-path">
+              <span class="path-from" id="vFrom">--</span>
+              <span class="path-arrow">→</span>
+              <span class="path-to" id="vTo">--</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-block">
+          <div class="insight-label">Recovery Conclusion</div>
+          <p id="recoveryConclusion">Establishing strategic recovery conclusions...</p>
+        </div>
+      </article>
+
+      <article class="panel-card">
+        <div class="eyebrow">Execution Reading</div>
+        <h2>How to interpret the roadmap</h2>
+        <ul class="panel-list" id="interpretationList"></ul>
+
+        <div class="insight-block">
+          <div class="insight-label">Strategic Note</div>
+          <p id="strategicNote">
+            These priorities define where trust recovery must occur. Execution sequencing determines how quickly suppressed pipeline can be recovered.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="cta-card">
+      <div class="eyebrow">Next Step</div>
+      <h2>Turn the roadmap into an execution plan.</h2>
+      <p class="cta-copy">
+        Review these priorities with Archoric to map which interventions should happen first, what evidence needs to be built, and how the recovery path should be staged.
+      </p>
+      <div class="cta-actions">
+        <a class="cta-button" href="/contact/">Book a Diagnostic Review</a>
+        <a class="cta-secondary" href="/contact/">Contact Archoric</a>
+      </div>
+    </section>
+
+    <footer class="transition-block">
+      <div class="transition-copy">
+        The next page explains the methodology behind this preliminary diagnostic and clarifies how Archoric frames trust analysis before deeper engagement.
+      </div>
+      <a href="methodology.html" class="next-btn">Continue to Methodology <span>→</span></a>
+    </footer>
+  </div>
+
+  <button class="admin-fab" id="adminFab" type="button">Strategy Tools</button>
+
+  <aside class="admin-panel" id="adminPanel">
+    <div class="admin-head">
+      <h4>Strategic Control</h4>
+      <button class="admin-toggle" id="adminToggle" type="button">Minimize</button>
+    </div>
+
+    <div class="editor-group">
+      <div class="editor-card">
+        <div class="field-label">Detected Trust Profile</div>
+        <div id="statProfile" style="font-size:14px;font-weight:600;color:var(--text-strong);">--</div>
+      </div>
+
+      <div class="editor-card">
+        <div class="field-label">Vector Scores</div>
+        <div id="statScores" style="font-size:14px;font-weight:600;color:var(--text-strong);font-family:monospace;">--</div>
+      </div>
+    </div>
+
+    <button class="save-button" id="resetAccessButton" type="button">Reset Session Access</button>
+  </aside>
+
+  <script>
+    const utils = window.archoricAuditUtils;
+    const ACCESS = utils.getAccessConfig();
+
+    const roadmapLibrary = {
+      "High-Trust Engine": [
+        { title: "Strategic Regulatory Precision", layer: "Regulatory Credibility", rec: "Contextualize high-level compliance into unit-specific safety narratives.", rationale: "Buyers acknowledge safety but seek deeper clinical nuances at the leadership level.", impact: "Deepens institutional moat against new market entries." },
+        { title: "Vertical Workflow Targeting", layer: "Operational Credibility", rec: "Refine product narrative to align with high-value clinical specialty workflows.", rationale: "Maximum efficiency is found by demonstrating extreme operational empathy.", impact: "Increases expansion potential and upsell velocity." },
+        { title: "Conversion Path Optimization", layer: "Structural Authority", rec: "Streamline high-authority content pathways to reduce minor frictional drag.", rationale: "Eliminating small operational hurdles at the demo gate speeds up pipeline velocity.", impact: "Reduces average time-to-demo by 15-20%." },
+        { title: "Advanced Outcome Validation", layer: "Proof & Validation", rec: "Transition from peer logos to high-fidelity, benchmark-driven outcome data.", rationale: "Evidence must evolve from others use this to this produces these exact metrics.", impact: "Eliminates final-decision friction for CFO stakeholders." }
+      ],
+      "Validation-Constrained": [
+        { title: "Regulatory Contextualization", layer: "Regulatory Credibility", rec: "Ensure compliance signals explicitly support clinical safety claims.", rationale: "Buyers need to see how security actually protects the integrity of patient data.", impact: "Mitigates silent-risk exits during technical evaluation." },
+        { title: "Workflow-Driven Utility", layer: "Operational Credibility", rec: "Demonstrate the operational how to bridge the gap between product and trust.", rationale: "Interest is stalled because buyers have not visualized the product in their unit.", impact: "Builds baseline trust required for validation commitment." },
+        { title: "Structural Proof Reinforcement", layer: "Structural Authority", rec: "Integrate proof points directly into the authority narrative rather than isolating them.", rationale: "Fragmented proof creates cognitive load, weakening the case for platform stability.", impact: "Increases journey velocity towards the decision stage." },
+        { title: "High-Fidelity Proof Alignment", layer: "Proof & Validation", rec: "Replace anecdotal evidence with recognized institutional peer outcomes.", rationale: "Conviction is missing because current proof lacks the weight of institutional authority.", impact: "Directly increases demo requests at the evaluation gate." }
+      ],
+      "Compliance-Heavy": [
+        { title: "Compliance-Workflow Link", layer: "Regulatory Credibility", rec: "Link regulatory safety directly to operational implementation ease.", rationale: "High compliance can be perceived as implementation friction if not properly framed.", impact: "Reduces buyer concern regarding onboarding complexity." },
+        { title: "Operational Utility Translation", layer: "Operational Credibility", rec: "Translate safety signals into practical clinical workflow narratives.", rationale: "Buyers acknowledge the platform is safe but cannot see why it is operationally necessary.", impact: "Moves the conversation from compliance check to operational need." },
+        { title: "Systemic Authority Coherence", layer: "Structural Authority", rec: "Connect all disparate compliance signals into a unified authority architecture.", rationale: "Isolated security facts do not build a coherent case for long-term partnership.", impact: "Stabilizes the buyer journey and reduces early-discovery drop-off." },
+        { title: "Outcome-Based Security Proof", layer: "Proof & Validation", rec: "Validate security claims through external audits and operational success data.", rationale: "Buyers seeking high safety require verified validation that security equals reliability.", impact: "Builds high conviction among risk-averse institutional buyers." }
+      ],
+      "Product-Centric Blind Spot": [
+        { title: "Regulatory Framing Baseline", layer: "Regulatory Credibility", rec: "Elevate compliance signals from secondary pages to primary product narratives.", rationale: "Hidden regulatory signals create unspoken disqualification for technical buyers.", impact: "Prevents immediate exits during the search/discovery phase." },
+        { title: "Workflow-Identity Alignment", layer: "Operational Credibility", rec: "Inject operational specificity into the feature-led product journey.", rationale: "Interest peaks early but fades when the product feels generic rather than clinical.", impact: "Increases time-on-site and engagement depth." },
+        { title: "Trust Architecture Activation", layer: "Structural Authority", rec: "Reframe product-first content into an authority-led evaluation journey.", rationale: "Buyers understand the what but lack the why required for a professional partnership.", impact: "Converts interested visitors into high-conviction demo leads." },
+        { title: "Conviction-Based Social Proof", layer: "Proof & Validation", rec: "Strategic placement of high-weight social proof at critical product decision points.", rationale: "Technical buyers require peer-led signals to validate their feature interest.", impact: "Eliminates the too-good-to-be-true hesitation phase." }
+      ],
+      "Fragmented Authority": [
+        { title: "Regulatory Baseline Reset", layer: "Regulatory Credibility", rec: "Standardize compliance signaling across all evaluation touchpoints.", rationale: "Inconsistent safety signals suggest internal instability and operational immaturity.", impact: "Establishes the minimum credible trust baseline for discovery." },
+        { title: "Operational Consistency Pass", layer: "Operational Credibility", rec: "Ensure clinical messaging remains uniform across all entry points.", rationale: "Fragmented messaging causes cognitive dissonance, leading to journey abandonment.", impact: "Reduces churn between search and evaluation stages." },
+        { title: "Authority System Unification", layer: "Structural Authority", rec: "Create a central authority architecture that connects all signals into a single narrative.", rationale: "This is the core bottleneck; buyers cannot find a stable reason to choose you over peers.", impact: "Eliminates binary exits and recovers major pipeline leakage." },
+        { title: "Structural Proof Integration", layer: "Proof & Validation", rec: "Align validation signals with specific authority claims to reinforce credibility.", rationale: "Unconnected proof points lack the power to stabilize a fragmented trust structure.", impact: "Builds cumulative buyer conviction and accelerates close cycles." }
+      ],
+      "Surface / Underdeveloped Trust System": [
+        { title: "Baseline Security Disclosure", layer: "Regulatory Credibility", rec: "Establish the first layer of visible compliance and data security signals.", rationale: "The absence of safety signals is a binary no for the majority of healthcare buyers.", impact: "Reduces immediate disqualification risk at the discovery stage." },
+        { title: "Foundational Utility Definition", layer: "Operational Credibility", rec: "Define how the product functions within the clinical unit to build baseline utility trust.", rationale: "Generic software claims fail to engage specialists who require operational reality.", impact: "Generates initial engagement from unit-level stakeholders." },
+        { title: "Depth Activation Strategy", layer: "Structural Authority", rec: "Build foundational authority pages that move beyond surface-level claims.", rationale: "Surface signals collapse under any level of deep institutional due diligence.", impact: "Allows the platform to survive investigation by technical buyers." },
+        { title: "Primary Proof Acquisition", layer: "Proof & Validation", rec: "Secure and display the first credible external validation of platform utility.", rationale: "Lack of proof signals an unproven experiment rather than a business solution.", impact: "Moves trust from zero to exploratory readiness." }
+      ]
+    };
+
+    function setUnlockedState(isUnlocked) {
+      const overlay = document.getElementById("accessOverlay");
+      const name = document.getElementById("accessClientName");
+      if (name) name.textContent = ACCESS.companyName;
+
+      if (isUnlocked) {
+        overlay.classList.remove("active");
+        document.body.classList.remove("locked");
+      } else {
+        overlay.classList.add("active");
+        document.body.classList.add("locked");
+      }
+    }
+
+    function checkAccess() {
+      if (ACCESS.adminMode) return setUnlockedState(true);
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
+
+      const unlocked = sessionStorage.getItem(ACCESS.accessKey) === "true";
+      setUnlockedState(unlocked);
+    }
+
+    function unlockAudit() {
+      if (!ACCESS.requirePresentationUnlock) return setUnlockedState(true);
+
+      const inputEl = document.getElementById("accessInput");
+      const errorEl = document.getElementById("accessError");
+      const input = inputEl ? inputEl.value : "";
+
+      if (input === ACCESS.runtimePassword) {
+        sessionStorage.setItem(ACCESS.accessKey, "true");
+        if (errorEl) errorEl.innerText = "";
+        setUnlockedState(true);
+      } else {
+        if (errorEl) errorEl.innerText = "Incorrect access credentials.";
+        if (inputEl) inputEl.value = "";
+      }
+    }
+
+    function resetAuditAccess() {
+      sessionStorage.removeItem(ACCESS.accessKey);
+      location.reload();
+    }
+
+    function getDirectionalLabel(score, type = "current") {
+      const s = utils.clampScore(score);
+      if (type === "current") {
+        if (s <= 1) return "Weak";
+        if (s <= 2) return "Vulnerable";
+        if (s <= 3) return "Developing";
+        if (s <= 4) return "Stable";
+        return "Strong";
+      }
+      const next = Math.min(5, s + 1);
+      if (next <= 1) return "Developing";
+      if (next <= 2) return "Stabilized";
+      if (next <= 3) return "Reinforced";
+      if (next <= 4) return "Advanced";
+      return "Optimized";
+    }
+
+    function getRecoveryConclusion(profileName) {
+      const statements = {
+        "High-Trust Engine": "Addressing these final optimizations creates the elite structural conditions required for market leadership, ensuring that even minor technical skepticism is neutralized at the demo gate.",
+        "Validation-Constrained": "Bridging the validation deficit transforms existing product interest into institutional conviction, directly reducing sales cycle length and increasing lead-to-opportunity velocity.",
+        "Compliance-Heavy": "Translating structural safety into operational utility removes the single largest bottleneck in your current journey, allowing buyers to move from acknowledgement to active intent.",
+        "Product-Centric Blind Spot": "Activating the trust framing layer provides the necessary authority to support your product claims, converting interested visitors into high-conviction clinical champions.",
+        "Fragmented Authority": "Unifying the authority architecture eliminates the catastrophic signal disconnects currently suppressing your growth, reclaiming the massive portion of demand currently exiting to stable peers.",
+        "Surface / Underdeveloped Trust System": "Implementing these foundational trust signals moves the platform from a high-risk experiment to a credible business solution, establishing the minimum trust required to sustain a qualified pipeline."
+      };
+      return statements[profileName] || "Addressing these priorities creates the structural conditions required for a stronger and more resilient trust profile.";
+    }
+
+    function getPrimaryConstraint(scores) {
+      const names = ["Regulatory", "Operational", "Structural", "Validation"];
+      const minScore = Math.min(...scores.array);
+      return `${names[scores.array.indexOf(minScore)]} trust weakness`;
+    }
+
+    function getPriorityFocus(profileName) {
+      const map = {
+        "High-Trust Engine": "Optimization sequence",
+        "Validation-Constrained": "Proof reinforcement sequence",
+        "Compliance-Heavy": "Operational translation sequence",
+        "Product-Centric Blind Spot": "Trust framing sequence",
+        "Fragmented Authority": "Authority repair sequence",
+        "Surface / Underdeveloped Trust System": "Foundational authority sequence"
+      };
+      return map[profileName] || "Authority recovery sequence";
+    }
+
+    function renderInterpretation(profileName, scores) {
+      const list = document.getElementById("interpretationList");
+      const weakestIndex = scores.array.indexOf(Math.min(...scores.array));
+      const weakestNames = ["regulatory", "operational", "structural", "validation"];
+      const weakest = weakestNames[weakestIndex];
+
+      const items = [
+        `The roadmap is selected from the detected profile of ${profileName}, so the order reflects the kind of trust system currently in place.`,
+        `The weakest current layer is ${weakest}, which means recovery should begin by reducing the friction most likely to stall buyers first.`,
+        `Each intervention is mapped to a different layer so trust recovery compounds rather than remaining isolated on one page or proof type.`,
+        `Execution speed matters, but order matters more: strengthening the wrong layer first can leave the main buyer hesitation unresolved.`
+      ];
+
+      list.innerHTML = items.map(text => `<li><span class="bullet"></span><div><p>${text}</p></div></li>`).join("");
+    }
+
+    function renderRoadmap() {
+      const container = document.getElementById("priorityContainer");
+      const scores = utils.getScores(clientData.scores);
+      const profileName = utils.identifyProfile(scores.array);
+      const classification = utils.getClassification(scores.total);
+
+      const currentRoadmap = roadmapLibrary[profileName] || roadmapLibrary["Surface / Underdeveloped Trust System"];
+
+      document.getElementById("metaClient").textContent = clientData.identity.clientName || "Client";
+      document.getElementById("metaProfile").textContent = profileName;
+      document.getElementById("metaScores").textContent = `(${scores.array.join(", ")})`;
+
+      document.getElementById("summaryProfile").textContent = profileName;
+      document.getElementById("summaryTotal").textContent = `${scores.total.toFixed(1).replace(".0","")} / 20`;
+      document.getElementById("summaryConstraint").textContent = getPrimaryConstraint(scores);
+      document.getElementById("summaryFocus").textContent = getPriorityFocus(profileName);
+      document.getElementById("summaryNote").textContent = classification.note;
+
+      document.getElementById("statProfile").textContent = profileName;
+      document.getElementById("statScores").textContent = `(${scores.array.join(", ")})`;
+
+      const ids = ["r", "o", "s", "v"];
+      scores.array.forEach((score, i) => {
+        document.getElementById(`${ids[i]}From`).textContent = getDirectionalLabel(score, "current");
+        document.getElementById(`${ids[i]}To`).textContent = getDirectionalLabel(score, "target");
+      });
+
+      document.getElementById("recoveryConclusion").textContent = getRecoveryConclusion(profileName);
+
+      container.innerHTML = currentRoadmap.map((p, i) => `
+        <article class="roadmap-card">
+          <div class="roadmap-top">
+            <div class="priority-index">Priority ${i + 1}</div>
+            <div class="lift-badge">Strategic Recovery Lift</div>
+          </div>
+          <h3>${p.title}</h3>
+          <div class="target-layer">Target Layer: ${p.layer}</div>
+          <p class="recommendation-text">${p.rec}</p>
+          <p class="rationale-text">${p.rationale}</p>
+          <div class="impact-block">
+            <div class="impact-label">Expected Impact</div>
+            <div class="impact-main">${p.impact}</div>
+          </div>
+        </article>
+      `).join("");
+
+      renderInterpretation(profileName, scores);
+    }
+
+    function setupAdminVisibility() {
+      const panel = document.getElementById("adminPanel");
+      const fab = document.getElementById("adminFab");
+      const toggle = document.getElementById("adminToggle");
+
+      function showPanel() {
+        panel.classList.add("visible");
+        toggle.textContent = "Minimize";
+      }
+
+      function hidePanel() {
+        panel.classList.remove("visible");
+        toggle.textContent = "Open";
+      }
+
+      function togglePanel() {
+        if (panel.classList.contains("visible")) hidePanel();
+        else showPanel();
+      }
+
+      const isAdmin = !!clientData.identity.adminMode;
+
+      if (!isAdmin) {
+        document.documentElement.classList.remove("archoric-unlocked");
+        hidePanel();
+        fab.style.display = "none";
+        return;
+      }
+
+      document.documentElement.classList.add("archoric-unlocked");
+      hidePanel();
+
+      fab.addEventListener("click", togglePanel);
+      toggle.addEventListener("click", togglePanel);
+      document.getElementById("resetAccessButton").addEventListener("click", resetAuditAccess);
+    }
+
+    document.getElementById("unlockButton").addEventListener("click", unlockAudit);
+    document.getElementById("accessInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") unlockAudit();
+    });
+
+    checkAccess();
+    renderRoadmap();
+    setupAdminVisibility();
+  </script>
+</body>
+</html>

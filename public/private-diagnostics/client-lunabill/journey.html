@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archoric Diagnostic - Trust Leakage Map™</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="client-data.js"></script>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root {
+      --bg: #f3efe8;
+      --card: #e8dfd1;
+      --text: #2e2a26;
+      --text-strong: #221f1c;
+      --muted: #6e655c;
+      --line: #cfc4b4;
+      --strong: #8a5a44;
+      --accent: #b77b57;
+      --good: #6f8258;
+      --warn: #9a7448;
+      --bad: #9a4f4f;
+      --red-accent: #a65151;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 20px;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px 72px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text-strong);
+    }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 74px);
+      line-height: 0.95;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4.5vw, 48px);
+      line-height: 1.02;
+    }
+
+    h3 {
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(46,42,38,0.92);
+    }
+
+    .top-nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .top-nav-left, .top-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-nav-right {
+      justify-content: flex-end;
+    }
+
+    .nav-button, .home-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.55);
+      color: var(--text-strong);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .nav-button:hover, .home-button:hover, .admin-fab:hover, .admin-toggle:hover, .save-button:hover, .solid-button:hover, .ghost-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .home-button {
+      min-width: 180px;
+      background: linear-gradient(120deg, rgba(255,255,255,0.88), rgba(233,225,212,0.82));
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero-card, .summary-card, .stage-card, .panel-card, .overlay-card, .tooltip-bubble {
+      background: rgba(255,255,255,0.34);
+      border: 1px solid rgba(110,101,92,0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 34px 34px 30px;
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -30px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(183,123,87,0.18), transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-sub {
+      margin-top: 18px;
+      max-width: 720px;
+      font-size: 17px;
+      color: rgba(46,42,38,0.82);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta-pill {
+      border: 1px solid rgba(110,101,92,0.2);
+      background: rgba(255,255,255,0.48);
+      color: var(--muted);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .summary-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 320px;
+    }
+
+    .summary-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed rgba(110,101,92,0.28);
+      padding-bottom: 10px;
+    }
+
+    .summary-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-align: right;
+      max-width: 60%;
+    }
+
+    .summary-note {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(110,101,92,0.16);
+      color: rgba(46,42,38,0.78);
+      font-size: 14px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 36px 0 20px;
+    }
+
+    .section-head p {
+      max-width: 640px;
+      color: rgba(46,42,38,0.76);
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .stage-card {
+      position: relative;
+      padding: 22px 22px 24px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .stage-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 18px 18px auto;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(183,123,87,0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .stage-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .stage-index {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stage-score {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--strong);
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(183,123,87,0.12);
+      border: 1px solid rgba(183,123,87,0.2);
+    }
+
+    .stage-heading {
+      margin-top: 12px;
+      max-width: 90%;
+    }
+
+    .stage-heading p {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(46,42,38,0.8);
+    }
+
+    .signal-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 18px;
+      width: fit-content;
+    }
+
+    .signal-chip.good {
+      background: rgba(111,130,88,0.16);
+      color: var(--good);
+      border: 1px solid rgba(111,130,88,0.22);
+    }
+
+    .signal-chip.warn {
+      background: rgba(154,116,72,0.16);
+      color: var(--warn);
+      border: 1px solid rgba(154,116,72,0.22);
+    }
+
+    .signal-chip.bad {
+      background: rgba(154,79,79,0.14);
+      color: var(--bad);
+      border: 1px solid rgba(154,79,79,0.18);
+    }
+
+    .signal-label {
+      margin-top: 16px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .signal-main {
+      margin-top: 8px;
+      font-size: 20px;
+      line-height: 1.28;
+      color: var(--text-strong);
+      font-family: 'EB Garamond', serif;
+    }
+
+    .buyer-thought {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(110,101,92,0.3);
+    }
+
+    .buyer-thought-label, .risk-label, .outcome-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .buyer-thought p {
+      font-size: 15px;
+      color: rgba(46,42,38,0.9);
+    }
+
+    .risk-block {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(110,101,92,0.3);
+    }
+
+    .risk-box {
+      margin-top: 8px;
+      padding: 14px 14px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.38);
+      border: 1px solid rgba(110,101,92,0.18);
+    }
+
+    .risk-main {
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red-accent);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .outcome-block {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(110,101,92,0.3);
+    }
+
+    .outcome-main {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(46,42,38,0.88);
+    }
+
+    .entry-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    .entry-territories {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .entry-territories li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .entry-highlight {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.28);
+      border: 1px solid rgba(110,101,92,0.18);
+    }
+
+    .journey-line {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      align-items: center;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .journey-line span {
+      text-align: center;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    .panel-card {
+      padding: 24px;
+      position: relative;
+    }
+
+    .panel-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .bullet {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(110,101,92,0.26);
+      background: rgba(255,255,255,0.42);
+      margin-top: 4px;
+    }
+
+    .insight-block {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.28);
+      border: 1px solid rgba(110,101,92,0.18);
+    }
+
+    .insight-label {
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .chart-wrap {
+      margin-top: 18px;
+      height: 280px;
+      position: relative;
+    }
+
+    .chart-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .tooltip-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .tooltip-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(183,123,87,0.12);
+      color: var(--strong);
+      border: 1px solid rgba(183,123,87,0.22);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: help;
+      user-select: none;
+    }
+
+    .tooltip-bubble {
+      position: absolute;
+      left: 0;
+      bottom: calc(100% + 12px);
+      width: 260px;
+      padding: 12px 14px;
+      color: rgba(46,42,38,0.9);
+      font-size: 13px;
+      line-height: 1.55;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      z-index: 30;
+    }
+
+    .tooltip-wrap:hover .tooltip-bubble,
+    .tooltip-wrap:focus-within .tooltip-bubble {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .admin-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 82;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 18px;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .archoric-unlocked .admin-fab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 78px;
+      width: min(420px, calc(100vw - 32px));
+      max-height: 78vh;
+      overflow: auto;
+      padding: 22px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(110,101,92,0.22);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 80;
+    }
+
+    .archoric-unlocked .admin-panel.visible {
+      display: block;
+    }
+
+    .admin-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-panel h4 {
+      margin: 0;
+      font-size: 22px;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      color: var(--text-strong);
+    }
+
+    .admin-toggle {
+      border: 1px solid rgba(110,101,92,0.22);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.72);
+      color: var(--text-strong);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .editor-group {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .editor-card {
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.62);
+      padding: 14px;
+    }
+
+    .editor-card h5 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-strong);
+    }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,101,92,0.22);
+      background: rgba(255,255,255,0.9);
+      font: inherit;
+      color: var(--text-strong);
+      resize: vertical;
+      box-sizing: border-box;
+      min-height: 42px;
+    }
+
+    textarea {
+      min-height: 88px;
+    }
+
+    .save-button {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 18px;
+      margin-top: 16px;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,36,32,0.38);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 90;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    .overlay-card {
+      width: min(480px, 100%);
+      padding: 28px;
+    }
+
+    .overlay-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .overlay-card p {
+      color: rgba(46,42,38,0.76);
+      margin-bottom: 18px;
+    }
+
+    .overlay-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .ghost-button, .solid-button {
+      flex: 1;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid rgba(110,101,92,0.26);
+      background: rgba(255,255,255,0.65);
+      color: var(--text-strong);
+    }
+
+    .solid-button {
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      border: none;
+    }
+
+    
+    .transition-block {
+      margin-top: 26px;
+      padding: 22px 24px;
+      border: 1px solid rgba(110,101,92,0.18);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.42);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .transition-copy {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(46,42,38,0.78);
+      max-width: 760px;
+    }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(120deg, #8a5a44, #b77b57);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+      transition: transform 0.18s ease;
+    }
+
+    .next-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1100px) {
+      .hero-grid,
+      .analysis-grid,
+      .flow-grid,
+      .journey-line,
+      .entry-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .top-nav {
+        grid-template-columns: 1fr;
+      }
+      .top-nav-left, .top-nav-right {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        padding: 20px 16px 48px;
+      }
+
+      .hero-grid,
+      .analysis-grid,
+      .flow-grid,
+      .journey-line,
+      .entry-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-card {
+        min-height: auto;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <nav class="top-nav">
+      <div class="top-nav-left">
+        <a class="nav-button" href="breakdown.html">← Previous</a>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <a class="home-button" href="index.html">Main Scorecard</a>
+      </div>
+      <div class="top-nav-right">
+        <a class="nav-button" href="impact.html">Next →</a>
+      </div>
+    </nav>
+
+    <section class="hero-grid">
+      <article class="hero-card">
+        <div class="hero-title-wrap">
+          <div class="eyebrow">Trust Leakage Map™</div>
+          <h1 id="heroTitle">Where confidence holds — and where it drains.</h1>
+          <p class="hero-sub" id="heroSub">
+            This map translates the four trust layers into the likely buyer experience across the evaluation journey.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span class="meta-pill" id="metaClient">Client</span>
+          <span class="meta-pill" id="metaProfile">Profile</span>
+          <span class="meta-pill" id="metaLeakage">Leakage</span>
+        </div>
+      </article>
+
+      <aside class="summary-card">
+        <div>
+          <div class="eyebrow">Diagnostic Summary</div>
+          <div class="summary-stack">
+            <div class="summary-row">
+              <span class="summary-label">Trust Classification</span>
+              <span class="summary-value" id="summaryClassification">Moderate Trust</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Trust Profile</span>
+              <span class="summary-value" id="summaryProfile">Surface / Underdeveloped Trust System</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">
+                Trust Leakage
+                <span class="tooltip-wrap">
+                  <span class="tooltip-dot" tabindex="0">?</span>
+                  <span class="tooltip-bubble">Trust leakage is the estimated percentage of buyer confidence likely lost before sales engagement because trust signals remain incomplete, misaligned, or under-validated.</span>
+                </span>
+              </span>
+              <span class="summary-value" id="summaryLeak">0%</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Total Score</span>
+              <span class="summary-value" id="summaryTotal">0 / 20</span>
+            </div>
+          </div>
+        </div>
+        <p class="summary-note" id="summaryNote">
+          The strongest source of buyer hesitation is usually where trust proof fails to line up with the evaluation stage it needs to support.
+        </p>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Journey Sequence</div>
+          <h2>How the four trust layers shape buyer progression</h2>
+        </div>
+        <p>
+          The sequence below is aligned to the canonical score order: Regulatory, Operational, Structural, then Validation.
+        </p>
+      </div>
+
+      <div class="journey-line">
+        <span>Search</span>
+        <span>Evaluate</span>
+        <span>Decide</span>
+        <span>Validate</span>
+      </div>
+
+      <div class="flow-grid" id="flowGrid"></div>
+    </section>
+
+    <section class="entry-grid">
+      <article class="panel-card">
+        <div class="eyebrow">Entry Territories</div>
+        <h2>Buyers do not all enter through the same doorway</h2>
+        <ul class="entry-territories">
+          <li>
+            <span class="bullet"></span>
+            <div>
+              <strong style="display:block;margin-bottom:4px;color:var(--text-strong);">Regulatory entry</strong>
+              <p>Some buyers first encounter the platform through a regulatory or compliance search, so layer 1 becomes their first trust test.</p>
+            </div>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <div>
+              <strong style="display:block;margin-bottom:4px;color:var(--text-strong);">Operational entry</strong>
+              <p>Others arrive through workflow, feature, or implementation searches, which means layer 2 is the first place they judge fit and usefulness.</p>
+            </div>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <div>
+              <strong style="display:block;margin-bottom:4px;color:var(--text-strong);">Authority entry</strong>
+              <p>Others enter through authority and comparison territory, where layer 3 decides whether the trust system feels coherent enough to keep evaluating.</p>
+            </div>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <div>
+              <strong style="display:block;margin-bottom:4px;color:var(--text-strong);">Validation entry</strong>
+              <p>And some buyers enter through proof, reputation, or market-validation searches, which makes layer 4 their first confidence filter.</p>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <article class="panel-card">
+        <div class="eyebrow">Why This Matters</div>
+        <h2>Weak entry layers lose demand early</h2>
+        <p>
+          Whichever layer a buyer enters through becomes their first trust test. If that entry layer is already weak, confidence drops before the rest of the system has a chance to compensate.
+        </p>
+
+        <div class="entry-highlight">
+          <div class="insight-label">Search Territory Reading</div>
+          <p>
+            This is why search territory matters. A buyer may enter through layer 1, 2, 3, or 4 — and if that doorway is underpowered, the journey starts with friction instead of momentum.
+          </p>
+        </div>
+
+        <div class="insight-block">
+          <div class="insight-label">Journey Implication</div>
+          <p>
+            The journey is not only about what buyers do next. It is also about where they entered, what they expected to find there, and whether that first trust layer was strong enough to hold them.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="analysis-grid">
+      <article class="panel-card">
+        <div class="eyebrow">Leakage Diagnosis</div>
+        <h2>What the buyer is likely feeling</h2>
+        <ul class="panel-list" id="diagnosisList"></ul>
+
+        <div class="insight-block">
+          <div class="insight-label">Interpretive Summary</div>
+          <p id="interpretiveSummary">
+            Trust friction often shows up where structure, proof, and buyer intent fall out of sync.
+          </p>
+        </div>
+      </article>
+
+      <article class="panel-card">
+        <div class="eyebrow">Layer Pattern</div>
+        <h2>Trust shape across the four layers</h2>
+        <p>
+          This visual shows where confidence is strongest and where the current trust system loses depth.
+        </p>
+        <div class="chart-wrap">
+          <canvas id="journeyChart"></canvas>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <button class="admin-fab" id="adminFab" type="button">Journey Editor</button>
+
+  <aside class="admin-panel" id="adminPanel">
+    <div class="admin-head">
+      <h4>Journey Editor</h4>
+      <button class="admin-toggle" id="adminToggle" type="button">Minimize</button>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0;">
+      Edit the stage labels, buyer thoughts, and half-step scores. Save to export the current page state.
+    </p>
+    <div class="editor-group" id="editorGroup"></div>
+    <button class="save-button" id="saveButton">Save Snapshot</button>
+  </aside>
+
+  <div class="overlay" id="accessOverlay">
+    <div class="overlay-card">
+      <h3>Presentation Access</h3>
+      <p>
+        This view is locked for presentation mode. Enter the access password to unlock local editing controls for this browser session.
+      </p>
+      <label class="field-label" for="accessInput">Password</label>
+      <input class="input" id="accessInput" type="password" placeholder="Enter access password">
+      <div class="overlay-actions">
+        <button class="ghost-button" id="closeOverlay">Close</button>
+        <button class="solid-button" id="unlockButton">Unlock</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="transition-block">
+    <div class="transition-copy">
+      The next page quantifies how the current trust leakage likely suppresses qualified demand, demo momentum, and annual revenue opportunity.
+    </div>
+    <a href="impact.html" class="next-btn">Continue to Impact <span>→</span></a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const utils = window.archoricAuditUtils;
+    const accessConfig = utils.getAccessConfig();
+
+    const layerConfig = [
+      {
+        key: "regulatory",
+        stage: "Search",
+        title: "Regulatory Confidence",
+        signalField: "leak1",
+        thoughtField: "thought1",
+        narrative:
+          "This layer shapes the first impression of safety, legitimacy, and clause-level credibility when buyers discover the platform."
+      },
+      {
+        key: "operational",
+        stage: "Evaluate",
+        title: "Operational Fluency",
+        signalField: "leak2",
+        thoughtField: "thought2",
+        narrative:
+          "This layer determines whether the buyer can picture real implementation, workflow fit, and daily operational clarity."
+      },
+      {
+        key: "structural",
+        stage: "Decide",
+        title: "Structural Authority",
+        signalField: "leak3",
+        thoughtField: "thought3",
+        narrative:
+          "This layer reflects how clearly the site routes authority, proof, and decision support at the point of selection."
+      },
+      {
+        key: "validation",
+        stage: "Validate",
+        title: "Proof & Validation",
+        signalField: "leak4",
+        thoughtField: "thought4",
+        narrative:
+          "This layer governs whether external proof, attribution, and market validation fully stabilize confidence before commitment."
+      }
+    ];
+
+    const layerState = layerConfig.map(layer => ({
+      ...layer,
+      score: 0,
+      leak: "",
+      thought: ""
+    }));
+
+    function clampScore(value) {
+      return Math.max(0, Math.min(5, Math.round(parseFloat(value || 0) * 2) / 2));
+    }
+
+    function signalClass(score) {
+      if (score >= 4) return "good";
+      if (score >= 2.5) return "warn";
+      return "bad";
+    }
+
+    function signalLabel(score) {
+      if (score >= 4.5) return "Very Strong";
+      if (score >= 3.5) return "Strong";
+      if (score >= 2.5) return "Mixed";
+      if (score >= 1.5) return "Weak";
+      return "Critical";
+    }
+
+    function getRiskCategory(score) {
+      if (score >= 4.5) return "Minimal Friction Risk";
+      if (score >= 3.5) return "Low Comparison Risk";
+      if (score >= 2.5) return "Moderate Drag Risk";
+      if (score >= 1.5) return "Elevated Hesitation Risk";
+      return "Immediate Exit Risk";
+    }
+
+    function getBehaviorOutcome(score, title) {
+      if (score >= 4.5) return `${title} is established — buyer confidence is likely to carry forward cleanly.`;
+      if (score >= 3.5) return `${title} is credible, but some buyers may still compare alternatives before continuing.`;
+      if (score >= 2.5) return `${title} is present, but uneven enough to slow conviction and increase friction.`;
+      if (score >= 1.5) return `${title} is underpowered — hesitation likely increases before commitment.`;
+      return `${title} is too weak to stabilize confidence at this stage of the journey.`;
+    }
+
+    function signalSummary(score, title) {
+      if (score >= 4.5) return `${title} is highly confidence-building with minimal residual friction.`;
+      if (score >= 3.5) return `${title} is broadly credible, but still leaves some recoverable hesitation.`;
+      if (score >= 2.5) return `${title} is present, but uneven enough to create visible friction in the journey.`;
+      if (score >= 1.5) return `${title} is underpowered and likely slows buyer confidence materially.`;
+      return `${title} is a major trust break and is likely suppressing progression.`;
+    }
+
+    function hydrateLayerState() {
+      const scores = utils.getScores(clientData.scores);
+
+      layerState[0].score = clampScore(scores.regulatory);
+      layerState[1].score = clampScore(scores.operational);
+      layerState[2].score = clampScore(scores.structural);
+      layerState[3].score = clampScore(scores.validation);
+
+      layerState.forEach((layer) => {
+        layer.leak = clientData.journey[layer.signalField] || "";
+        layer.thought = clientData.journey[layer.thoughtField] || "";
+      });
+    }
+
+    function classificationFromTotal(total) {
+      return utils.getClassification(total);
+    }
+
+    function profileFromScores() {
+      return utils.identifyProfile({
+        regulatory: layerState[0].score,
+        operational: layerState[1].score,
+        structural: layerState[2].score,
+        validation: layerState[3].score
+      });
+    }
+
+    function leakPercentFromScores() {
+      return utils.computeLeakPercent({
+        regulatory: layerState[0].score,
+        operational: layerState[1].score,
+        structural: layerState[2].score,
+        validation: layerState[3].score
+      });
+    }
+
+    function buildStageCard(layer, index) {
+      const card = document.createElement("article");
+      card.className = "stage-card";
+
+      const cls = signalClass(layer.score);
+      const label = signalLabel(layer.score);
+      const riskCategory = getRiskCategory(layer.score);
+      const outcome = getBehaviorOutcome(layer.score, layer.title);
+
+      card.innerHTML = `
+        <div>
+          <div class="stage-top">
+            <div class="stage-index">Layer ${index + 1} · ${layer.stage}</div>
+            <div class="stage-score">[${layer.score.toFixed(1).replace(".0","")}/5]</div>
+          </div>
+
+          <div class="stage-heading">
+            <h3>${layer.title}</h3>
+            <p>${layer.narrative}</p>
+          </div>
+
+          <div class="signal-chip ${cls}">${label}</div>
+          <div class="signal-label">Journey Translation</div>
+          <div class="signal-main">${layer.leak || "No translated leakage label supplied."}</div>
+
+          <div class="buyer-thought">
+            <div class="buyer-thought-label">Buyer Thought</div>
+            <p>${layer.thought || "No buyer-thought translation supplied."}</p>
+          </div>
+
+          <div class="risk-block">
+            <div class="risk-label">Risk Evaluation</div>
+            <div class="risk-box">
+              <div class="risk-main">${riskCategory}</div>
+            </div>
+            <div class="outcome-block">
+              <div class="outcome-label">Behavioral Outcome</div>
+              <div class="outcome-main">${outcome}</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    function renderFlowGrid() {
+      const grid = document.getElementById("flowGrid");
+      grid.innerHTML = "";
+      layerState.forEach((layer, index) => {
+        grid.appendChild(buildStageCard(layer, index));
+      });
+    }
+
+    function renderDiagnosisList() {
+      const list = document.getElementById("diagnosisList");
+      list.innerHTML = "";
+
+      const sorted = [...layerState].sort((a, b) => a.score - b.score);
+
+      sorted.forEach(layer => {
+        const item = document.createElement("li");
+        item.innerHTML = `
+          <span class="bullet"></span>
+          <div>
+            <strong style="display:block;margin-bottom:4px;color:var(--text-strong);">${layer.title}</strong>
+            <p>${signalSummary(layer.score, layer.title)}</p>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function renderSummary() {
+      const scores = utils.getScores({
+        regulatory: layerState[0].score,
+        operational: layerState[1].score,
+        structural: layerState[2].score,
+        validation: layerState[3].score
+      });
+
+      const classification = classificationFromTotal(scores.total);
+      const profile = profileFromScores();
+      const leak = leakPercentFromScores();
+
+      document.getElementById("metaClient").textContent = clientData.identity.clientName || "Client";
+      document.getElementById("metaProfile").textContent = profile;
+      document.getElementById("metaLeakage").textContent = `${leak}% Leakage Estimate`;
+
+      document.getElementById("summaryClassification").textContent = classification.label;
+      document.getElementById("summaryProfile").textContent = profile;
+      document.getElementById("summaryTotal").textContent = `${scores.total.toFixed(1).replace(".0","")} / 20`;
+      document.getElementById("summaryLeak").textContent = `${leak}%`;
+      document.getElementById("summaryNote").textContent = classification.note;
+
+      const lowest = [...layerState].sort((a, b) => a.score - b.score)[0];
+      document.getElementById("interpretiveSummary").textContent =
+        `${clientData.identity.clientName || "This client"} is most likely to lose confidence around ${lowest.title.toLowerCase()}, because that layer is currently the weakest point in the trust system.`;
+    }
+
+    let journeyChart;
+
+    function renderChart() {
+      const ctx = document.getElementById("journeyChart");
+      const labels = layerState.map(layer => layer.title);
+      const data = layerState.map(layer => layer.score);
+
+      if (journeyChart) journeyChart.destroy();
+
+      journeyChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels,
+          datasets: [{
+            label: "Trust Layer Score",
+            data,
+            tension: 0.35,
+            fill: true,
+            borderWidth: 2,
+            borderColor: "rgba(138,90,68,0.92)",
+            backgroundColor: "rgba(183,123,87,0.14)",
+            pointRadius: 4,
+            pointHoverRadius: 5,
+            pointBackgroundColor: "rgba(138,90,68,1)"
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.parsed.y.toFixed(1).replace(".0","")} / 5`
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 5,
+              ticks: { stepSize: 0.5, color: "rgba(46,42,38,0.7)" },
+              grid: { color: "rgba(110,101,92,0.15)" }
+            },
+            x: {
+              ticks: { color: "rgba(46,42,38,0.7)" },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function renderEditors() {
+      const group = document.getElementById("editorGroup");
+      group.innerHTML = "";
+
+      layerState.forEach((layer, index) => {
+        const card = document.createElement("div");
+        card.className = "editor-card";
+        card.innerHTML = `
+          <h5>Layer ${index + 1} · ${layer.title}</h5>
+
+          <label class="field-label">Score</label>
+          <input class="input" type="number" min="0" max="5" step="0.5" value="${layer.score}" data-index="${index}" data-field="score">
+
+          <label class="field-label">Journey Translation</label>
+          <textarea data-index="${index}" data-field="leak">${layer.leak}</textarea>
+
+          <label class="field-label">Buyer Thought</label>
+          <textarea data-index="${index}" data-field="thought">${layer.thought}</textarea>
+        `;
+        group.appendChild(card);
+      });
+
+      group.querySelectorAll("input, textarea").forEach(el => {
+        el.addEventListener("input", (e) => {
+          const idx = parseInt(e.target.dataset.index, 10);
+          const field = e.target.dataset.field;
+          const value = field === "score" ? clampScore(e.target.value) : e.target.value;
+          layerState[idx][field] = value;
+          renderAll();
+        });
+      });
+    }
+
+    function exportSnapshot() {
+      const snapshot = {
+        identity: clientData.identity,
+        scores: {
+          regulatory: layerState[0].score,
+          operational: layerState[1].score,
+          structural: layerState[2].score,
+          validation: layerState[3].score
+        },
+        journey: {
+          leak1: layerState[0].leak,
+          thought1: layerState[0].thought,
+          leak2: layerState[1].leak,
+          thought2: layerState[1].thought,
+          leak3: layerState[2].leak,
+          thought3: layerState[2].thought,
+          leak4: layerState[3].leak,
+          thought4: layerState[3].thought
+        }
+      };
+
+      const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${clientData.identity.clientSlug || "client"}-journey-snapshot.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function renderAll() {
+      renderSummary();
+      renderFlowGrid();
+      renderDiagnosisList();
+      renderChart();
+    }
+
+    function setupAccess() {
+      const overlay = document.getElementById("accessOverlay");
+      const unlockButton = document.getElementById("unlockButton");
+      const closeOverlay = document.getElementById("closeOverlay");
+      const input = document.getElementById("accessInput");
+      const panel = document.getElementById("adminPanel");
+      const fab = document.getElementById("adminFab");
+      const toggle = document.getElementById("adminToggle");
+
+      if (!clientData.identity.adminMode) {
+        fab.remove();
+        panel.remove();
+        return;
+      }
+
+      function showPanel() {
+        panel.classList.add("visible");
+        toggle.textContent = "Minimize";
+      }
+
+      function hidePanel() {
+        panel.classList.remove("visible");
+        toggle.textContent = "Open";
+      }
+
+      function togglePanel() {
+        if (panel.classList.contains("visible")) {
+          hidePanel();
+        } else {
+          showPanel();
+        }
+      }
+
+      if (clientData.identity.adminMode) {
+        document.documentElement.classList.add("archoric-unlocked");
+        hidePanel();
+      }
+
+      fab.addEventListener("click", () => {
+        if (document.documentElement.classList.contains("archoric-unlocked")) {
+          togglePanel();
+        } else {
+          overlay.classList.add("active");
+          input.focus();
+        }
+      });
+
+      toggle.addEventListener("click", togglePanel);
+
+      if (!document.documentElement.classList.contains("archoric-unlocked") && !accessConfig.requirePresentationUnlock) {
+        hidePanel();
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "e") {
+          e.preventDefault();
+          if (document.documentElement.classList.contains("archoric-unlocked")) {
+            togglePanel();
+          } else {
+            overlay.classList.add("active");
+            input.focus();
+          }
+        }
+      });
+
+      unlockButton.addEventListener("click", () => {
+        if (input.value === accessConfig.runtimePassword) {
+          sessionStorage.setItem(accessConfig.accessKey, "true");
+          document.documentElement.classList.add("archoric-unlocked");
+          showPanel();
+          overlay.classList.remove("active");
+          input.value = "";
+        } else {
+          input.value = "";
+          input.placeholder = "Incorrect password";
+        }
+      });
+
+      closeOverlay.addEventListener("click", () => {
+        overlay.classList.remove("active");
+      });
+
+      if (sessionStorage.getItem(accessConfig.accessKey) === "true") {
+        document.documentElement.classList.add("archoric-unlocked");
+        hidePanel();
+      }
+    }
+
+    document.getElementById("saveButton").addEventListener("click", exportSnapshot);
+
+    hydrateLayerState();
+    renderEditors();
+    renderAll();
+    setupAccess();
+  </script>
+</body>
+</html>
