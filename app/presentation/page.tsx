@@ -899,6 +899,7 @@ export default function PresentationPage() {
                 <img src="/presentation/MedBridge_Layer_Imbalance.png" alt="MedBridge" className="demo-image-lg" />
                 <img src="/presentation/MedBridge_Business_Impact.png" alt="MedBridge Impact" className="demo-image-lg" />
               </div>
+              <a href="https://archoric.com/private-diagnostics/client-medbridgepro/" className="cta-button" style={{marginTop: 32}}>View MedBridge Pro Trust Architecture Diagnostic</a>
             </div>
           </div>
 
@@ -1089,8 +1090,8 @@ export default function PresentationPage() {
 
           <p className="disclaimer">If OAA is initiated within 30 days of completing the audit, the €3,000 investment is credited toward the full engagement.</p>
 
-          <div className="note-box" style={{ textAlign: 'center', marginTop: 64 }}>
-            <p>Begin at <a href="https://archoric.com" style={{color: 'var(--accent)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid var(--accent)'}}>archoric.com</a> or email <a href="mailto:dalvino@archoric.com" style={{color: 'var(--accent)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid var(--accent)'}}>dalvino@archoric.com</a> to get started</p>
+          <div className="note-box" style={{ textAlign: 'center', marginTop: 64 } as React.CSSProperties}>
+            <p>Begin at <a href="https://archoric.com" style={{color: 'var(--accent)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid var(--accent)'} as React.CSSProperties}>archoric.com</a> or email <a href="mailto:dalvino@archoric.com" style={{color: 'var(--accent)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid var(--accent)'} as React.CSSProperties}>dalvino@archoric.com</a> to get started</p>
           </div>
         </section>
       </main>
