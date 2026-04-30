@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHORIC | Trust Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ede9e3;
+            --surface: #f7f5f2;
+            --border: #e0dbd4;
+            --accent: #2c2c2c;
+            --text-light: #6b6b6b;
+            --text-dark: #2c2c2c;
+        }
+
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-dark);
+            font-family: 'Lora', serif;
+            scroll-behavior: smooth;
+            line-height: 1.65;
+        }
+
+        .serif-display {
+            font-family: 'Crimson Text', serif;
+        }
+
+        .letter-track {
+            letter-spacing: 0.08em;
+        }
+
+        /* Architectural Wireframe Background - Radiating Geometric Network */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            background: 
+                linear-gradient(105deg, transparent 35%, rgba(44,44,44,0.025) 35.5%, rgba(44,44,44,0.025) 36%, transparent 36.5%),
+                linear-gradient(75deg, transparent 35%, rgba(44,44,44,0.025) 35.5%, rgba(44,44,44,0.025) 36%, transparent 36.5%),
+                linear-gradient(125deg, transparent 35%, rgba(44,44,44,0.025) 35.5%, rgba(44,44,44,0.025) 36%, transparent 36.5%),
+                linear-gradient(55deg, transparent 35%, rgba(44,44,44,0.025) 35.5%, rgba(44,44,44,0.025) 36%, transparent 36.5%),
+                linear-gradient(160deg, transparent 40%, rgba(44,44,44,0.015) 40.5%, rgba(44,44,44,0.015) 41%, transparent 41.5%),
+                linear-gradient(20deg, transparent 40%, rgba(44,44,44,0.015) 40.5%, rgba(44,44,44,0.015) 41%, transparent 41.5%),
+                linear-gradient(135deg, transparent 33%, rgba(44,44,44,0.02) 33.5%, rgba(44,44,44,0.02) 34%, transparent 34.5%),
+                linear-gradient(45deg, transparent 33%, rgba(44,44,44,0.02) 33.5%, rgba(44,44,44,0.02) 34%, transparent 34.5%),
+                linear-gradient(90deg, transparent 99.5%, rgba(44,44,44,0.015) 100%),
+                linear-gradient(0deg, transparent 99.5%, rgba(44,44,44,0.015) 100%);
+            background-size:
+                180px 180px,
+                180px 180px,
+                180px 180px,
+                180px 180px,
+                280px 280px,
+                280px 280px,
+                160px 160px,
+                160px 160px,
+                1px 100%,
+                100% 1px;
+            background-position: 0 0, 45px 45px, 90px 90px, 25px 25px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+            background-attachment: fixed;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: var(--surface);
+            z-index: 50;
+            padding: 48px 32px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .sidebar-logo {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-logo h1 {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin: 0;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .sidebar-logo p {
+            font-size: 10px;
+            margin: 8px 0 0 0;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+        }
+
+        .nav-section {
+            margin-bottom: 28px;
+        }
+
+        .nav-section-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            font-size: 12px;
+            letter-spacing: 0.03em;
+            color: var(--text-light);
+            padding: 8px 0;
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+            display: block;
+            text-decoration: none;
+            padding-left: 12px;
+            margin-left: -12px;
+        }
+
+        .nav-item:hover {
+            color: var(--text-dark);
+            border-left-color: var(--accent);
+        }
+
+        .nav-item.active {
+            color: var(--text-dark);
+            border-left-color: var(--accent);
+            font-weight: 600;
+        }
+
+        main {
+            margin-left: 280px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-container {
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 120px 56px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-container:first-of-type {
+            padding-top: 100px;
+        }
+
+        .section-num {
+            font-family: 'Lora', serif;
+            color: var(--text-light);
+            font-size: 11px;
+            margin-bottom: 28px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-family: 'Crimson Text', serif;
+            font-weight: 400;
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin: 0 0 40px 0;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-family: 'Crimson Text', serif;
+            font-weight: 400;
+            font-size: 2rem;
+            margin: 0 0 28px 0;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        h4 {
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            font-size: 13px;
+            margin: 0;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        .subsection {
+            margin: 56px 0;
+        }
+
+        .body-text {
+            font-size: 16px;
+            color: var(--text-dark);
+            line-height: 1.75;
+            margin: 0 0 20px 0;
+        }
+
+        .body-text strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .body-text.lead {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .highlight-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 36px;
+            margin: 40px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .highlight-box h4 {
+            color: var(--text-dark);
+            text-transform: uppercase;
+            font-size: 11px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .profile-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 32px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .profile-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .profile-card h4 {
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .profile-card .desc {
+            font-size: 15px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .profile-card .quote {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .profile-card.highlight {
+            background: var(--accent);
+            color: var(--surface);
+            border-color: var(--accent);
+        }
+
+        .profile-card.highlight h4 {
+            color: var(--surface);
+        }
+
+        .profile-card.highlight .desc {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .profile-card.highlight .quote {
+            color: var(--surface);
+        }
+
+        .entry-box {
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.7;
+            background: var(--surface);
+        }
+
+        .layer-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 36px 28px;
+            text-align: center;
+        }
+
+        .layer-box .number {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .layer-box h4 {
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .layer-box p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.65;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .stat-box {
+            border: 1px solid var(--border);
+            padding: 40px 28px;
+            text-align: center;
+            background: var(--surface);
+        }
+
+        .stat-box .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .stat-box .number {
+            font-size: 2.8rem;
+            font-weight: 400;
+            font-family: 'Crimson Text', serif;
+            letter-spacing: -0.02em;
+            margin: 12px 0;
+        }
+
+        .stat-box .unit {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-light);
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        .note-box {
+            border-left: 4px solid var(--accent);
+            background: var(--surface);
+            padding: 32px;
+            margin: 32px 0;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+        }
+
+        .note-box p {
+            font-size: 16px;
+            color: var(--text-dark);
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .investment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin: 40px 0;
+        }
+
+        .investment-card {
+            background: var(--surface);
+            padding: 48px;
+            border: 1px solid var(--border);
+        }
+
+        .investment-card h4 {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-light);
+            margin: 0 0 20px 0;
+            font-weight: 600;
+        }
+
+        .investment-card h3 {
+            font-size: 28px;
+            margin: 0 0 28px 0;
+            line-height: 1.2;
+        }
+
+        .investment-card .price {
+            font-size: 36px;
+            font-weight: 400;
+            font-family: 'Crimson Text', serif;
+            color: var(--text-dark);
+            margin: 20px 0 32px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .investment-card p {
+            font-size: 15px;
+            color: var(--text-light);
+            margin: 0 0 28px 0;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Lora', serif;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--accent);
+            color: var(--surface);
+        }
+
+        .cta-button.primary {
+            background: var(--accent);
+            color: var(--surface);
+            border-color: var(--accent);
+        }
+
+        .cta-button.primary:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        .disclaimer {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 28px;
+            font-weight: 600;
+        }
+
+        .section-image {
+            width: 100%;
+            height: auto;
+            margin: 40px 0;
+            display: block;
+            border: 1px solid var(--border);
+            padding: 20px;
+            background: var(--surface);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: auto;
+            margin: 28px 0;
+            display: block;
+            border: 1px solid var(--border);
+            padding: 16px;
+            background: var(--surface);
+        }
+
+        /* Demonstration Analysis Layouts */
+        .demo-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            align-items: flex-start;
+        }
+
+        .demo-text {
+            flex: 1;
+        }
+
+        .demo-images {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .demo-image-lg {
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+            padding: 16px;
+            background: var(--surface);
+        }
+
+        .demo-image-sm {
+            max-width: 280px;
+            height: auto;
+            border: 1px solid var(--border);
+            padding: 16px;
+            background: var(--surface);
+        }
+
+        .demo-image-center {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin: 40px auto;
+            border: 1px solid var(--border);
+            padding: 16px;
+            background: var(--surface);
+            display: block;
+        }
+
+        .demo-paired {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 32px;
+            align-items: center;
+            margin: 48px 0;
+        }
+
+        .demo-paired-img-left {
+            max-width: 240px;
+        }
+
+        .demo-paired-img-right {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .demo-two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-paired {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+                padding: 40px 24px;
+            }
+
+            main {
+                margin-left: 240px;
+            }
+
+            .section-container {
+                padding: 100px 40px;
+            }
+
+            h2 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 32px 24px;
+                z-index: 40;
+            }
+
+            main {
+                margin-left: 0;
+                margin-top: 0;
+            }
+
+            .section-container {
+                padding: 80px 32px;
+            }
+
+            .investment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-overlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h1>ARCHORIC</h1>
+            <p>Trust Architecture</p>
+        </div>
+
+        <nav class="flex-1">
+            <div class="nav-section">
+                <a href="#index" class="nav-item active">00. Index</a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-section-label">1. Awareness</span>
+                <a href="#sec-1-1" class="nav-item">The Problem</a>
+                <a href="#sec-1-2" class="nav-item">Why It Compounds</a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-section-label">2. Understanding</span>
+                <a href="#sec-2-1" class="nav-item">Six Profiles</a>
+                <a href="#sec-2-2" class="nav-item">Entry Points</a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-section-label">3. Trust Building</span>
+                <a href="#sec-3-1" class="nav-item">Trust Routes</a>
+                <a href="#sec-3-2" class="nav-item">Measuring Trust</a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-section-label">4. Solution Logic</span>
+                <a href="#sec-4-1" class="nav-item">TDA Audit</a>
+                <a href="#sec-4-2" class="nav-item">OAA System</a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-section-label">5. Solution</span>
+                <a href="#sec-5-1" class="nav-item">90-Day Build</a>
+                <a href="#sec-5-2" class="nav-item">Real Analysis</a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-section-label">6. Business Case</span>
+                <a href="#sec-6-1" class="nav-item">Economics</a>
+                <a href="#sec-6-2" class="nav-item">Investment</a>
+                <a href="#sec-6-3" class="nav-item">Ownership</a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-section-label">7. Decision</span>
+                <a href="#sec-7-1" class="nav-item">Cost of Wait</a>
+                <a href="#sec-7-2" class="nav-item">vs Agencies</a>
+                <a href="#sec-7-3" class="nav-item">Begin</a>
+            </div>
+        </nav>
+
+        <div class="mt-auto pt-6 border-t border-neutral-900">
+            <p class="text-[9px] text-gray-500">V3.0 2026</p>
+        </div>
+    </aside>
+
+    <main>
+        <!-- INDEX -->
+        <section id="index" class="section-container">
+            <span class="section-num">Index</span>
+            <h2>Contents</h2>
+            <div class="space-y-10">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">1. Awareness</h3>
+                    <ul class="text-sm text-gray-600 space-y-2 ml-4">
+                        <li>• The Problem</li>
+                        <li>• Why It Compounds</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">2. Understanding</h3>
+                    <ul class="text-sm text-gray-600 space-y-2 ml-4">
+                        <li>• The Six Trust Profiles</li>
+                        <li>• Entry Points</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">3. Trust Building</h3>
+                    <ul class="text-sm text-gray-600 space-y-2 ml-4">
+                        <li>• Trust Routes</li>
+                        <li>• Measuring Trust</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">4. Solution Logic</h3>
+                    <ul class="text-sm text-gray-600 space-y-2 ml-4">
+                        <li>• Trust Deficit Audit</li>
+                        <li>• Organic Authority Architecture</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">5. Solution</h3>
+                    <ul class="text-sm text-gray-600 space-y-2 ml-4">
+                        <li>• 90-Day OAA System</li>
+                        <li>• Demonstration Analysis</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">6. Business Case</h3>
+                    <ul class="text-sm text-gray-600 space-y-2 ml-4">
+                        <li>• The Economics</li>
+                        <li>• Investment & Pricing</li>
+                        <li>• Ownership vs Dependency</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">7. Decision</h3>
+                    <ul class="text-sm text-gray-600 space-y-2 ml-4">
+                        <li>• Your Cost of Inaction</li>
+                        <li>• Difference from Agencies</li>
+                        <li>• Let's Begin</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.1: THE PROBLEM -->
+        <section id="sec-1-1" class="section-container">
+            <span class="section-num">1.1 / Awareness</span>
+            <h2>More Traffic Won't Grow Your Healthcare SaaS</h2>
+            
+            <div class="space-y-6">
+                <p class="body-text">In healthcare SaaS, looking at more traffic or visibility as a signal for growth is like scaling a metric without understanding the system behind it.</p>
+
+                <p class="body-text">The standard approach is to optimize for visibility. Rankings, impressions, traffic. And nothing for how trust actually forms, holds, or breaks across the buyer journey.</p>
+
+                <p class="body-text lead">You can rank pretty good for "practice management software" and still lose 27–44% of qualified buyers before the demo.</p>
+
+                <p class="body-text">The buyer's journey in healthcare is different from other SaaS. Clinic operators are making a critical operational and compliance decision in a high-stakes environment.</p>
+
+                <p class="body-text">Liabilities cost more than money. They affect reputation, credibility, and professional standing. They are not just evaluating features. They are trying to determine whether your platform can be trusted across different layers of their work environment.</p>
+
+                <p class="body-text font-semibold">Trust is systemic in healthcare.</p>
+
+                <p class="body-text">Traditional SEO strategies optimize for keywords and traffic. They do not account for how that trust is experienced, where it fragments, or how it breaks across the decision process.</p>
+
+                <p class="body-text">Result: more visitors, same conversion rate or lower.</p>
+
+                <div class="highlight-box mt-12">
+                    <h4>Two Growth Paths</h4>
+                    <div class="two-col mt-6">
+                        <div>
+                            <p class="body-text text-sm"><strong>Path A:</strong> More visibility → Same conversion → Growth plateaus</p>
+                        </div>
+                        <div>
+                            <p class="body-text text-sm"><strong>Path B:</strong> More visibility → Conversion behavior changes → Growth compounds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.2: WHY IT COMPOUNDS -->
+        <section id="sec-1-2" class="section-container">
+            <span class="section-num">1.2 / Awareness</span>
+            <h2>Why This Compounds Over Time</h2>
+            
+            <div class="space-y-6">
+                <p class="body-text lead">The problem doesn't stay constant. It scales with you.</p>
+
+                <p class="body-text">As visibility increases, more buyers enter your funnel. But the way they evaluate trust doesn't change.</p>
+
+                <p class="body-text">They encounter the same gaps. The same missing signals. The same friction in understanding whether your platform can be trusted in their environment.</p>
+
+                <p class="body-text">So the volume grows. But the underlying conversion behavior doesn't.</p>
+
+                <p class="body-text">What looks like growth at the top of the funnel hides a widening gap deeper in the process. More traffic doesn't fix it. It amplifies it.</p>
+
+                <p class="body-text">Over time, this creates a structural imbalance: more attention, same doubt.</p>
+
+                <p class="body-text">And while you're increasing visibility, competitors who resolve that trust gap begin converting at a different rate.</p>
+
+                <p class="body-text">The result is not just slower growth. It's lost ground. Not because you're not visible. But because visibility alone is not what moves a healthcare buyer forward.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2.1: SIX TRUST PROFILES -->
+        <section id="sec-2-1" class="section-container">
+            <span class="section-num">2.1 / Understanding</span>
+            <h2>The Six Trust Profiles</h2>
+            
+            <p class="body-text mb-12">Healthcare SaaS companies don't fail trust in the same way. They tend to fall into recurring patterns.specific ways trust is built, misaligned, or incomplete.</p>
+
+            <div class="space-y-4">
+                <div class="profile-card">
+                    <h4>Validation-Constrained</h4>
+                    <p class="desc">Everything looks strong on the surface. Compliance is detailed. Certifications are in place. The language is correct. But when a buyer looks for proof that this works in a real clinical environment, there is nothing that reassures them.</p>
+                    <p class="quote">They understand you are compliant. They are not convinced you are trusted.</p>
+                </div>
+
+                <img src="/presentation/Validation_Constrained.png" alt="Validation-Constrained trust profile diagram" class="profile-image">
+
+                <div class="profile-card">
+                    <h4>Product-Centric Blind Spot</h4>
+                    <p class="desc">The product is clear and compelling. Workflows are explained well. The interface makes sense. The value is easy to grasp. But there is little framing around regulation, liability, or risk.</p>
+                    <p class="quote">Buyers understand what you do. They are unsure whether it is safe to rely on.</p>
+                </div>
+
+                <img src="/presentation/Product_centric_blind_spot.png" alt="Product-Centric Blind Spot trust profile diagram" class="profile-image">
+
+                <div class="profile-card">
+                    <h4>Compliance-Heavy</h4>
+                    <p class="desc">Compliance is front and center. Security, regulation, and protection are emphasized heavily. But the connection to day-to-day operations is missing.</p>
+                    <p class="quote">Buyers understand you are safe. They struggle to see how it works for them.</p>
+                </div>
+
+                <img src="/presentation/Compliance_Heavy.png" alt="Compliance-Heavy trust profile diagram" class="profile-image">
+
+                <div class="profile-card">
+                    <h4>Surface / Underdeveloped</h4>
+                    <p class="desc">In earlier-stage companies, trust is often present but scattered. There are signals: a testimonial here, a feature explanation there, a mention of compliance somewhere else. But nothing connects.</p>
+                    <p class="quote">Buyers encounter fragments. They don't see a coherent system.</p>
+                </div>
+
+                <img src="/presentation/Underdevloped_System.png" alt="Surface / Underdeveloped trust profile diagram" class="profile-image">
+
+                <div class="profile-card">
+                    <h4>Fragmented Authority</h4>
+                    <p class="desc">All the right elements exist. Compliance, product clarity, proof, messaging.they're all there. But they don't align. A buyer moves from one page to another and experiences disconnects.</p>
+                    <p class="quote">Trust isn't missing. It's disjointed.</p>
+                </div>
+
+                <img src="/presentation/Fragmented_Authority.png" alt="Fragmented Authority trust profile diagram" class="profile-image">
+
+                <div class="profile-card highlight">
+                    <h4>High-Trust Engine</h4>
+                    <p class="desc">Everything holds together. Regulatory credibility, operational clarity, structure, and proof all reinforce each other. A buyer can follow the logic, verify it, and believe it.without friction.</p>
+                    <p class="quote">Trust doesn't need to be searched for. It is experienced throughout the journey.</p>
+                </div>
+
+                <img src="/presentation/High_Trust_Engine.png" alt="High-Trust Engine trust profile diagram" class="profile-image">
+            </div>
+        </section>
+
+        <!-- SECTION 2.2: ENTRY POINTS -->
+        <section id="sec-2-2" class="section-container">
+            <span class="section-num">2.2 / Understanding</span>
+            <h2>Entry Points</h2>
+
+            <p class="body-text mb-8">Buyers don't start on your homepage. They enter from wherever their problem takes them: a feature page, a comparison, a compliance query, a piece of content, a specific use case.</p>
+
+            <p class="body-text mb-8">You don't control where they arrive. But that entry point becomes their first judgment. And in healthcare, that judgment isn't abstract. It's immediate, practical, and risk-based.</p>
+
+            <img src="/presentation/Entry_points.png" alt="Entry Points diagram showing 8 different entry points and buyer journey" class="section-image">
+
+            <div class="highlight-box">
+                <h4 style="color: var(--text-dark);">They're not asking</h4>
+                <p class="text-gray-600 text-sm my-4">"Can I trust this platform in my environment?"</p>
+                
+                <h4 style="color: var(--text-dark); margin-top: 24px;">They're asking things like:</h4>
+            </div>
+
+            <div class="space-y-3 mb-12">
+                <div class="entry-box">"Is this going to create more work for my staff?"</div>
+                <div class="entry-box">"Has a real doctor actually used this, or just a coder?"</div>
+                <div class="entry-box">"If we get audited, is this going to get me fined or worse?"</div>
+                <div class="entry-box">"Is this going to integrate with what we already use, or create manual work?"</div>
+            </div>
+
+            <p class="body-text mb-6">Each entry point carries a different expectation. A feature page is evaluated for workflow impact. A compliance query is evaluated for risk and liability. A piece of content is evaluated for credibility and real-world proof.</p>
+
+            <p class="body-text mb-6">When those expectations aren't met at the point of entry, something subtle happens. Buyers don't always leave immediately. They keep exploring. But doubt has already entered the process.</p>
+
+            <p class="body-text">And from that point on, everything they see is filtered through that doubt. Because trust wasn't present where the buyer first needed it.</p>
+        </section>
+
+        <!-- SECTION 3.1: TRUST ROUTES -->
+        <section id="sec-3-1" class="section-container">
+            <span class="section-num">3.1 / Trust Building</span>
+            <h2>Trust Routes</h2>
+
+            <p class="body-text mb-8 lead">Trust in healthcare SaaS is experienced as buyers move through your system.</p>
+
+            <p class="body-text mb-8">And that experience depends on where they enter from. A buyer landing on a feature page is not looking for the same signals as someone landing on a compliance query.</p>
+
+            <p class="body-text mb-8">In systems we notice: A security page here. A testimonial there. A case study somewhere else. The signals exist. But they don't connect. This is where trust begins to break. Because credibility isn't structured to match the way buyers evaluate risk.</p>
+
+            <div class="highlight-box">
+                <h4>Trust Routes Determine</h4>
+                <ul class="text-sm text-gray-600 space-y-2 mt-6 ml-4">
+                    <li>• Where proof appears</li>
+                    <li>• What type of proof appears</li>
+                    <li>• When it appears in the journey</li>
+                    <li>• How it connects to what the buyer is trying to validate</li>
+                </ul>
+            </div>
+
+            <img src="/presentation/Trust_Flows.png" alt="Static Trust vs Trust That Flows diagram" class="section-image">
+
+            <div class="subsection">
+                <h3>Instead of Pages, Think in Paths</h3>
+                <p class="body-text">A buyer entering from a feature page and a buyer entering from a compliance query don't follow the same path. They are not trying to answer the same questions. They are not evaluating the same risks. Each entry point creates a different sequence of validation. The structure is not the same. But the objective is.</p>
+
+                <img src="/presentation/Trust_routes_paths.png" alt="Trust routes showing different entry points and paths to confidence" class="section-image">
+
+                <p class="body-text mt-6"><strong>At every step, trust needs to be reinforced, not reset.</strong></p>
+
+                <p class="body-text mt-6">When trust is routed correctly:</p>
+                <ul class="text-sm text-gray-600 space-y-2 ml-4 mt-4">
+                    <li>• Each page builds on the last</li>
+                    <li>• Each signal answers the next question the buyer is already forming</li>
+                    <li>• The buyer doesn't need to search for reassurance</li>
+                    <li>• It's already where they expect it</li>
+                </ul>
+
+                <p class="body-text mt-6">When it isn't, buyers have to piece things together themselves. And in healthcare, when buyers have to work to trust you.they usually don't. They don't have the time.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3.2: MEASURING TRUST -->
+        <section id="sec-3-2" class="section-container">
+            <span class="section-num">3.2 / Trust Building</span>
+            <h2>How We Measure Trust</h2>
+
+            <p class="body-text lead mb-8">Systems don't know where trust breaks. They try to fix it with more traffic, better messaging, or stronger positioning. But if you don't know where it fails, you can't fix it. So we measure it.</p>
+
+            <div class="highlight-box">
+                <h4 style="color: var(--text-dark);">Trust forms through four layers</h4>
+                <p class="text-gray-600 text-sm mt-4">When one layer is weak.or disconnected.the system becomes unstable. We measure each layer on a 0.5 scale. That gives us your Global Trust Score (0.20).</p>
+            </div>
+
+            <div class="space-y-6 my-12">
+                <div class="subsection">
+                    <h3 style="font-size: 1.5rem;">Layer 1: Regulatory Credibility (Foundation)</h3>
+                    <p class="body-text">Does the buyer believe your platform is safe and compliant for their environment? If this layer is weak, trust breaks early. Without clear regulatory credibility, nothing else matters.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3 style="font-size: 1.5rem;">Layer 2: Operational Credibility (Load-Bearing)</h3>
+                    <p class="body-text">Does the buyer believe your platform actually works in their day-to-day reality? Many systems prove safety.but not usability. The buyer understands the product, but not how it fits their workflow.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3 style="font-size: 1.5rem;">Layer 3: Structural Authority (Routing Framework)</h3>
+                    <p class="body-text">Does trust feel coherent across your system? Do signals connect.or does the buyer have to piece them together? When this layer is weak, trust fragments.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3 style="font-size: 1.5rem;">Layer 4: Proof & Validation (External Reinforcement)</h3>
+                    <p class="body-text">Does the buyer believe others trust you? Are your claims backed by real proof: case studies, testimonials, benchmarks? Without external validation, trust stalls.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>What We Evaluate in Practice</h4>
+                <ul class="text-sm text-gray-600 space-y-2 mt-6 ml-4">
+                    <li>• Are regulatory claims backed by specific standards (HIPAA, GDPR), or just generic language?</li>
+                    <li>• Is proof placed at the moment the buyer starts to doubt, or isolated on separate pages?</li>
+                    <li>• Can a buyer understand how the product fits into their workflow without needing a demo?</li>
+                </ul>
+            </div>
+
+            <p class="body-text mt-8">Trust doesn't fail all at once. It fails at specific layers. And until you know where it breaks.you can't fix it.</p>
+        </section>
+
+        <!-- SECTION 4.1: TDA -->
+        <section id="sec-4-1" class="section-container">
+            <span class="section-num">4.1 / Solution Logic</span>
+            <h2>Trust Deficit Audit</h2>
+
+            <p class="body-text lead mb-12">The Trust Deficit Audit is a full diagnostic of how trust forms, where it breaks, and what is causing it.</p>
+
+            <div class="space-y-8">
+                <div>
+                    <h4 class="mb-4">The Trust Breakdown Map</h4>
+                    <p class="body-text">A complete view of where trust fails across your system. Each layer is evaluated through specific diagnostic points, with supporting evidence showing where the issue appears, how it manifests, and why it affects buyer perception. You don't just see that trust is weak. You see exactly where and why.</p>
+                </div>
+
+                <div>
+                    <h4 class="mb-4">The Page-Level Trust Analysis</h4>
+                    <p class="body-text">A breakdown of how trust performs across your key pages. Homepage, Product, Pricing, Compliance, Proof. Each is evaluated individually to show where credibility holds, where it weakens, and where the buyer begins to hesitate.</p>
+                </div>
+
+                <div>
+                    <h4 class="mb-4">The Buyer Friction Map</h4>
+                    <p class="body-text">A detailed identification of where doubt appears in the buyer journey. Where proof is missing. Where claims are unsupported. Where trust is asked too early or validated too late. And where the buyer is left to figure things out alone. This reveals what is broken and how trust is experienced.</p>
+                </div>
+
+                <div>
+                    <h4 class="mb-4">The Evidence Layer</h4>
+                    <p class="body-text">Every critical issue is supported with extracted proof. Screenshots, page references, and annotated examples showing weak claims, missing validation, unclear regulatory framing, poor proof placement, and broken trust sequencing. You don't have to interpret the problem. You can see it.</p>
+                </div>
+
+                <div>
+                    <h4 class="mb-4">The Trust Leakage Analysis</h4>
+                    <p class="body-text">A breakdown of how and why trust is lost across the system. Which layers contribute. Which signals are creating friction. What the current score actually represents and what happens if nothing changes. This turns a number into a mechanism.</p>
+                </div>
+
+                <div>
+                    <h4 class="mb-4">The Recovery Priority Matrix</h4>
+                    <p class="body-text">A structured view of what needs to be fixed and in what order. What has an immediate impact. What creates the trust stability. What must be addressed before scaling traffic or content. This removes guesswork and replaces it with sequence.</p>
+                </div>
+
+                <div>
+                    <h4 class="mb-4">OAA Readiness Assessment</h4>
+                    <p class="body-text">A clear view of whether your system is ready for architecture. What needs to be stabilized first. What gaps would break an OAA implementation. And where deeper structural work is required. This defines the boundary between diagnosis and architecture.</p>
+                </div>
+            </div>
+
+            <p class="body-text mt-8"><strong>It's a system you can see. And once you can see it.you can fix it.</strong></p>
+        </section>
+
+        <!-- SECTION 4.2: OAA -->
+        <section id="sec-4-2" class="section-container">
+            <span class="section-num">4.2 / Solution Logic</span>
+            <h2>Organic Authority Architecture</h2>
+
+            <p class="body-text lead mb-8">The TDA shows where your website, content, and proof structure fail to support buyer trust. OAA rebuilds that structure so trust can form naturally across the buyer journey.</p>
+
+            <p class="body-text font-semibold">It is not a content campaign. It is a system that reconnects your pages, content, proof, and regulatory signals into one coherent buyer-facing structure.</p>
+
+            <p class="body-text mt-6">The goal is not to publish more. The goal is to make every important page, proof point, and content asset support the same conclusion: this company understands our risk, our workflow, and our decision reality.</p>
+
+            <div class="subsection">
+                <h3>What OAA Builds</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="mb-3">A Central Authority Asset</h4>
+                        <p class="body-text">A core asset that anchors your entire content environment around a clearly defined and defensible territory. This becomes the reference point buyers use to understand your expertise.</p>
+                    </div>
+
+                    <div>
+                        <h4 class="mb-3">A Buyer-Stage Content System</h4>
+                        <p class="body-text">Content structured around how healthcare buyers actually move: research, comparison, and internal justification. Each asset has a defined role, a specific audience, and a clear destination.</p>
+                    </div>
+
+                    <div>
+                        <h4 class="mb-3">An Authority Routing Structure</h4>
+                        <p class="body-text">A system of internal pathways that connects pages, proof, and content into coherent trust routes. Buyers no longer have to assemble credibility themselves. The system guides how trust is formed.</p>
+                    </div>
+
+                    <div>
+                        <h4 class="mb-3">A Regulatory Integration Layer</h4>
+                        <p class="body-text">Regulatory context placed where evaluation happens. Not isolated on compliance pages, but embedded at the moments where buyers assess risk.</p>
+                    </div>
+
+                    <div>
+                        <h4 class="mb-3">A Proof & Validation Framework</h4>
+                        <p class="body-text">A structured approach to what proof is needed, where it appears, and how it supports buyer decisions. Claims are no longer isolated. They are reinforced across the system.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>What OAA Changes</h3>
+                <ul class="text-sm text-gray-600 space-y-3 ml-4">
+                    <li>• Your credibility stops feeling scattered</li>
+                    <li>• Your buyers stop having to assemble the proof on their own</li>
+                    <li>• Your site starts reducing perceived risk instead of adding to it</li>
+                    <li>• The more the system is used, the more each asset reinforces the architecture around it</li>
+                </ul>
+                <p class="body-text mt-6"><strong>TDA shows the gap. OAA builds the structure that closes it.</strong></p>
+            </div>
+        </section>
+
+        <!-- SECTION 5.1: 90-DAY SYSTEM -->
+        <section id="sec-5-1" class="section-container">
+            <span class="section-num">5.1 / Solution</span>
+            <h2>90-Day OAA System</h2>
+
+            <p class="body-text lead mb-8">OAA is not implemented all at once. It is built in sequence, so each layer supports the next. Over 90 days, your structure moves from diagnosis to a system your team can use.</p>
+
+            <div class="subsection">
+                <h3>Phase 1: Trust Foundation (Days 1–30)</h3>
+                <p class="body-text mb-6">This phase turns the diagnosis into the foundation of the architecture. We define where your authority should be built, which buyer intent it must serve, and what core asset will anchor the system.</p>
+                
+                <h4 class="mb-4" style="font-size: 13px;">What Gets Built</h4>
+                <ul class="text-sm text-gray-600 space-y-2 ml-4 mb-6">
+                    <li>• Trust baseline</li>
+                    <li>• Intent-mapped keyword architecture</li>
+                    <li>• Strategic search territory</li>
+                    <li>• Central authority asset blueprint</li>
+                    <li>• Primary pillar structure</li>
+                </ul>
+                <p class="body-text">By the end of Phase 1, the system has a foundation. You know which territory you are building around, why it is defensible, and how the core authority asset needs to be structured.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>Phase 2: Authority Structure (Days 31–60)</h3>
+                <p class="body-text mb-6">This phase turns the foundation into a connected authority system. We define the supporting content clusters, map how pages should connect, place regulatory context where evaluation happens, and structure proof around the way buyers assess risk.</p>
+                
+                <h4 class="mb-4" style="font-size: 13px;">What Gets Built</h4>
+                <ul class="text-sm text-gray-600 space-y-2 ml-4 mb-6">
+                    <li>• Buyer-stage content system</li>
+                    <li>• Cluster strategy</li>
+                    <li>• Authority routing structure</li>
+                    <li>• Internal linking map</li>
+                    <li>• Regulatory integration method</li>
+                    <li>• Content briefs</li>
+                </ul>
+                <p class="body-text">By the end of Phase 2, the architecture is no longer abstract. Every asset has a role. Every route has a purpose. Every proof point has a place.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>Phase 3: Execution & Handoff (Days 61–90)</h3>
+                <p class="body-text mb-6">This phase turns the architecture into an operating system your team can use. We finalize the content library, implementation sequence, validation framework, and maintenance logic so the system can keep compounding after the engagement.</p>
+                
+                <h4 class="mb-4" style="font-size: 13px;">What Gets Built</h4>
+                <ul class="text-sm text-gray-600 space-y-2 ml-4 mb-6">
+                    <li>• Complete execution roadmap</li>
+                    <li>• Content production sequence</li>
+                    <li>• Proof and validation framework</li>
+                    <li>• Implementation guide</li>
+                    <li>• Operational handoff</li>
+                    <li>• Authority maintenance plan</li>
+                </ul>
+                <p class="body-text">By the end of Phase 3, you are not left with disconnected strategy documents. You have a system your team can build from, operate, and expand. The architecture is defined. The sequence is clear. The system is ready to operate.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5.2: DEMONSTRATION ANALYSIS -->
+        <section id="sec-5-2" class="section-container">
+            <span class="section-num">5.2 / Solution</span>
+            <h2>Demonstration <span class="text-neutral-600">Analysis</span></h2>
+
+            <p class="body-text mb-12">Real companies, analyzed through the Trust Architecture Diagnostic. How trust breaks. Where it breaks. Why it breaks across systems consistently.</p>
+
+            <!-- MEDBRIDGE: MAIN EXAMPLE (HERO) -->
+            <div class="subsection">
+                <h3>MedBridge Pro: Layer Imbalance</h3>
+                
+                <div class="demo-two-col">
+                    <div class="demo-text">
+                        <p class="body-text">At first glance, the system looks strong. The product is clear. The workflows are well understood. The site is structured. Nothing looks obviously broken.</p>
+
+                        <p class="body-text mt-6">But when the buyer reaches the point where they need to confirm the decision.there is not enough proof.</p>
+
+                        <p class="body-text mt-6 font-semibold">This is where the system fails. Not at discovery. Not during exploration. But right before the decision.</p>
+
+                        <p class="body-text mt-6">The buyer understands the product. But cannot confirm it without doing extra work. And in most cases, they don't.</p>
+                    </div>
+
+                    <div class="demo-images">
+                        <img src="/presentation/MedBridge_Layer_Imbalance.png" alt="MedBridge Layer Imbalance showing uneven trust distribution" class="demo-image-lg">
+                        <img src="/presentation/MedBridge_Business_Impact.png" alt="MedBridge Business Impact: 20 demos, 9 lost, 44% leakage" class="demo-image-lg">
+                    </div>
+                </div>
+            </div>
+
+            <!-- PATTERN ACROSS SYSTEMS -->
+            <div class="subsection">
+                <h3 style="font-size: 1.5rem; margin-top: 40px;">What Repeats Across Systems</h3>
+                
+                <p class="body-text">This pattern is not isolated. Across multiple diagnostics: Clinicflow, Theracare, MedBridge Pro. Different companies. Different positioning. Different strengths. But the same failure point appears.</p>
+
+                <p class="body-text mt-6">Proof is weak or missing. Validation appears too late. Trust breaks at the point where the decision should happen.</p>
+            </div>
+
+            <!-- CLINICFLOW: SUPPORT EXAMPLE -->
+            <div class="subsection">
+                <h3 style="font-size: 1.5rem; margin-top: 40px;">Clinicflow: Partial Alignment</h3>
+                
+                <p class="body-text text-center mb-8">In one system, compliance is strong.but the product does not feel grounded in real workflows.</p>
+
+                <img src="/presentation/Clinicflow_Partial_Alignment.png" alt="Clinicflow Partial Alignment showing mixed layer scores" class="demo-image-center">
+
+                <p class="body-text">This reinforces the pattern: when layers don't align, buyers feel the disconnect. They see evidence, but it feels disjointed. They don't build confidence.</p>
+            </div>
+
+            <!-- THERACARE: CONTRAST EXAMPLE -->
+            <div class="subsection">
+                <h3 style="font-size: 1.5rem; margin-top: 40px;">Theracare: System Breakdown</h3>
+                
+                <p class="body-text mb-8">In another, the product is clear.but there is not enough evidence to support it. And the system collapses at the critical moment.</p>
+
+                <div class="demo-paired">
+                    <div class="demo-paired-img-left">
+                        <img src="/presentation/Theracare_Failure_Moment.png" alt="Theracare failure moment at Layer 3 Structural Authority" class="demo-image-sm">
+                    </div>
+                    <div class="demo-paired-img-right">
+                        <img src="/presentation/Theracare_System_Breakdown.png" alt="Theracare System Breakdown showing weak layers" class="demo-image-lg">
+                    </div>
+                </div>
+
+                <p class="body-text mt-8">The left shows the exact moment the buyer leaves. The right shows why: the system is structurally weak. All layers matter. When one fails, the buyer hesitates. And hesitation, in this market, usually means loss.</p>
+            </div>
+
+            <!-- FINAL INSIGHT -->
+            <div class="subsection">
+                <h3 style="font-size: 1.5rem; margin-top: 40px;">What This Shows</h3>
+                
+                <p class="body-text">Healthcare SaaS companies do not fail because they lack credibility. They fail because that credibility is not structured for evaluation.</p>
+
+                <p class="body-text mt-6 font-semibold">Trust does not fail randomly. It fails in predictable locations. It fails at specific layers. And when it breaks, buyers leave before reaching sales.</p>
+
+                <p class="body-text mt-6">The surface is different. The outcome is the same.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 6.1: ECONOMICS -->
+        <section id="sec-6-1" class="section-container">
+            <span class="section-num">6.1 / Business Case</span>
+            <h2>The <span class="text-neutral-600">Economics</span> of Trust</h2>
+
+            <p class="body-text lead mb-8">SaaS teams often optimize for a simple path: traffic → content → demo</p>
+
+            <p class="body-text mb-8">But healthcare buyers do not move that way. They move through a longer evaluation:</p>
+
+            <div class="highlight-box">
+                <p class="text-sm text-gray-300 text-center font-mono tracking-widest">awareness → scrutiny → doubt → risk evaluation → internal justification → trust threshold → demo</p>
+            </div>
+
+            <p class="body-text mt-8 font-semibold">Every step before the demo is a point where trust can fail.</p>
+
+            <p class="body-text mt-8">From the diagnostics shown earlier:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-10">
+                <div class="stat-box">
+                    <span class="label">Clinicflow</span>
+                    <div class="number">5</div>
+                    <span class="unit">Lost demos per month</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">Theracare</span>
+                    <div class="number">9</div>
+                    <span class="unit">Lost demos per month</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">MedBridge Pro</span>
+                    <div class="number">9</div>
+                    <span class="unit">Lost demos per month</span>
+                </div>
+            </div>
+
+            <p class="body-text font-semibold">That's between 60 and 108 qualified buyers per year who never reach your sales team.</p>
+
+            <p class="body-text mt-8">In similar systems, this translates into six-figure annual revenue loss.</p>
+
+            <p class="body-text mt-8">These are not unqualified visitors. They were already in evaluation. They were already considering the product. Qualified buyers arrive. They move through evaluation. They hesitate. And a portion of them leave before reaching the final step.</p>
+
+            <p class="body-text mt-8 font-semibold">This is where the loss happens. Not at the top of the funnel. But between interest and decision.</p>
+
+            <div class="subsection">
+                <h3>What This Looks Like in Practice</h3>
+                <ul class="text-sm text-gray-600 space-y-2 ml-4 mt-6">
+                    <li>• Fewer demos than expected</li>
+                    <li>• More effort to convert the same pipeline</li>
+                    <li>• Deals that feel harder to close</li>
+                </ul>
+            </div>
+
+            <p class="body-text mt-8 font-semibold">This is not a visibility issue. The demand is already there. It is a loss of momentum during evaluation.</p>
+
+            <div class="note-box">
+                <p>Multiply those lost conversations by your average deal size. That is the revenue that never enters your pipeline.</p>
+            </div>
+
+            <p class="body-text mt-8">If you want to quantify it:</p>
+
+            <div class="highlight-box">
+                <p class="text-sm font-semibold text-gray-900 text-center font-mono">Monthly demos × leakage % × close rate × average deal size</p>
+            </div>
+
+            <p class="body-text mt-8">And because this happens before the demo, it is rarely tracked clearly. So teams respond the only way they can see: More traffic. More content. More campaigns.</p>
+
+            <p class="body-text mt-8 font-semibold">But the outcome does not change.</p>
+
+            <p class="body-text mt-6">Until the structure supports how buyers evaluate risk, a portion of qualified demand will continue to disappear before sales begins. They don't tell you why. They don't book a call. They just move on.</p>
+        </section>
+
+        <!-- SECTION 6.2: INVESTMENT & PRICING -->
+        <section id="sec-6-2" class="section-container">
+            <span class="section-num">6.2 / Business Case</span>
+            <h2>Investment &amp; <span class="text-neutral-600">Pricing</span></h2>
+
+            <div class="space-y-12">
+                <div>
+                    <p class="body-text lead">Start with the Trust Deficit Audit (TDA).</p>
+                    <p class="body-text mt-4">The audit identifies where your system breaks, and where trust is lost during evaluation.</p>
+                    <p class="body-text mt-8 font-semibold text-lg">Investment: €3,000</p>
+                </div>
+
+                <div>
+                    <p class="body-text lead">Then move to OAA.</p>
+                    <p class="body-text mt-4">OAA is delivered as a fixed-scope engagement over 90 days.</p>
+                    <p class="body-text mt-8 font-semibold text-lg">Investment: €30,000</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Integrated Path</h4>
+                    <p class="text-gray-600 text-sm mt-4">If OAA is initiated within 30 days of the audit, the audit is integrated into the full engagement. The €3,000 investment is credited.</p>
+                </div>
+
+                <p class="body-text mt-8">The progression is simple: diagnosis → architecture</p>
+
+                <p class="body-text mt-6">This is typically equivalent to a few months of ongoing SEO or content execution. The difference is that the structure remains in place once it is built.</p>
+
+                <p class="body-text mt-6">Earlier, we saw that between 60 and 108 qualified buyers per year may never reach your sales team. Multiply those lost conversations by your average deal size. That is the value of the gap being addressed.</p>
+
+                <p class="body-text mt-6 font-semibold">OAA focuses on closing that gap at the structural level.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 6.3: OWNERSHIP -->
+        <section id="sec-6-3" class="section-container">
+            <span class="section-num">6.3 / Business Case</span>
+            <h2>Ownership vs <span class="text-neutral-600">Dependency</span></h2>
+
+            <div class="subsection">
+                <h3>The Dependency Model</h3>
+                <p class="body-text">Most growth systems in SaaS are built on dependency. You hire an external team. They produce content. They manage execution. And the system works.as long as they are involved.</p>
+
+                <p class="body-text mt-6">When the engagement stops, the output slows down. Content production drops. New assets stop reinforcing each other. And over time, the system loses strength.</p>
+
+                <p class="body-text mt-6 font-semibold">The model relies on continuous external execution.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>The OAA Model</h3>
+                <p class="body-text lead">OAA works differently.</p>
+
+                <p class="body-text mt-6 font-semibold">OAA is structured as a system your company can operate internally.</p>
+
+                <p class="body-text mt-6">The structure lives inside your business. Your team understands how it is built. Your content follows it. Your pages reinforce it. Your proof appears where it matters.</p>
+
+                <p class="body-text mt-6">You receive a connected system:</p>
+                <ul class="text-sm text-gray-600 space-y-2 ml-4 mt-4">
+                    <li>• how your content is structured</li>
+                    <li>• how your proof is placed</li>
+                    <li>• how your pages support each other</li>
+                    <li>• how buyers move through it</li>
+                </ul>
+
+                <p class="body-text mt-6">This system remains in place. It can be maintained. It can be expanded. And it continues to support decision-making as new content is added.</p>
+
+                <p class="body-text mt-6 font-semibold">Ownership means the system built for your company can be operated, maintained, and expanded internally.</p>
+
+                <p class="body-text mt-6">It is applied to your product. Your market. Your buyers. The underlying methodology remains ours. But the system built from it lives inside your business.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>The Difference</h3>
+                <p class="body-text">One model depends on continuous external execution to maintain results. The other builds a structure that continues to support growth once it is in place.</p>
+
+                <p class="body-text mt-6 font-semibold">At this point, the question is simple:</p>
+
+                <p class="body-text mt-6 font-semibold">Do you want to keep feeding the system.or fix the structure behind it?</p>
+
+                <p class="body-text mt-6">Over time, competitors continue to buy visibility. You compound trust.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 7.1: COST OF INACTION -->
+        <section id="sec-7-1" class="section-container">
+            <span class="section-num">7.1 / Decision</span>
+            <h2>Your Cost of <span class="text-neutral-600">Inaction</span></h2>
+
+            <p class="body-text lead mb-8">Nothing breaks all at once. The system continues to operate. Traffic still comes in. Content still gets published.</p>
+
+            <p class="body-text mb-8">But the underlying issue remains. Buyers continue to arrive. They continue to evaluate. And a portion of them continue to leave before reaching a decision.</p>
+
+            <p class="body-text mb-8">This does not show up as a clear failure. It shows up as slower growth. More effort to generate the same number of demos. Longer sales cycles. More pressure on outbound and paid acquisition.</p>
+
+            <p class="body-text mb-8">Over time, the gap widens. Not because demand disappears. But because the system cannot convert it efficiently.</p>
+
+            <p class="body-text font-semibold">So the response is predictable: More content. More traffic. More spend.</p>
+
+            <p class="body-text mt-6">But the structure does not change. And without a structural change, the outcome stays the same. Growth continues. But below potential.</p>
+        </section>
+
+        <!-- SECTION 7.2: DIFFERENCE FROM AGENCIES -->
+        <section id="sec-7-2" class="section-container">
+            <span class="section-num">7.2 / Decision</span>
+            <h2>Difference from <span class="text-neutral-600">Agencies</span></h2>
+
+            <p class="body-text lead mb-8">SEO and content work focus on visibility. Ranking improves. Content gets published. Traffic increases.</p>
+
+            <p class="body-text mb-8 font-semibold">This addresses how buyers enter your site. It does not address how they evaluate once they are inside.</p>
+
+            <p class="body-text mb-8">A buyer arrives. They explore. They look for confirmation. If the structure does not support that evaluation, they leave.</p>
+
+            <p class="body-text mb-8">Increasing traffic does not change this. It increases the number of buyers entering the same system.</p>
+
+            <p class="body-text mb-8">This is why it's common to see: consistent publishing, steady traffic growth, with limited change in conversion. The system brings people in. It does not guide how trust forms during evaluation.</p>
+
+            <p class="body-text font-semibold">OAA focuses on that layer.</p>
+
+            <p class="body-text mt-8">It structures how buyers move through your content. Where proof appears. How pages support each other. How decisions are reinforced.</p>
+
+            <p class="body-text mt-8">The goal is not more visibility. It is to turn existing visibility into decisions.</p>
+
+            <div class="highlight-box mt-12">
+                <h4>The Difference is Simple</h4>
+                <p class="text-gray-600 text-sm mt-6">One approach increases volume. The other improves what that volume produces.</p>
+            </div>
+        </section>
+        <section id="sec-7-3" class="section-container pb-40">
+            <span class="section-num">7.3 / Decision</span>
+            <h2>Let's Begin</h2>
+
+            <p class="body-text lead mb-12">If you want to see how this applies to your system, start with the Trust Deficit Audit.</p>
+
+            <p class="body-text mb-8">The audit shows where trust breaks, and what needs to change before anything else.</p>
+
+            <div class="investment-grid">
+                <div class="investment-card">
+                    <h4>The Diagnosis</h4>
+                    <h3>Trust Deficit<br>Audit</h3>
+                    <div class="price">€3,000</div>
+                    <p>A complete breakdown of your trust architecture. Where buyers disconnect. Why. What to fix.</p>
+                    <a href="mailto:dalvino@archoric.com" class="cta-button">Schedule Audit</a>
+                </div>
+                <div class="investment-card">
+                    <h4>The Solution</h4>
+                    <h3>Organic Authority<br>Architecture</h3>
+                    <div class="price">€30,000</div>
+                    <p>A 90-day engagement. We rebuild your trust system. New pages. Reframing. Routing architecture. The full OAA build.</p>
+                    <a href="mailto:dalvino@archoric.com" class="cta-button primary">Start Engagement</a>
+                </div>
+            </div>
+
+            <p class="disclaimer">If OAA is initiated within 30 days of completing the audit, the €3,000 investment is credited toward the full engagement.</p>
+
+            <div class="note-box mt-16 text-center">
+                <p>Begin at <strong>archoric.com</strong> or email <strong>dalvino@archoric.com</strong> to get started</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').includes(current)) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
