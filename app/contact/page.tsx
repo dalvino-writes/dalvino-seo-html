@@ -200,24 +200,30 @@ export default function ContactPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <form className="rounded-sm border border-[#E8E2D5] bg-[#FAF8F5] p-8 shadow-sm">
+            <form
+  action="https://formspree.io/f/xbderryg"
+  method="POST"
+  className="rounded-sm border border-[#E8E2D5] bg-[#FAF8F5] p-8 shadow-sm"
+>
               <div className="grid gap-6 md:grid-cols-2">
                 <label className="space-y-2 text-[13px] font-bold uppercase tracking-[0.16em] text-[#706E69]">
                   Name
                   <input
-                    type="text"
-                    name="name"
-                    className="mt-2 w-full border border-[#E8E2D5] bg-white px-4 py-3 text-[16px] font-normal normal-case tracking-normal text-[#2A2925] outline-none transition-colors focus:border-[#B55A47]"
-                  />
+  type="text"
+  name="name"
+  required
+  className="mt-2 w-full border border-[#E8E2D5] bg-white px-4 py-3 text-[16px] font-normal normal-case tracking-normal text-[#2A2925] outline-none transition-colors focus:border-[#B55A47]"
+/>
                 </label>
 
                 <label className="space-y-2 text-[13px] font-bold uppercase tracking-[0.16em] text-[#706E69]">
                   Work Email
                   <input
-                    type="email"
-                    name="email"
-                    className="mt-2 w-full border border-[#E8E2D5] bg-white px-4 py-3 text-[16px] font-normal normal-case tracking-normal text-[#2A2925] outline-none transition-colors focus:border-[#B55A47]"
-                  />
+  type="email"
+  name="email"
+  required
+  className="mt-2 w-full border border-[#E8E2D5] bg-white px-4 py-3 text-[16px] font-normal normal-case tracking-normal text-[#2A2925] outline-none transition-colors focus:border-[#B55A47]"
+/>
                 </label>
 
                 <label className="space-y-2 text-[13px] font-bold uppercase tracking-[0.16em] text-[#706E69]">
@@ -242,10 +248,11 @@ export default function ContactPage() {
               <label className="mt-6 block space-y-2 text-[13px] font-bold uppercase tracking-[0.16em] text-[#706E69]">
                 What are you trying to understand?
                 <textarea
-                  name="message"
-                  rows={6}
-                  className="mt-2 w-full border border-[#E8E2D5] bg-white px-4 py-3 text-[16px] font-normal normal-case tracking-normal text-[#2A2925] outline-none transition-colors focus:border-[#B55A47]"
-                />
+  name="message"
+  rows={6}
+  required
+  className="mt-2 w-full border border-[#E8E2D5] bg-white px-4 py-3 text-[16px] font-normal normal-case tracking-normal text-[#2A2925] outline-none transition-colors focus:border-[#B55A47]"
+/>
               </label>
 
               <button
