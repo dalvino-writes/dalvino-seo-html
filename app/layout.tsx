@@ -1,36 +1,37 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://archoric.com"),
-
+  title: {
+    default: "Archoric · Buyer Confidence Strategy for Complex SaaS",
+    template: "%s · Archoric",
+  },
+  description:
+    "Archoric helps SaaS companies improve website strategy, product positioning, proof, and buyer confidence in complex buying environments.",
+  authors: [{ name: "Archoric" }],
   alternates: {
     canonical: "/",
   },
-
-  title: {
-    default: "Archoric · Organic Authority Architecture for Healthcare SaaS",
-    template: "%s · Archoric",
-  },
-
-  description:
-    "Archoric builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
-
-  authors: [{ name: "Archoric" }],
-
   openGraph: {
-    title: "Archoric · Organic Authority Architecture for Healthcare SaaS",
+    title: "Archoric · Buyer Confidence Strategy for Complex SaaS",
     description:
-      "Archoric builds the content infrastructure Healthcare SaaS companies need to close their trust deficit and compound organic authority. Start with the Trust Deficit Audit.",
+      "Archoric helps SaaS companies improve website strategy, product positioning, proof, and buyer confidence in complex buying environments.",
     type: "website",
     url: "https://archoric.com",
     siteName: "Archoric",
+    locale: "en_US",
   },
-
   twitter: {
     card: "summary_large_image",
-    site: "@archoric",
+    title: "Archoric · Buyer Confidence Strategy for Complex SaaS",
+    description:
+      "Archoric helps SaaS companies improve website strategy, product positioning, proof, and buyer confidence in complex buying environments.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -41,48 +42,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-
-        <link rel="manifest" href="/site.webmanifest" />
-
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-EQMQGSTNR4"
-        />
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-EQMQGSTNR4');
-            `,
-          }}
-        />
-      </head>
-
       <body>
         <Providers>{children}</Providers>
       </body>
